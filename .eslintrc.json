@@ -20,6 +20,10 @@
         "react-native"
     ],
     "rules": {
+        // allow .js files to contain JSX code. Required for expo running online to showcase app
+        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+
+        // style-prop-object doesn't get along with React Native StyleSheet module
         "react/style-prop-object": "off"
     }
 }
