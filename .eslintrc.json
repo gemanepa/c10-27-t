@@ -20,6 +20,9 @@
         "react-native"
     ],
     "rules": {
+        // disallow missing React when using JSX
+        "react/react-in-jsx-scope": "off",
+
         // allow .js files to contain JSX code. Required for expo running online to showcase app
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
 
