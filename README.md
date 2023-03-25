@@ -21,8 +21,8 @@
 
 ## How to run
 
-- `npm start` (or `npx expo start`) and then scan the QR code in your
-  [Expo Go application](https://expo.dev/client) in your device
+- `npm start` (or `npx expo start`) and then using your phone scan the QR code in your
+  [Expo Go application](https://expo.dev/client)
 - `npm run web` (to run web version directly)
 - `npm run android` (tu run on an android emulator)
 - `npm run ios` (to run on a ios emulator)
