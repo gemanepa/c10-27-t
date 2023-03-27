@@ -11,6 +11,7 @@
 - [React Native](https://reactnative.dev/)
 - [Expo](https://docs.expo.dev/)
 - [React Native Paper](https://reactnativepaper.com/)
+- [React Native AsyncStorage](https://react-native-async-storage.github.io/async-storage/)
 
 ## Project Setup
 
