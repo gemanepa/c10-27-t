@@ -4,9 +4,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    padding: 24,
     paddingVertical: 15,
   },
   input: {
@@ -41,7 +41,7 @@ export default function StorageExample() {
 
   const storeData = async () => {
     try {
-      await AsyncStorage.setItem('myText', text);
+      await AsyncStorage.setItem('storageTest', text);
       setStoredText(text);
       setText('');
     } catch (error) {
@@ -51,7 +51,7 @@ export default function StorageExample() {
 
   const retrieveData = async () => {
     try {
-      const value = await AsyncStorage.getItem('myText');
+      const value = await AsyncStorage.getItem('storageTest');
       if (value !== null) {
         setStoredText(value);
       }
@@ -68,7 +68,7 @@ export default function StorageExample() {
     <View style={styles.container}>
       <TextInput
         style={styles.input}
-        placeholder="Type something to storage in the device..."
+        placeholder="Type something to storage..."
         onChangeText={setText}
         value={text}
       />
