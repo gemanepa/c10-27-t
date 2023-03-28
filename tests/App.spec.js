@@ -4,9 +4,9 @@ import { render } from '@testing-library/react-native';
 import App from '../App';
 
 describe('App', () => {
-  it('has 3 children', () => {
+  it('has 1 child', () => {
     const tree = renderer.create(<App />).toJSON();
-    expect(tree.children.length).toBe(3);
+    expect(tree.children.length).toBe(1);
   });
 
   it('renders the app title', () => {

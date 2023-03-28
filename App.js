@@ -1,44 +1,24 @@
-import { Text, View, StyleSheet } from 'react-native';
+import * as React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { Card } from 'react-native-paper';
-import Constants from 'expo-constants';
-import AssetExample from './components/AssetExample';
-import StorageExample from './components/StorageExample';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import HomeScreen from './screens/index';
+import DetailsScreen from './screens/details';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: Constants.statusBarHeight,
-    backgroundColor: '#ecf0f1',
-    padding: 8,
-    gap: 20,
-  },
-  card: {
-    margin: 12,
-  },
-  paragraph: {
-    margin: 24,
-    marginTop: 40,
-    fontSize: 24,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-});
+const Stack = createNativeStackNavigator();
 
-export default function App() {
+function App() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.paragraph}>NoCountry</Text>
-
-      <Card style={styles.card}>
-        <AssetExample />
-      </Card>
-
-      <Card style={styles.card}>
-        <StorageExample />
-      </Card>
-
+    <>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Details" component={DetailsScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
       <StatusBar style="auto" />
-    </View>
+    </>
   );
 }
+
+export default App;
