@@ -4,14 +4,7 @@ import PropTypes from 'prop-types';
 export default function DetailsScreen({ navigation }) {
   return (
     <View>
-      <Text
-        onPress={() => {
-          // Go back to the previous screen using the imperative API.
-          navigation.goBack();
-        }}
-      >
-        Details Screen
-      </Text>
+      <Text onPress={() => navigation.goBack()}>Details Screen</Text>
     </View>
   );
 }
