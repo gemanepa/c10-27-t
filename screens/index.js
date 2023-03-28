@@ -24,10 +24,7 @@ const styles = StyleSheet.create({
 export default function HomeScreen({ navigation }) {
   return (
     <>
-      {/* Use the `Screen` component to configure the layout. */}
-
       <Text style={styles.paragraph}>NoCountry</Text>
-      {/* Use the `Link` component to enable optimized client-side routing. */}
       <View style={styles.linkBtnContainer}>
         <Button mode="contained" onPress={() => navigation.navigate('Details')}>
           Go to Details Screen
