@@ -5,7 +5,8 @@ on:
     branches: [dev, develop, main, master]
 
 jobs:
-  format:
+  formatting:
+    name: Formatting # job name (unique id)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
