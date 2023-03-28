@@ -1,5 +1,5 @@
 import { Text, View, StyleSheet, Image } from 'react-native';
-import icon from '../assets/snack-icon.png';
+import icon from '../../assets/snack-icon.png';
 
 const styles = StyleSheet.create({
   container: {
