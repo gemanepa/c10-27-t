@@ -6,6 +6,7 @@ import HomeScreen from './screens/index';
 import DetailsScreen from './screens/details';
 import SettingUpScreen from './screens/initial-setup';
 import useAsyncStorage from './hooks/useAsyncStorage';
+import AddTransaction from './screens/addTransaction';
 
 const Stack = createNativeStackNavigator();
 
@@ -28,6 +29,7 @@ function App() {
             initialParams={{ setInitialSettingUp }}
           />
           <Stack.Screen name="Details" component={DetailsScreen} />
+          <Stack.Screen name="AddTransaction" component={AddTransaction} />
         </Stack.Navigator>
       </NavigationContainer>
       <StatusBar style="auto" />
