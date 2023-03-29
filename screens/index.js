@@ -35,7 +35,7 @@ export default function HomeScreen({ navigation, route }) {
     <>
       <Text style={styles.paragraph}>NoCountry</Text>
       <View style={styles.linkBtnContainer}>
-        <Button mode="contained" onPress={() => navigation.navigate('AddTransaction')}>
+        <Button mode="contained" onPress={() => navigation.navigate('Details')}>
           Go to Details Screen
         </Button>
       </View>
