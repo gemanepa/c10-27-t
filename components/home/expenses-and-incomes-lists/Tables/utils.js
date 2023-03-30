@@ -16,19 +16,19 @@ const formatDate = (date) => {
   return `${day} ${month} ${year}`;
 };
 
-const generateRandomAmount = () => {
+const generateRandomAmount = (currency) => {
   const randomAmount = Math.random() * 50;
-  return `${randomAmount.toFixed(2)} USD`;
+  return `${randomAmount.toFixed(2)} ${currency}`;
 };
 
-const generateRandomTableData = () => {
+const generateRandomTableData = (currency) => {
   const tableData = [];
   const usedKeys = new Set();
 
   for (let i = 0; i < 40; i++) {
     const category = categories[Math.floor(Math.random() * categories.length)];
     const date = generateRandomDate();
-    const amount = generateRandomAmount();
+    const amount = generateRandomAmount(currency);
     let key = category;
     let j = 1;
     while (usedKeys.has(key)) {

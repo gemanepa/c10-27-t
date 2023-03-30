@@ -1,5 +1,6 @@
 import { View, StyleSheet } from 'react-native';
 import { Text } from 'react-native-paper';
+import useAsyncStorage from '../../../hooks/useAsyncStorage';
 
 const styles = StyleSheet.create({
   container: {
@@ -13,11 +14,16 @@ const styles = StyleSheet.create({
 });
 
 export default function UpperSection() {
+  const [storageLoading, storagedData] = useAsyncStorage('userCurrency');
+
+  if (storageLoading) return null;
+
+  const { currency, amount } = storagedData;
   return (
     <View style={styles.container}>
       <Text variant="titleSmall">- Disponible -</Text>
-      <Text variant="displayMedium">200</Text>
-      <Text variant="headlineSmall">USD</Text>
+      <Text variant="displayMedium">{amount}</Text>
+      <Text variant="headlineSmall">{currency}</Text>
     </View>
   );
 }
