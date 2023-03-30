@@ -10,7 +10,7 @@ const Tab = createMaterialTopTabNavigator();
 export default function AddTransaction({ navigation }) {
 
   useEffect(() => {
-    navigation.setOptions({ title: 'Agregar transacción' });
+    navigation.setOptions({ title: 'Añadir transacciones' });
   }, []);
 
   return (

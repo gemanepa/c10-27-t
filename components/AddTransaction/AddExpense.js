@@ -4,6 +4,7 @@ import { useRef, useState } from 'react';
 import { Picker } from '@react-native-picker/picker';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment';
+import 'moment/locale/es';
 import { Button } from 'react-native-paper';
 
 import HealthIcon from '../../assets/addTransactionIcons/BTN_SaludHealthIcon.png'
@@ -132,7 +133,7 @@ const AnnotationsStyles = StyleSheet.create(
       borderWidth: 1,
       borderColor: 'black',
       borderRadius: 20,
-      borderTopColor: '#f6f6f60f',
+      // borderTopColor: '#f6f6f60f',
       textAlign: 'center'
     }
   }
@@ -313,19 +314,20 @@ export default function AddExpense() {
           <Button
             mode='contained'
             onPress={() => setOpenDate(true)}
-            style={{ ...DataStyles.date, padding: '4%' }}
+            style={{ ...DataStyles.date, paddingVertical: '4%' }}
             textColor='black'
+          // labelStyle={{ fontSize: 10 }}
           >
-            {moment(date).format('MM/DD/YYYY HH:mm')}
+            {moment(date).locale('es').format('LL')}
           </Button>
           {openDate &&
             <RNDateTimePicker
               value={date}
-              disabled={openDate}
+              // disabled={openDate}
               onChange={changeDate}
               negativeButton={{ textColor: 'red' }}
-              positiveButton={{ textColor: 'blue' }} /
-            >
+              positiveButton={{ textColor: 'blue' }}
+            />
           }
         </View>
       </View>
