@@ -1,7 +1,7 @@
 import { View, Text } from 'react-native';
 import PropTypes from 'prop-types';
-import AddRevenue from '../components/AddSection/AddRevenue';
-import AddExpense from '../components/AddSection/AddExpense';
+import AddRevenue from '../components/AddTransaction/AddRevenue';
+import AddExpense from '../components/AddTransaction/AddExpense';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { useEffect } from 'react';
 
