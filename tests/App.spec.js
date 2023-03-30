@@ -26,6 +26,6 @@ describe('App', () => {
     // Wait for the next render cycle to complete
     await waitFor(() => expect(useAsyncStorage).toHaveBeenCalled());
 
-    expect(getByText('NoCountry')).toBeTruthy();
+    expect(getByText('- Disponible -')).toBeTruthy();
   });
 });

@@ -5,6 +5,6 @@ import DefaultScreen from '../../screens/index';
 describe('DefaultScreen', () => {
   it('renders the default screen', () => {
     const { getByText } = render(<DefaultScreen />);
-    expect(getByText('NoCountry')).toBeDefined();
+    expect(getByText('- Disponible -')).toBeDefined();
   });
 });
