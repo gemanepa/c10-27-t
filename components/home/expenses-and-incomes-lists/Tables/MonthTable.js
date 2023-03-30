@@ -1,9 +1,14 @@
 import React from 'react';
 import { View, ScrollView, Text } from 'react-native';
+import useAsyncStorage from '../../../../hooks/useAsyncStorage';
 import { generateRandomTableData } from './utils';
 import styles from './styles';
 
 function MonthTable() {
+  const [storageLoading, storagedData] = useAsyncStorage('userCurrency');
+  if (storageLoading) return null;
+  const { currency } = storagedData;
+
   const renderTableHeader = () => (
     <View style={styles.tableRow}>
       <Text style={[styles.tableCell, { flex: 1 }]}>Categoria</Text>
@@ -33,7 +38,7 @@ function MonthTable() {
   };
 
   const renderTableRow = () => {
-    const tableData = generateRandomTableData();
+    const tableData = generateRandomTableData(currency);
     const groupedData = groupByMonth(tableData);
 
     // Sort the keys in reverse order

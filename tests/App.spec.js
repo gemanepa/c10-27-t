@@ -20,7 +20,7 @@ describe('App', () => {
 
   it('displays the home screen when there is a user currency', async () => {
     // Set the mock return value for useAsyncStorage
-    useAsyncStorage.mockReturnValue([false, 'USD']);
+    useAsyncStorage.mockReturnValue([false, { currency: 'USD', amount: 100 }]);
 
     const { getByText } = render(<App />);
     // Wait for the next render cycle to complete

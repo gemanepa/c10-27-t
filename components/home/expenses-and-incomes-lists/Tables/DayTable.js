@@ -1,9 +1,14 @@
 import React from 'react';
 import { View, ScrollView, Text } from 'react-native';
+import useAsyncStorage from '../../../../hooks/useAsyncStorage';
 import { generateRandomTableData, formatDate } from './utils';
 import styles from './styles';
 
 function DayTable() {
+  const [storageLoading, storagedData] = useAsyncStorage('userCurrency');
+  if (storageLoading) return null;
+  const { currency } = storagedData;
+
   const renderTableHeader = () => (
     <View style={styles.tableRow}>
       <Text style={[styles.tableCell, { flex: 1 }]}>Categoria</Text>
@@ -13,7 +18,7 @@ function DayTable() {
   );
 
   const renderTableRow = () => {
-    const tableData = generateRandomTableData();
+    const tableData = generateRandomTableData(currency);
     return tableData.map((rowData) => (
       <View key={rowData.key} style={styles.tableRow}>
         <Text style={[styles.tableCell, { flex: 1 }]}>{rowData.category}</Text>

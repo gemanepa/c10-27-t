@@ -10,7 +10,7 @@ const useAsyncStorage = (key) => {
       try {
         const value = await AsyncStorage.getItem(key);
         if (value !== null) {
-          setData(value);
+          setData(JSON.parse(value));
         }
       } catch (error) {
         console.error(error); // eslint-disable-line no-console
