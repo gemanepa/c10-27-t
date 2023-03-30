@@ -9,7 +9,7 @@
     "web": "expo start --web",
     "test": "jest",
     "format": "prettier --write \"**/*.{js,ts,tsx,md}\"",
-    "lint": "npx eslint App.js && npx eslint screens/*.js && npx eslint components/**/*.js"
+    "lint": "npx eslint App.js && npx eslint screens/*.js && npx eslint components/**/*.js && npx eslint hooks/*.js"
   },
   "dependencies": {
     "@expo/webpack-config": "^18.0.1",
@@ -25,9 +25,11 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.71.4",
+    "react-native-pager-view": "6.1.2",
     "react-native-paper": "^5.5.1",
     "react-native-safe-area-context": "4.5.0",
     "react-native-screens": "~3.20.0",
+    "react-native-tab-view": "^3.5.1",
     "react-native-web": "~0.18.10"
   },
   "devDependencies": {
