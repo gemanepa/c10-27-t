@@ -1,20 +1,22 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { View, StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
+import useAsyncStorage from '../../../../hooks/useAsyncStorage';
+import { generateRandomTableData } from './utils';
 import DayTable from './DayTable';
 import WeekTable from './WeekTable';
 import MonthTable from './MonthTable';
 
-function RenderContent({ buttonClicked }) {
+function RenderContent({ buttonClicked, tableData }) {
   if (buttonClicked === 1) {
-    return <DayTable />;
+    return <DayTable tableData={tableData} />;
   }
   if (buttonClicked === 2) {
-    return <WeekTable />;
+    return <WeekTable tableData={tableData} />;
   }
   if (buttonClicked === 3) {
-    return <MonthTable />;
+    return <MonthTable tableData={tableData} />;
   }
   return null;
 }
@@ -31,20 +33,27 @@ const styles = StyleSheet.create({
 
 function ButtonGroup() {
   const [buttonClicked, setButtonClicked] = useState(1);
+  const [tableData, setTableData] = useState(null);
+  const [storageLoading, storagedData] = useAsyncStorage('userCurrency');
 
-  const handleButtonPress = (buttonNumber) => {
-    setButtonClicked(buttonNumber);
-  };
+  useEffect(() => {
+    if (!storagedData || tableData) return;
+    const { currency } = storagedData;
+    const data = generateRandomTableData(currency);
+    setTableData(data);
+  }, [storagedData, tableData]);
 
   const renderButton = (label, buttonNumber) => {
     const isActive = buttonClicked === buttonNumber;
     const buttonStyles = [styles.buttonStyle, isActive && styles.activeButton];
     return (
-      <Button mode="contained" onPress={() => handleButtonPress(buttonNumber)} style={buttonStyles}>
+      <Button mode="contained" onPress={() => setButtonClicked(buttonNumber)} style={buttonStyles}>
         {label}
       </Button>
     );
   };
+
+  if (storageLoading || !tableData) return null;
 
   return (
     <View>
@@ -54,13 +63,14 @@ function ButtonGroup() {
         {renderButton('Mes', 3)}
       </View>
 
-      <RenderContent buttonClicked={buttonClicked} />
+      <RenderContent buttonClicked={buttonClicked} tableData={tableData} />
     </View>
   );
 }
 
 RenderContent.propTypes = {
   buttonClicked: PropTypes.number.isRequired,
+  tableData: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default ButtonGroup;

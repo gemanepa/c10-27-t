@@ -1,14 +1,10 @@
 import React from 'react';
 import { View, ScrollView, Text } from 'react-native';
-import useAsyncStorage from '../../../../hooks/useAsyncStorage';
-import { generateRandomTableData, formatDate } from './utils';
+import PropTypes from 'prop-types';
 import styles from './styles';
+import { formatDate } from './utils';
 
-function DayTable() {
-  const [storageLoading, storagedData] = useAsyncStorage('userCurrency');
-  if (storageLoading) return null;
-  const { currency } = storagedData;
-
+function DayTable({ tableData }) {
   const renderTableHeader = () => (
     <View style={styles.tableRow}>
       <Text style={[styles.tableCell, { flex: 1 }]}>Categoria</Text>
@@ -17,16 +13,14 @@ function DayTable() {
     </View>
   );
 
-  const renderTableRow = () => {
-    const tableData = generateRandomTableData(currency);
-    return tableData.map((rowData) => (
+  const renderTableRow = () =>
+    tableData.map((rowData) => (
       <View key={rowData.key} style={styles.tableRow}>
         <Text style={[styles.tableCell, { flex: 1 }]}>{rowData.category}</Text>
         <Text style={[styles.tableCell, { flex: 1 }]}>{formatDate(rowData.date)}</Text>
         <Text style={[styles.tableCell, { flex: 1 }]}>{rowData.amount}</Text>
       </View>
     ));
-  };
 
   return (
     <ScrollView contentContainerStyle={{ minHeight: 500 }}>
@@ -37,5 +31,9 @@ function DayTable() {
     </ScrollView>
   );
 }
+
+DayTable.propTypes = {
+  tableData: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
 
 export default DayTable;
