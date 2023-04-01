@@ -12,7 +12,9 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     backgroundColor: '#fff',
     borderRadius: 10,
-    padding: 13,
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   dropdownText: {
     fontSize: 14,
