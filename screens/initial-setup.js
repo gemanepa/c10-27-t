@@ -4,6 +4,7 @@ import { Button } from 'react-native-paper';
 import Constants from 'expo-constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import PropTypes from 'prop-types';
+import Header from '../components/initial-setup/Header';
 import CurrencyDropdown from '../components/initial-setup/CurrencyDropdown';
 import BalanceInput from '../components/initial-setup/BalanceInput';
 
@@ -11,21 +12,40 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: Constants.statusBarHeight,
-    backgroundColor: '#ecf0f1',
-    padding: 8,
+    backgroundColor: 'white',
     gap: 20,
   },
-  textContainer: {
-    flex: 0.3,
-    justifyContent: 'center',
+  inputsContainer: {
+    flex: 1,
+    paddingTop: 60,
+    paddingHorizontal: '15%',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    margin: 24,
-    marginTop: 40,
+    backgroundColor: '#DCDCDC',
+    borderTopLeftRadius: 90,
+    borderTopRightRadius: 90,
   },
-  paragraph: {
-    fontSize: 24,
-    fontWeight: 'bold',
+  inputWithTextContainer: {
+    height: 70,
+    width: '100%',
+    marginBottom: 45,
+    textAlign: 'center', // center the text horizontally
+    alignSelf: 'center', // center the text vertically
+  },
+  text: {
+    fontSize: 16,
+    fontWeight: 500,
     textAlign: 'center',
+    alignSelf: 'center',
+    paddingHorizontal: 30,
+    marginBottom: 15,
+  },
+  button: {
+    width: '100%',
+    borderRadius: 10,
+    padding: 5,
+    backgroundColor: 'gray',
+    marginTop: 10,
   },
 });
 
@@ -56,34 +76,40 @@ export default function SettingUpScreen({ setInitialSettingUp }) {
 
   return (
     <View style={styles.container}>
-      <View style={styles.textContainer}>
-        <Text style={styles.paragraph}>Organicemos tus finanzas juntos</Text>
-        <Text style={styles.paragraph}>¡Empecemos!</Text>
-      </View>
+      <Header />
 
-      <View style={{ height: 70 }}>
-        <Text>Indica el tipo de divisa</Text>
-        <CurrencyDropdown
-          options={currencyOptions}
-          defaultValue={selectedCurrency}
-          onSelect={handleCurrencySelect}
-        />
-      </View>
+      <View style={styles.inputsContainer}>
+        <View>
+          <View style={styles.inputWithTextContainer}>
+            <Text style={styles.text}>Indica el tipo de divisa</Text>
+            <CurrencyDropdown
+              options={currencyOptions}
+              defaultValue={selectedCurrency}
+              onSelect={handleCurrencySelect}
+            />
+          </View>
 
-      <View style={{ height: 70 }}>
-        {selectedCurrency && (
-          <>
-            <Text>Introduce el balance de la cuenta principal</Text>
-            <BalanceInput value={selectedBalance} onChange={handleBalanceSelect} />
-          </>
-        )}
-      </View>
-      <View style={{ height: 70 }}>
-        {selectedCurrency && selectedBalance && (
-          <Button mode="contained" onPress={storeData}>
-            Continuar
-          </Button>
-        )}
+          <View style={styles.inputWithTextContainer}>
+            {selectedCurrency && (
+              <>
+                <Text style={styles.text}>Introduce el balance de la cuenta principal</Text>
+                <BalanceInput
+                  value={selectedBalance}
+                  onChange={handleBalanceSelect}
+                  selectedCurrency={selectedCurrency}
+                />
+              </>
+            )}
+          </View>
+        </View>
+
+        <View style={styles.inputWithTextContainer}>
+          {selectedCurrency && selectedBalance && (
+            <Button style={styles.button} mode="contained" onPress={storeData}>
+              Continuar
+            </Button>
+          )}
+        </View>
       </View>
     </View>
   );
