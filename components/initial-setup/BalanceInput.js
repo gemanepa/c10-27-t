@@ -7,32 +7,31 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    gap: -5,
+    gap: 5,
   },
   input: {
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 10,
-    padding: 13,
     backgroundColor: 'white',
-    marginRight: 10,
     width: 145,
     fontSize: 14,
     textAlign: 'center',
+    height: 50,
   },
   currencyContainer: {
     borderWidth: 1,
     borderColor: '#ccc',
     backgroundColor: '#fff',
     borderRadius: 10,
-    padding: 13,
     width: 75,
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   currencyText: {
     fontSize: 14,
     fontWeight: 500,
-    textAlign: 'center',
-    alignSelf: 'center',
   },
 });
 
@@ -65,7 +64,7 @@ function BalanceInput({ value, onChange, selectedCurrency }) {
 }
 
 BalanceInput.propTypes = {
-  value: PropTypes.number.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   onChange: PropTypes.func.isRequired,
   selectedCurrency: PropTypes.string.isRequired,
 };
