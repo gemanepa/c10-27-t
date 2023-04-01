@@ -5,15 +5,20 @@ import PropTypes from 'prop-types';
 const styles = StyleSheet.create({
   container: {
     position: 'relative',
+    width: 225,
   },
   dropdown: {
-    padding: 10,
     borderWidth: 1,
     borderColor: '#ccc',
-    borderRadius: 5,
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    padding: 13,
   },
   dropdownText: {
-    fontSize: 16,
+    fontSize: 14,
+    fontWeight: 500,
+    textAlign: 'center',
+    alignSelf: 'center',
   },
   dropdownList: {
     position: 'absolute',
@@ -32,7 +37,8 @@ const styles = StyleSheet.create({
     borderBottomColor: '#ccc',
   },
   optionText: {
-    fontSize: 16,
+    fontSize: 14,
+    fontWeight: 500,
   },
 });
 
