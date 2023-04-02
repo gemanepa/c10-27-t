@@ -9,7 +9,7 @@
     "web": "expo start --web",
     "test": "jest",
     "format": "prettier --write \"**/*.{js,ts,tsx,md}\"",
-    "lint": "npx eslint App.js && npx eslint screens/*.js && npx eslint components/**/*.js"
+    "lint": "npx eslint App.js && npx eslint screens/*.js && npx eslint components/**/*.js && npx eslint hooks/*.js"
   },
   "dependencies": {
     "@expo/webpack-config": "^18.0.1",

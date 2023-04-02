@@ -27,6 +27,9 @@
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
 
         // style-prop-object doesn't get along with React Native StyleSheet module
-        "react/style-prop-object": "off"
+        "react/style-prop-object": "off",
+
+        // allow prop-types
+        "react/forbid-prop-types": "off"
     }
 }
