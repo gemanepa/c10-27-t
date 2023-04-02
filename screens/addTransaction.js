@@ -9,12 +9,10 @@ import HealthIcon from '../assets/addTransactionIcons/BTN_SaludHealthIcon.png';
 const Tab = createMaterialTopTabNavigator();
 
 export default function AddTransaction({ navigation }) {
-
   useEffect(() => {
     navigation.setOptions({
       title: 'Añadir transacciones',
       // headerTintColor: '#FFFFFF',
-
     });
   }, [navigation]);
 
@@ -25,7 +23,6 @@ export default function AddTransaction({ navigation }) {
     { id: 4, title: 'Opción 4' },
     { id: 5, title: 'Opción 5' },
     { id: 6, title: 'Opción 6' },
-
   ];
 
   const itemsCategories = [
@@ -53,21 +50,32 @@ export default function AddTransaction({ navigation }) {
         // },
       }}
     >
-      <Tab.Screen name="Gastos" >
-        {() => <AddExpense listOfAccounts={listOfAccounts} itemsCategories={itemsCategories} navigation={navigation} />}
+      <Tab.Screen name="Gastos">
+        {() => (
+          <AddExpense
+            listOfAccounts={listOfAccounts}
+            itemsCategories={itemsCategories}
+            navigation={navigation}
+          />
+        )}
       </Tab.Screen>
-      <Tab.Screen name="Ingresos" >
-        {() => <AddRevenue listOfAccounts={listOfAccounts} itemsCategories={itemsCategories} navigation={navigation} />}
+      <Tab.Screen name="Ingresos">
+        {() => (
+          <AddRevenue
+            listOfAccounts={listOfAccounts}
+            itemsCategories={itemsCategories}
+            navigation={navigation}
+          />
+        )}
       </Tab.Screen>
     </Tab.Navigator>
   );
-
 }
 
 AddTransaction.propTypes = {
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
     goBack: PropTypes.func.isRequired,
-    setOptions: PropTypes.func
+    setOptions: PropTypes.func,
   }).isRequired,
 };

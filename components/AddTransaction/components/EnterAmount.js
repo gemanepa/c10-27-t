@@ -1,5 +1,5 @@
 import { View, TextInput, Text, StyleSheet } from 'react-native';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 
 const EnterAmountStyles = StyleSheet.create({
   container: {
@@ -12,24 +12,24 @@ const EnterAmountStyles = StyleSheet.create({
     backgroundColor: '#d9d9d9',
     borderBottomLeftRadius: 100,
     borderBottomRightRadius: 100,
-    gap: 20
+    gap: 20,
   },
   container_Amount_And_Concept: {
     width: '50%',
     position: 'relative',
     flexDirection: 'column',
-    gap: 10
+    gap: 10,
   },
   enterAmount: {
     width: '100%',
     flexDirection: 'row',
     alignContent: 'center',
     justifyContent: 'center',
-    gap: 10
+    gap: 10,
   },
   title: {
     textAlign: 'center',
-    fontSize: 20
+    fontSize: 20,
   },
   inputAmount: {
     width: '100%',
@@ -51,19 +51,15 @@ const EnterAmountStyles = StyleSheet.create({
     position: 'absolute',
     right: 0,
     fontSize: 20,
-  }
+  },
 });
 
 export default function EnterAmount({ enterAmount, changeAmount, enterConcept, changeConcept }) {
-
   return (
-    <View style={EnterAmountStyles.container} >
-
-      <View style={EnterAmountStyles.container_Amount_And_Concept} >
-        <Text style={EnterAmountStyles.title} >
-          Concepto de ingreso
-        </Text>
-        <View style={EnterAmountStyles.enterAmount} >
+    <View style={EnterAmountStyles.container}>
+      <View style={EnterAmountStyles.container_Amount_And_Concept}>
+        <Text style={EnterAmountStyles.title}>Concepto de ingreso</Text>
+        <View style={EnterAmountStyles.enterAmount}>
           <TextInput
             // placeholder="Cantidad"
             value={enterConcept}
@@ -74,11 +70,9 @@ export default function EnterAmount({ enterAmount, changeAmount, enterConcept, c
         </View>
       </View>
 
-      <View style={EnterAmountStyles.container_Amount_And_Concept} >
-        <Text style={EnterAmountStyles.title} >
-          Ingresa Monto
-        </Text>
-        <View style={EnterAmountStyles.enterAmount} >
+      <View style={EnterAmountStyles.container_Amount_And_Concept}>
+        <Text style={EnterAmountStyles.title}>Ingresa Monto</Text>
+        <View style={EnterAmountStyles.enterAmount}>
           <TextInput
             // placeholder="Cantidad"
             value={enterAmount}
@@ -86,14 +80,12 @@ export default function EnterAmount({ enterAmount, changeAmount, enterConcept, c
             onChangeText={changeAmount}
             style={EnterAmountStyles.inputAmount}
           />
-          <Text style={EnterAmountStyles.currency} > USD </Text>
+          <Text style={EnterAmountStyles.currency}> USD </Text>
         </View>
       </View>
-
     </View>
   );
 }
-
 
 EnterAmount.propTypes = {
   enterAmount: PropTypes.string.isRequired,

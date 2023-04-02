@@ -15,8 +15,8 @@ const addSection = StyleSheet.create({
     flexDirection: 'column',
     gap: 20,
     paddingBottom: 30,
-  }
-})
+  },
+});
 
 const SubmitStyle = StyleSheet.create({
   button: {
@@ -25,10 +25,9 @@ const SubmitStyle = StyleSheet.create({
     height: 60,
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center'
-  }
+    justifyContent: 'center',
+  },
 });
-
 
 // //////////////// component Body /////////////////////
 
@@ -62,12 +61,12 @@ export default function AddExpense({ listOfAccounts, itemsCategories }) {
       <Picker.Item key={item.id} label={item.title} value={item.id} />
     ));
 
-    return prop
+    return prop;
   };
 
   // Date features
   const changeDate = (param) => {
-    setDate(param)
+    setDate(param);
   };
 
   // Categories Features
@@ -76,35 +75,41 @@ export default function AddExpense({ listOfAccounts, itemsCategories }) {
       setSelectedCategorie(value);
       // Alert.alert('se a cambiado la Categoria', `Se cambio el id ${selecdCategorie} por ${value} `)
     } else {
-      setSelectedCategorie(null)
+      setSelectedCategorie(null);
     }
   };
 
-
-
   return (
     <ScrollView style={addSection.container}>
+      <View style={addSection.container}>
+        <EnterAmount
+          enterAmount={enterAmount}
+          changeAmount={changeAmount}
+          enterConcept={enterConcept}
+          changeConcept={changeConcept}
+        />
 
-      <View style={addSection.container} >
+        <Data
+          params={{
+            selectAccount,
+            changeAccount,
+            changeDate,
+            date,
+            renderPickerItems,
+            listOfAccounts,
+          }}
+        />
 
-        <EnterAmount enterAmount={enterAmount} changeAmount={changeAmount} enterConcept={enterConcept} changeConcept={changeConcept} />
-
-        <Data params={{ selectAccount, changeAccount, changeDate, date, renderPickerItems, listOfAccounts }} />
-
-        <Categories params={{ selecdCategorie, changeSelectedCategorie, renderPickerItems, itemsCategories }} />
+        <Categories
+          params={{ selecdCategorie, changeSelectedCategorie, renderPickerItems, itemsCategories }}
+        />
 
         <Annotations />
 
-        <Button
-          mode='contained'
-          textAlignVertical='center'
-          style={SubmitStyle.button}
-        >
+        <Button mode="contained" textAlignVertical="center" style={SubmitStyle.button}>
           Añadir gasto
         </Button>
-
       </View>
-
     </ScrollView>
   );
 }
