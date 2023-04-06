@@ -32,11 +32,11 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function Categories({ navigation, route }) {
+export default function Categories({ route }) {
   const { itemsCategories, nameSelectCategoryStorage } = route.params;
   const [itemsCategoriesCopy, setItemsCategoriesCopy] = useState(itemsCategories);
 
-  const [selecdCategorie, setSelecdCategorie] = useState('');
+  const [selectedCategory, setSelecdCategorie] = useState('');
 
   useEffect(() => {
     const init = async () => {
@@ -49,8 +49,8 @@ export default function Categories({ navigation, route }) {
     init();
   }, [nameSelectCategoryStorage, itemsCategories]);
 
-  const changeSelectedCategorie = async (value) => {
-    if (selecdCategorie !== value) {
+  const changeSelectedCategory = async (value) => {
+    if (selectedCategory !== value) {
       setSelecdCategorie(value);
       await AsyncStorage.setItem(
         nameSelectCategoryStorage,
@@ -70,12 +70,12 @@ export default function Categories({ navigation, route }) {
       <View
         style={{
           ...styles.item,
-          backgroundColor: `${item.id === selecdCategorie ? '#d9d9d9' : 'transparent'}`,
+          backgroundColor: `${item.id === selectedCategory ? '#d9d9d9' : 'transparent'}`,
         }}
         key={item.id}
       >
         <Image source={item.image} style={styles.image} />
-        <Text style={styles.titleItems} onPress={() => changeSelectedCategorie(item.id)}>
+        <Text style={styles.titleItems} onPress={() => changeSelectedCategory(item.id)}>
           {item.title}
         </Text>
         <Button
@@ -88,7 +88,7 @@ export default function Categories({ navigation, route }) {
             backgroundColor: 'transparent',
           }}
           labelStyle={{ width: '100%', paddingVertical: `${width < 400 ? '20%' : '30%'}` }}
-          onPress={() => changeSelectedCategorie(item.id)}
+          onPress={() => changeSelectedCategory(item.id)}
           theme={{
             colors: {
               primary: 'transparent',

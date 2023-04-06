@@ -1,6 +1,6 @@
 import { ScrollView, View, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Button } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -40,7 +40,7 @@ export default function AddRevenue({ navigation, listOfAccounts, itemsCategories
 
   const [date, setDate] = useState(new Date());
 
-  const [selecdCategorie, setSelectedCategorie] = useState('');
+  const [selectedCategory, setSelectedCategorie] = useState('');
 
   const [selectAccount, setSelectedAccount] = useState('Principal');
 
@@ -69,8 +69,8 @@ export default function AddRevenue({ navigation, listOfAccounts, itemsCategories
   };
 
   // Categories Features
-  const changeSelectedCategorie = async (value) => {
-    if (selecdCategorie !== value) {
+  const changeSelectedCategory = async (value) => {
+    if (selectedCategory !== value) {
       setSelectedCategorie(value);
       await AsyncStorage.setItem('categorySelectRevenue', JSON.stringify({ category: value }));
     } else {
@@ -90,32 +90,54 @@ export default function AddRevenue({ navigation, listOfAccounts, itemsCategories
   // }
 
   // Submit
-
   const storeData = async () => {
-    try {
+    if (!enterAmount || !enterConcept || !selectAccount || !selectedCategory) {
+      return;
+    }
+    const createUpdatedExpensesData = (previusDataParsed) => {
+      const updatedExpense = {
+        type: 'income',
+        concept: enterConcept,
+        amount: enterAmount,
+        account: selectAccount,
+        date,
+        category: itemsCategories.find((item) => item.id === selectedCategory).title,
+        annotations,
+      };
+
+      return [updatedExpense, ...previusDataParsed];
+    };
+
+    const updateUserExpenses = async () => {
       const previusData = (await AsyncStorage.getItem('userExpenses')) || JSON.stringify([]);
-      const previusDataParse = JSON.parse(previusData);
-      const updatedExpensesData = [
-        ...previusDataParse,
-        {
-          type: 'string',
-          concept: enterConcept,
-          amount: enterAmount,
-          account: selectAccount,
-          date,
-          categorie: selecdCategorie,
-          annotations,
-        },
-      ];
+      const previusDataParsed = JSON.parse(previusData);
+      const updatedExpensesData = createUpdatedExpensesData(previusDataParsed);
       await AsyncStorage.setItem('userExpenses', JSON.stringify(updatedExpensesData));
+    };
+
+    const updateUserCurrency = async () => {
+      const previousCurrencyAmountData = await AsyncStorage.getItem('userCurrency');
+      const previousCurrencyAmountParsed = JSON.parse(previousCurrencyAmountData);
+      const updatedCurrencyAmount =
+        Number(previousCurrencyAmountParsed.amount) - Number(enterAmount);
+      const userCurrency = {
+        currency: previousCurrencyAmountParsed.currency,
+        amount: updatedCurrencyAmount,
+      };
+      await AsyncStorage.setItem('userCurrency', JSON.stringify(userCurrency));
+    };
+
+    const navigateBack = () => {
+      navigation.goBack();
+    };
+
+    try {
+      await updateUserExpenses();
+      await updateUserCurrency();
       setShowAlertAddTransaction(true);
-      setTimeout(() => {
-        if (showAlertAddTransaction === false) {
-          navigation.goBack();
-        }
-      }, 2000);
+      setTimeout(navigateBack, 1500);
     } catch (error) {
-      console.log(error);
+      console.log(error); // eslint-disable-line no-console
     }
   };
 
@@ -142,8 +164,8 @@ export default function AddRevenue({ navigation, listOfAccounts, itemsCategories
         <CategoriesList
           params={{
             navigation,
-            selecdCategorie,
-            changeSelectedCategorie,
+            selectedCategory,
+            changeSelectedCategory,
             itemsCategories,
             nameTransaction: 'Revenue',
           }}

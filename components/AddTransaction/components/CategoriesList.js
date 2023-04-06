@@ -52,7 +52,7 @@ const CategoriesStyles = StyleSheet.create({
 });
 
 export default function CategoriesList({ params }) {
-  const { navigation, changeSelectedCategorie, itemsCategories, selecdCategorie, nameTransaction } =
+  const { navigation, changeSelectedCategory, itemsCategories, selectedCategory, nameTransaction } =
     params;
 
   const [itemsCategoriesCopy, setItemsCategoriesCopy] = useState([
@@ -67,19 +67,19 @@ export default function CategoriesList({ params }) {
       <View
         style={{
           ...CategoriesStyles.item,
-          backgroundColor: `${item.id === selecdCategorie ? '#d9d9d9' : 'transparent'}`,
+          backgroundColor: `${item.id === selectedCategory ? '#d9d9d9' : 'transparent'}`,
         }}
         key={item.id}
       >
         <Image source={item.image} style={CategoriesStyles.imageItem} />
-        <Text style={CategoriesStyles.titleItems} onPress={() => changeSelectedCategorie(item.id)}>
+        <Text style={CategoriesStyles.titleItems} onPress={() => changeSelectedCategory(item.id)}>
           {item.title}
         </Text>
         <Button
           mode="contained"
           style={CategoriesStyles.buttonItem}
           labelStyle={CategoriesStyles.buttonItemLabel}
-          onPress={() => changeSelectedCategorie(item.id)}
+          onPress={() => changeSelectedCategory(item.id)}
           theme={CategoriesStyles.buttonItemTheme}
         />
       </View>
@@ -96,11 +96,11 @@ export default function CategoriesList({ params }) {
         (await AsyncStorage.getItem(`categorySelect${nameTransaction}`)) ||
         JSON.stringify({ category: '' });
       const previusDataParse = JSON.parse(previusData);
-      if (selecdCategorie !== previusDataParse.category && previusDataParse.type) {
+      if (selectedCategory !== previusDataParse.category && previusDataParse.type) {
         const changeListCategories = itemsCategoriesCopy.filter(
           (value) => value.id !== previusDataParse.category
         );
-        changeSelectedCategorie(previusDataParse.category);
+        changeSelectedCategory(previusDataParse.category);
         if (changeListCategories.length === 3) {
           changeListCategories.pop();
         }
@@ -114,9 +114,9 @@ export default function CategoriesList({ params }) {
     return () => clearInterval(interval);
   }, [
     count,
-    selecdCategorie,
+    selectedCategory,
     nameTransaction,
-    changeSelectedCategorie,
+    changeSelectedCategory,
     itemsCategoriesCopy,
     itemsCategories,
   ]);
@@ -172,7 +172,7 @@ CategoriesList.propTypes = {
       goBack: PropTypes.func.isRequired,
       setOptions: PropTypes.func.isRequired,
     }).isRequired,
-    changeSelectedCategorie: PropTypes.func,
+    changeSelectedCategory: PropTypes.func,
     itemsCategories: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,
@@ -190,7 +190,7 @@ CategoriesList.propTypes = {
         ]).isRequired,
       }).isRequired
     ).isRequired,
-    selecdCategorie: PropTypes.oneOfType([PropTypes.any, PropTypes.number]),
+    selectedCategory: PropTypes.oneOfType([PropTypes.any, PropTypes.number]),
     nameTransaction: PropTypes.string,
   }).isRequired,
 };
