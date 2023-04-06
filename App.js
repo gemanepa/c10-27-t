@@ -6,6 +6,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { FAB } from 'react-native-paper';
 import HomeScreen from './screens/index';
+import AddTransaction from './screens/addTransaction';
+import Categories from './components/Categories/tables/Categories';
 import DetailsScreen from './screens/details';
 import SettingUpScreen from './screens/initial-setup';
 import useAsyncStorage from './hooks/useAsyncStorage';
@@ -43,6 +45,8 @@ function App() {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="AddTransaction" component={AddTransaction} />
+          <Stack.Screen name="Categories" component={Categories} />
           <Stack.Screen name="Details" component={DetailsScreen} />
         </Stack.Navigator>
       </NavigationContainer>
