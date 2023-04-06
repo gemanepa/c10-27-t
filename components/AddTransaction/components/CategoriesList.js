@@ -4,9 +4,7 @@ import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-
-const { width } = Dimensions.get('window')
-
+const { width } = Dimensions.get('window');
 
 const CategoriesStyles = StyleSheet.create({
   container: {
@@ -26,7 +24,7 @@ const CategoriesStyles = StyleSheet.create({
     alignItems: 'center',
     position: 'relative',
     borderRadius: 10,
-    gap: 4
+    gap: 4,
   },
   imageItem: {
     width: 48,
@@ -39,25 +37,29 @@ const CategoriesStyles = StyleSheet.create({
     position: 'absolute',
     height: '100%',
     width: '100%',
-    borderRadius: 10
+    borderRadius: 10,
   },
   buttonItemLabel: {
     width: '100%',
-    paddingVertical: `${width < 400 ? '20%' : '30%'}`
+    paddingVertical: `${width < 400 ? '20%' : '30%'}`,
   },
   buttonItemTheme: {
     colors: {
       primary: 'transparent',
       onPrimary: 'black',
     },
-  }
+  },
 });
 
 export default function CategoriesList({ params }) {
+  const { navigation, changeSelectedCategorie, itemsCategories, selecdCategorie, nameTransaction } =
+    params;
 
-  const { navigation, changeSelectedCategorie, itemsCategories, selecdCategorie, nameTransaction } = params;
-
-  const [itemsCategoriesCopy, setItemsCategoriesCopy] = useState([itemsCategories[0], itemsCategories[1], itemsCategories[2]])
+  const [itemsCategoriesCopy, setItemsCategoriesCopy] = useState([
+    itemsCategories[0],
+    itemsCategories[1],
+    itemsCategories[2],
+  ]);
 
   // /////// Features
   const renderCategoriesItems = () => {
@@ -90,23 +92,34 @@ export default function CategoriesList({ params }) {
 
   useEffect(() => {
     const interval = setInterval(async () => {
-      const previusData = await AsyncStorage.getItem(`categorySelect${nameTransaction}`) || JSON.stringify({ category: '' });
+      const previusData =
+        (await AsyncStorage.getItem(`categorySelect${nameTransaction}`)) ||
+        JSON.stringify({ category: '' });
       const previusDataParse = JSON.parse(previusData);
       if (selecdCategorie !== previusDataParse.category && previusDataParse.type) {
-        const changeListCategories = itemsCategoriesCopy.filter(value => value.id !== previusDataParse.category);
+        const changeListCategories = itemsCategoriesCopy.filter(
+          (value) => value.id !== previusDataParse.category
+        );
         changeSelectedCategorie(previusDataParse.category);
         if (changeListCategories.length === 3) {
           changeListCategories.pop();
         }
-        const FoundCategory = itemsCategories.filter(iem => iem.id === previusDataParse.category);
-        changeListCategories.unshift(...FoundCategory)
-        setItemsCategoriesCopy([...changeListCategories])
+        const FoundCategory = itemsCategories.filter((iem) => iem.id === previusDataParse.category);
+        changeListCategories.unshift(...FoundCategory);
+        setItemsCategoriesCopy([...changeListCategories]);
       }
       // setCount(count + 1);
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [count, selecdCategorie, nameTransaction, changeSelectedCategorie, itemsCategoriesCopy, itemsCategories]);
+  }, [
+    count,
+    selecdCategorie,
+    nameTransaction,
+    changeSelectedCategorie,
+    itemsCategoriesCopy,
+    itemsCategories,
+  ]);
 
   return (
     <View style={CategoriesStyles.container}>
@@ -127,17 +140,18 @@ export default function CategoriesList({ params }) {
             source={require('../../../assets/addTransactionIcons/Add.png')}
             style={{ width: 50, height: 50 }}
           />
-          <Text
-            style={CategoriesStyles.titleItems}
-          >
-            Mas
-          </Text>
+          <Text style={CategoriesStyles.titleItems}>Mas</Text>
 
           <Button
             mode="contained"
             style={{ position: 'absolute', height: '100%', width: '100%', borderRadius: 10 }}
             labelStyle={{ width: '100%', paddingVertical: '30%' }}
-            onPress={() => navigation.navigate('Categories', { itemsCategories, nameSelectCategoryStorage: `categorySelect${nameTransaction}` })}
+            onPress={() =>
+              navigation.navigate('Categories', {
+                itemsCategories,
+                nameSelectCategoryStorage: `categorySelect${nameTransaction}`,
+              })
+            }
             theme={{
               colors: {
                 primary: 'transparent',
@@ -146,7 +160,6 @@ export default function CategoriesList({ params }) {
             }}
           />
         </View>
-
       </View>
     </View>
   );
@@ -173,14 +186,11 @@ CategoriesList.propTypes = {
             scale: PropTypes.number,
             resizeMode: PropTypes.oneOf(['cover', 'contain', 'stretch', 'repeat', 'center']),
           }),
-          PropTypes.any
+          PropTypes.any,
         ]).isRequired,
       }).isRequired
     ).isRequired,
-    selecdCategorie: PropTypes.oneOfType([
-      PropTypes.any,
-      PropTypes.number
-    ]),
-    nameTransaction: PropTypes.string
+    selecdCategorie: PropTypes.oneOfType([PropTypes.any, PropTypes.number]),
+    nameTransaction: PropTypes.string,
   }).isRequired,
 };

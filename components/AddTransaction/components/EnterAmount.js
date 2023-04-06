@@ -82,11 +82,7 @@ export default function EnterAmount({ enterAmount, changeAmount, enterConcept, c
 }
 
 EnterAmount.propTypes = {
-  enterAmount: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string,
-    PropTypes.any,
-  ]).isRequired,
+  enterAmount: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.any]).isRequired,
   changeAmount: PropTypes.func.isRequired,
   enterConcept: PropTypes.string.isRequired,
   changeConcept: PropTypes.func.isRequired,

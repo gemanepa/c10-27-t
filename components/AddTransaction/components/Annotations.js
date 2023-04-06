@@ -1,7 +1,6 @@
 import { View, TextInput, Text, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 
-
 const AnnotationsStyles = StyleSheet.create({
   container: {
     paddingHorizontal: '5%',
@@ -39,4 +38,4 @@ export default function Annotations({ annotations, changeAnnotations }) {
 Annotations.propTypes = {
   annotations: PropTypes.string.isRequired,
   changeAnnotations: PropTypes.func.isRequired,
-}
+};

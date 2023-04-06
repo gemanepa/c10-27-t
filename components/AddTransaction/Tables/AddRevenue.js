@@ -48,7 +48,6 @@ export default function AddRevenue({ navigation, listOfAccounts, itemsCategories
 
   const [showAlertAddTransaction, setShowAlertAddTransaction] = useState(false);
 
-
   // Amount Functions
   const changeAmount = (value) => {
     setEnterAmount(value);
@@ -63,8 +62,6 @@ export default function AddRevenue({ navigation, listOfAccounts, itemsCategories
   const changeAccount = (value) => {
     setSelectedAccount(value);
   };
-
-
 
   // Date features
   const changeDate = (param) => {
@@ -96,7 +93,7 @@ export default function AddRevenue({ navigation, listOfAccounts, itemsCategories
 
   const storeData = async () => {
     try {
-      const previusData = await AsyncStorage.getItem('userExpenses') || JSON.stringify([]);
+      const previusData = (await AsyncStorage.getItem('userExpenses')) || JSON.stringify([]);
       const previusDataParse = JSON.parse(previusData);
       const updatedExpensesData = [
         ...previusDataParse,
@@ -107,8 +104,8 @@ export default function AddRevenue({ navigation, listOfAccounts, itemsCategories
           account: selectAccount,
           date,
           categorie: selecdCategorie,
-          annotations
-        }
+          annotations,
+        },
       ];
       await AsyncStorage.setItem('userExpenses', JSON.stringify(updatedExpensesData));
       setShowAlertAddTransaction(true);
@@ -118,10 +115,9 @@ export default function AddRevenue({ navigation, listOfAccounts, itemsCategories
         }
       }, 2000);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
-
 
   return (
     <ScrollView style={addSection.container_view}>
@@ -149,7 +145,7 @@ export default function AddRevenue({ navigation, listOfAccounts, itemsCategories
             selecdCategorie,
             changeSelectedCategorie,
             itemsCategories,
-            nameTransaction: 'Revenue'
+            nameTransaction: 'Revenue',
           }}
         />
 
@@ -164,17 +160,16 @@ export default function AddRevenue({ navigation, listOfAccounts, itemsCategories
             width: '100%',
             height: 40,
             flexDirection: 'column',
-            textAlignVertical: 'center'
+            textAlignVertical: 'center',
           }}
         >
           Añadir Ingreso
         </Button>
       </View>
 
-      {showAlertAddTransaction &&
-        <Alert title='¡Ingreso añadido con éxito!' params={{ fontColor: '#0003' }} />
-      }
-
+      {showAlertAddTransaction && (
+        <Alert title="¡Ingreso añadido con éxito!" params={{ fontColor: '#0003' }} />
+      )}
     </ScrollView>
   );
 }
@@ -203,7 +198,7 @@ AddRevenue.propTypes = {
           scale: PropTypes.number,
           resizeMode: PropTypes.oneOf(['cover', 'contain', 'stretch', 'repeat', 'center']),
         }),
-        PropTypes.any
+        PropTypes.any,
       ]),
     })
   ).isRequired,

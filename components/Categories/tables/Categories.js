@@ -1,17 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import { ScrollView, View, StyleSheet, Text, Image, Dimensions } from 'react-native';
 import PropTypes from 'prop-types';
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Searchbar, Button } from "react-native-paper";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Searchbar, Button } from 'react-native-paper';
 
-const { width } = Dimensions.get('window')
-
+const { width } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
     paddingVertical: 20,
-    gap: 40
+    gap: 40,
   },
   item: {
     marginBottom: 10,
@@ -22,7 +21,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     position: 'relative',
     borderRadius: 10,
-    gap: 4
+    gap: 4,
   },
   titleItems: {
     fontSize: 12,
@@ -34,32 +33,35 @@ const styles = StyleSheet.create({
 });
 
 export default function Categories({ navigation, route }) {
-
   const { itemsCategories, nameSelectCategoryStorage } = route.params;
   const [itemsCategoriesCopy, setItemsCategoriesCopy] = useState(itemsCategories);
 
-
   const [selecdCategorie, setSelecdCategorie] = useState('');
-
 
   useEffect(() => {
     const init = async () => {
-      const previusData = await AsyncStorage.getItem(nameSelectCategoryStorage) || JSON.stringify({ category: '' });
+      const previusData =
+        (await AsyncStorage.getItem(nameSelectCategoryStorage)) || JSON.stringify({ category: '' });
       const previusDataParse = JSON.parse(previusData);
       setSelecdCategorie(previusDataParse.category);
-      setItemsCategoriesCopy(itemsCategories)
+      setItemsCategoriesCopy(itemsCategories);
     };
-    init()
+    init();
   }, [nameSelectCategoryStorage, itemsCategories]);
 
   const changeSelectedCategorie = async (value) => {
     if (selecdCategorie !== value) {
       setSelecdCategorie(value);
-      await AsyncStorage.setItem(nameSelectCategoryStorage, JSON.stringify({ type: 'string', category: value }));
+      await AsyncStorage.setItem(
+        nameSelectCategoryStorage,
+        JSON.stringify({ type: 'string', category: value })
+      );
     } else {
       setSelecdCategorie('');
-      await AsyncStorage.setItem(nameSelectCategoryStorage, JSON.stringify({ type: 'string', category: '' }));
-
+      await AsyncStorage.setItem(
+        nameSelectCategoryStorage,
+        JSON.stringify({ type: 'string', category: '' })
+      );
     }
   };
 
@@ -73,15 +75,18 @@ export default function Categories({ navigation, route }) {
         key={item.id}
       >
         <Image source={item.image} style={styles.image} />
-        <Text
-          style={styles.titleItems}
-          onPress={() => changeSelectedCategorie(item.id)}
-        >
+        <Text style={styles.titleItems} onPress={() => changeSelectedCategorie(item.id)}>
           {item.title}
         </Text>
         <Button
           mode="contained"
-          style={{ position: 'absolute', height: '100%', width: '100%', borderRadius: 10, backgroundColor: 'transparent' }}
+          style={{
+            position: 'absolute',
+            height: '100%',
+            width: '100%',
+            borderRadius: 10,
+            backgroundColor: 'transparent',
+          }}
           labelStyle={{ width: '100%', paddingVertical: `${width < 400 ? '20%' : '30%'}` }}
           onPress={() => changeSelectedCategorie(item.id)}
           theme={{
@@ -96,29 +101,26 @@ export default function Categories({ navigation, route }) {
     return items;
   };
 
-
   const [searchQuery, setSearchQuery] = useState('');
 
-  const onChangeSearch = query => {
-    setSearchQuery(query)
+  const onChangeSearch = (query) => {
+    setSearchQuery(query);
   };
 
   useEffect(() => {
-    const founSearchQuery = []
+    const founSearchQuery = [];
     for (let item = 0; item < itemsCategories.length; item += 1) {
-      const titleItems = itemsCategories[item].title
+      const titleItems = itemsCategories[item].title;
       if (titleItems.toUpperCase().includes(searchQuery.toUpperCase()) && searchQuery !== '') {
         founSearchQuery.push(itemsCategories[item]);
       }
     }
     if (searchQuery !== '') {
-      setItemsCategoriesCopy(founSearchQuery)
+      setItemsCategoriesCopy(founSearchQuery);
     } else {
-      setItemsCategoriesCopy(itemsCategories)
+      setItemsCategoriesCopy(itemsCategories);
     }
   }, [searchQuery, itemsCategories]);
-
-
 
   return (
     <ScrollView>
@@ -128,29 +130,22 @@ export default function Categories({ navigation, route }) {
           placeholder="Encuentra una categoría"
           style={{ paddingHorizontal: 10, marginHorizontal: 10, borderRadius: 10 }}
         />
-        <View style={{
-          width: '100%',
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          justifyContent: 'space-evenly'
-        }}>
+        <View
+          style={{
+            width: '100%',
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            justifyContent: 'space-evenly',
+          }}
+        >
+          {itemsCategoriesCopy && renderCategoriesItems()}
 
-          {itemsCategoriesCopy &&
-            renderCategoriesItems()
-          }
-
-
-
-          <View style={styles.item} >
+          <View style={styles.item}>
             <Image
               source={require('../../../assets/addTransactionIcons/Add.png')}
               style={styles.image}
             />
-            <Text
-              style={styles.titleItems}
-            >
-              Crear
-            </Text>
+            <Text style={styles.titleItems}>Crear</Text>
             <Button
               mode="contained"
               style={{ position: 'absolute', height: '100%', width: '100%', borderRadius: 10 }}
@@ -164,24 +159,17 @@ export default function Categories({ navigation, route }) {
               }}
             />
           </View>
-
         </View>
-
-
-
       </View>
     </ScrollView>
   );
-
-};
-
+}
 
 Categories.propTypes = {
-
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
     goBack: PropTypes.func.isRequired,
-    setOptions: PropTypes.func
+    setOptions: PropTypes.func,
   }).isRequired,
   route: PropTypes.shape({
     params: PropTypes.shape({
@@ -198,8 +186,8 @@ Categories.propTypes = {
               scale: PropTypes.number,
               resizeMode: PropTypes.oneOf(['cover', 'contain', 'stretch', 'repeat', 'center']),
             }),
-            PropTypes.any
-          ])
+            PropTypes.any,
+          ]),
         })
       ),
       nameSelectCategoryStorage: PropTypes.string,

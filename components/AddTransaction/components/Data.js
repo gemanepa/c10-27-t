@@ -107,10 +107,9 @@ export default function Data({ params }) {
           {moment(date).locale('es').format('LL')}
         </Button>
         {openDate && (
-
           <DateTimePicker
             value={date}
-            mode='date'
+            mode="date"
             disabled={openDate}
             onChange={changeDateAndStatusDate}
             negativeButton={{ textColor: 'red' }}

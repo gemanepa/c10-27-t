@@ -20,7 +20,7 @@ export default function AddTransaction({ navigation }) {
       await AsyncStorage.setItem('categorySelectRevenue', JSON.stringify({ category: '' }));
     };
 
-    init()
+    init();
   }, [navigation]);
 
   const listOfAccounts = [

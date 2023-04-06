@@ -10,7 +10,6 @@ import CategoriesList from '../components/CategoriesList';
 import Annotations from '../components/Annotations';
 import Alert from '../components/Alert';
 
-
 // /////////// Styles
 const addSection = StyleSheet.create({
   container: {
@@ -85,7 +84,7 @@ export default function AddExpense({ navigation, listOfAccounts, itemsCategories
   // Submit
   const storeData = async () => {
     try {
-      const previusData = await AsyncStorage.getItem('userExpenses') || JSON.stringify([]);
+      const previusData = (await AsyncStorage.getItem('userExpenses')) || JSON.stringify([]);
       const previusDataParse = JSON.parse(previusData);
       const updatedExpensesData = [
         ...previusDataParse,
@@ -96,8 +95,8 @@ export default function AddExpense({ navigation, listOfAccounts, itemsCategories
           account: selectAccount,
           date,
           categorie: selecdCategorie,
-          annotations
-        }
+          annotations,
+        },
       ];
       await AsyncStorage.setItem('userExpenses', JSON.stringify(updatedExpensesData));
       setShowAlertAddTransaction(true);
@@ -105,12 +104,9 @@ export default function AddExpense({ navigation, listOfAccounts, itemsCategories
         navigation.goBack();
       }, 3000);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
-
-
-
 
   return (
     <ScrollView style={addSection.container}>
@@ -132,14 +128,13 @@ export default function AddExpense({ navigation, listOfAccounts, itemsCategories
           }}
         />
 
-
         <CategoriesList
           params={{
             selecdCategorie,
             changeSelectedCategorie,
             itemsCategories,
             navigation,
-            nameTransaction: 'Expense'
+            nameTransaction: 'Expense',
           }}
         />
 
@@ -151,7 +146,7 @@ export default function AddExpense({ navigation, listOfAccounts, itemsCategories
             width: '100%',
             height: 40,
             flexDirection: 'column',
-            textAlignVertical: 'center'
+            textAlignVertical: 'center',
           }}
           style={SubmitStyle.button}
           onPress={storeData}
@@ -160,10 +155,9 @@ export default function AddExpense({ navigation, listOfAccounts, itemsCategories
         </Button>
       </View>
 
-      {showAlertAddTransaction &&
-        <Alert title='¡Gasto añadido con éxito!' params={{ fontColor: '#0003' }} />
-      }
-
+      {showAlertAddTransaction && (
+        <Alert title="¡Gasto añadido con éxito!" params={{ fontColor: '#0003' }} />
+      )}
     </ScrollView>
   );
 }
@@ -192,7 +186,7 @@ AddExpense.propTypes = {
           scale: PropTypes.number,
           resizeMode: PropTypes.oneOf(['cover', 'contain', 'stretch', 'repeat', 'center']),
         }),
-        PropTypes.any
+        PropTypes.any,
       ]),
     })
   ).isRequired,
