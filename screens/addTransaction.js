@@ -33,13 +33,13 @@ export default function AddTransaction({ navigation }) {
   ];
 
   const itemsCategories = [
-    { id: 7, title: 'Salud', image: HealthIcon },
-    { id: 8, title: 'Higiene', image: HealthIcon },
-    { id: 9, title: 'Educacion', image: HealthIcon },
-    { id: 10, title: 'Hogar', image: HealthIcon },
-    { id: 11, title: 'Transporte', image: HealthIcon },
-    { id: 12, title: 'Comida', image: HealthIcon },
-    { id: 13, title: 'Ocio', image: HealthIcon },
+    { id: 1, title: 'Salud', image: HealthIcon },
+    { id: 2, title: 'Higiene', image: HealthIcon },
+    { id: 3, title: 'Educacion', image: HealthIcon },
+    { id: 4, title: 'Hogar', image: HealthIcon },
+    { id: 5, title: 'Transporte', image: HealthIcon },
+    { id: 6, title: 'Comida', image: HealthIcon },
+    { id: 7, title: 'Ocio', image: HealthIcon },
   ];
   // { id: '8', title: 'Elemento 8', image: HealthIcon },
 

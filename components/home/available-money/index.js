@@ -1,8 +1,10 @@
+import { useState, useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
+import { useIsFocused } from '@react-navigation/native';
 import PropTypes from 'prop-types';
 import { Text, FAB } from 'react-native-paper';
 import { MaterialIcons } from '@expo/vector-icons';
-import useAsyncStorage from '../../../hooks/useAsyncStorage';
+import getAsyncStorageData from '../../../utils/get-storage-data';
 
 const styles = StyleSheet.create({
   container: {
@@ -28,19 +30,34 @@ const styles = StyleSheet.create({
 });
 
 export default function UpperSection({ navigation }) {
-  const [storageLoading, storagedData] = useAsyncStorage('userCurrency');
+  const [storagedData, setStoragedData] = useState(null);
+  const isFocused = useIsFocused();
+  useEffect(() => {
+    const retrieveData = async () => {
+      const data = await getAsyncStorageData('userCurrency');
+      setStoragedData(data);
+    };
+    if (isFocused) retrieveData();
+  }, [isFocused]);
 
-  if (storageLoading) return null;
+  function formatNumber(num) {
+    const rounded = num.toFixed(2);
+    return Number(rounded).toString();
+  }
 
-  const { currency, amount } = storagedData;
   return (
     <View style={styles.container}>
       <View style={{ borderWidth: 2, borderColor: 'black', borderRadius: '50%' }}>
         <MaterialIcons name="attach-money" size={24} color="black" />
       </View>
       <Text variant="titleSmall">- Disponible -</Text>
-      <Text variant="displayMedium">{amount}</Text>
-      <Text variant="headlineSmall">{currency}</Text>
+      {storagedData && (
+        <>
+          <Text variant="displayMedium">{formatNumber(storagedData.amount)}</Text>
+          <Text variant="headlineSmall">{storagedData.currency}</Text>
+        </>
+      )}
+
       <FAB
         style={styles.fab}
         small
