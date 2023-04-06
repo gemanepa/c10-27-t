@@ -3,10 +3,8 @@ import PropTypes from 'prop-types';
 
 const EnterAmountStyles = StyleSheet.create({
   container: {
-    // height: '20%',
     minHeight: 100,
     paddingVertical: '8%',
-    // paddingHorizontal: 30,
     flexDirection: 'column',
     alignItems: 'center',
     backgroundColor: '#d9d9d9',
@@ -29,7 +27,7 @@ const EnterAmountStyles = StyleSheet.create({
   },
   title: {
     textAlign: 'center',
-    fontSize: 20,
+    fontSize: 18,
   },
   inputAmount: {
     width: '100%',
@@ -37,15 +35,13 @@ const EnterAmountStyles = StyleSheet.create({
     borderColor: 'black',
     borderWidth: 1,
     borderRadius: 20,
+    paddingRight: 60,
     textAlign: 'center',
     backgroundColor: '#f5f5f5',
   },
   currency: {
     height: 60,
     width: 60,
-    // borderColor: 'black',
-    // borderWidth: 1,
-    // borderRadius: 10,
     textAlign: 'center',
     textAlignVertical: 'center',
     position: 'absolute',
@@ -61,9 +57,7 @@ export default function EnterAmount({ enterAmount, changeAmount, enterConcept, c
         <Text style={EnterAmountStyles.title}>Concepto de ingreso</Text>
         <View style={EnterAmountStyles.enterAmount}>
           <TextInput
-            // placeholder="Cantidad"
             value={enterConcept}
-            // keyboardType="numeric"
             onChangeText={changeConcept}
             style={EnterAmountStyles.inputAmount}
           />
@@ -74,11 +68,11 @@ export default function EnterAmount({ enterAmount, changeAmount, enterConcept, c
         <Text style={EnterAmountStyles.title}>Ingresa Monto</Text>
         <View style={EnterAmountStyles.enterAmount}>
           <TextInput
-            // placeholder="Cantidad"
             value={enterAmount}
             keyboardType="numeric"
             onChangeText={changeAmount}
             style={EnterAmountStyles.inputAmount}
+            maxLength={17}
           />
           <Text style={EnterAmountStyles.currency}> USD </Text>
         </View>
@@ -88,7 +82,11 @@ export default function EnterAmount({ enterAmount, changeAmount, enterConcept, c
 }
 
 EnterAmount.propTypes = {
-  enterAmount: PropTypes.string.isRequired,
+  enterAmount: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+    PropTypes.any,
+  ]).isRequired,
   changeAmount: PropTypes.func.isRequired,
   enterConcept: PropTypes.string.isRequired,
   changeConcept: PropTypes.func.isRequired,

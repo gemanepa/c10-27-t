@@ -1,4 +1,6 @@
 import { View, TextInput, Text, StyleSheet } from 'react-native';
+import PropTypes from 'prop-types';
+
 
 const AnnotationsStyles = StyleSheet.create({
   container: {
@@ -8,32 +10,33 @@ const AnnotationsStyles = StyleSheet.create({
   },
   title: {
     textAlign: 'center',
-    fontSize: 20,
+    fontSize: 18,
   },
 
   inputAnnotation: {
-    // width: '80%',
     height: 60,
     borderWidth: 1,
     borderColor: 'black',
     borderRadius: 20,
-    // borderTopColor: '#f6f6f60f',
     textAlign: 'center',
   },
 });
 
-export default function Annotations() {
+export default function Annotations({ annotations, changeAnnotations }) {
   return (
     <View style={AnnotationsStyles.container}>
       <Text style={AnnotationsStyles.title}>Anotaciones</Text>
 
       <TextInput
-        // placeholder="Cantidad"
-        // value={enterAmount}
-        // keyboardType="numeric"
-        // onChangeText={changeAmount}
+        value={annotations}
+        onChangeText={changeAnnotations}
         style={AnnotationsStyles.inputAnnotation}
       />
     </View>
   );
+}
+
+Annotations.propTypes = {
+  annotations: PropTypes.string.isRequired,
+  changeAnnotations: PropTypes.func.isRequired,
 }

@@ -2,6 +2,8 @@
 import PropTypes from 'prop-types';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { useEffect } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import AddRevenue from '../components/AddTransaction/Tables/AddRevenue';
 import AddExpense from '../components/AddTransaction/Tables/AddExpense';
 import HealthIcon from '../assets/addTransactionIcons/BTN_SaludHealthIcon.png';
@@ -12,8 +14,13 @@ export default function AddTransaction({ navigation }) {
   useEffect(() => {
     navigation.setOptions({
       title: 'Añadir transacciones',
-      // headerTintColor: '#FFFFFF',
     });
+    const init = async () => {
+      await AsyncStorage.setItem('categorySelectExpense', JSON.stringify({ category: '' }));
+      await AsyncStorage.setItem('categorySelectRevenue', JSON.stringify({ category: '' }));
+    };
+
+    init()
   }, [navigation]);
 
   const listOfAccounts = [
@@ -33,23 +40,11 @@ export default function AddTransaction({ navigation }) {
     { id: 11, title: 'Transporte', image: HealthIcon },
     { id: 12, title: 'Comida', image: HealthIcon },
     { id: 13, title: 'Ocio', image: HealthIcon },
-    // { id: '8', title: 'Elemento 8', image: HealthIcon },
   ];
+  // { id: '8', title: 'Elemento 8', image: HealthIcon },
 
   return (
-    <Tab.Navigator
-      tabBarOptions={{
-        style: {
-          backgroundColor: '#FFFFFF', // establecer el color de fondo
-          elevation: 0, // quitar la sombra
-          // borderWidth: 0, // quitar el borde
-        },
-        // labelStyle: {
-        //   fontSize: 18, // establecer el tamaño de la letra
-        //   color: 'white', // establecer el color de la letra
-        // },
-      }}
-    >
+    <Tab.Navigator>
       <Tab.Screen name="Gastos">
         {() => (
           <AddExpense

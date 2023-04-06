@@ -1,13 +1,15 @@
 import { View, StyleSheet, ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
-import { Picker } from '@react-native-picker/picker';
+import { useEffect, useState } from 'react';
 import { Button } from 'react-native-paper';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import EnterAmount from '../components/EnterAmount';
 import Data from '../components/Data';
-import Categories from '../components/Categories';
+import CategoriesList from '../components/CategoriesList';
 import Annotations from '../components/Annotations';
+import Alert from '../components/Alert';
+
 
 // /////////// Styles
 const addSection = StyleSheet.create({
@@ -22,7 +24,6 @@ const SubmitStyle = StyleSheet.create({
   button: {
     marginHorizontal: '15%',
     backgroundColor: '#858282',
-    height: 60,
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
@@ -31,8 +32,8 @@ const SubmitStyle = StyleSheet.create({
 
 // //////////////// component Body /////////////////////
 
-export default function AddExpense({ listOfAccounts, itemsCategories }) {
-  const [enterAmount, setEnterAmount] = useState();
+export default function AddExpense({ navigation, listOfAccounts, itemsCategories }) {
+  const [enterAmount, setEnterAmount] = useState('');
   const [enterConcept, setEnterConcept] = useState('');
 
   const [date, setDate] = useState(new Date());
@@ -40,6 +41,10 @@ export default function AddExpense({ listOfAccounts, itemsCategories }) {
   const [selecdCategorie, setSelectedCategorie] = useState(1);
 
   const [selectAccount, setSelectedAccount] = useState('Principal');
+
+  const [annotations, setAnnotations] = useState('');
+
+  const [showAlertAddTransaction, setShowAlertAddTransaction] = useState(false);
 
   // Amount Functions
   const changeAmount = (value) => {
@@ -56,28 +61,56 @@ export default function AddExpense({ listOfAccounts, itemsCategories }) {
     setSelectedAccount(value);
   };
 
-  const renderPickerItems = (list2) => {
-    const prop = list2.map((item) => (
-      <Picker.Item key={item.id} label={item.title} value={item.id} />
-    ));
-
-    return prop;
-  };
-
   // Date features
   const changeDate = (param) => {
     setDate(param);
   };
 
   // Categories Features
-  const changeSelectedCategorie = (value) => {
+  const changeSelectedCategorie = async (value) => {
     if (selecdCategorie !== value) {
       setSelectedCategorie(value);
-      // Alert.alert('se a cambiado la Categoria', `Se cambio el id ${selecdCategorie} por ${value} `)
+      await AsyncStorage.setItem('categorySelectExpense', JSON.stringify({ category: value }));
     } else {
-      setSelectedCategorie(null);
+      setSelectedCategorie('');
+      await AsyncStorage.setItem('categorySelectExpense', JSON.stringify({ category: '' }));
     }
   };
+
+  // Annotations features
+  const changeAnnotations = (value) => {
+    setAnnotations(value);
+  };
+
+  // Submit
+  const storeData = async () => {
+    try {
+      const previusData = await AsyncStorage.getItem('userExpenses') || JSON.stringify([]);
+      const previusDataParse = JSON.parse(previusData);
+      const updatedExpensesData = [
+        ...previusDataParse,
+        {
+          type: 'string',
+          concept: enterConcept,
+          amount: enterAmount,
+          account: selectAccount,
+          date,
+          categorie: selecdCategorie,
+          annotations
+        }
+      ];
+      await AsyncStorage.setItem('userExpenses', JSON.stringify(updatedExpensesData));
+      setShowAlertAddTransaction(true);
+      setTimeout(() => {
+        navigation.goBack();
+      }, 3000);
+    } catch (error) {
+      console.log(error)
+    }
+  };
+
+
+
 
   return (
     <ScrollView style={addSection.container}>
@@ -95,21 +128,42 @@ export default function AddExpense({ listOfAccounts, itemsCategories }) {
             changeAccount,
             changeDate,
             date,
-            renderPickerItems,
             listOfAccounts,
           }}
         />
 
-        <Categories
-          params={{ selecdCategorie, changeSelectedCategorie, renderPickerItems, itemsCategories }}
+
+        <CategoriesList
+          params={{
+            selecdCategorie,
+            changeSelectedCategorie,
+            itemsCategories,
+            navigation,
+            nameTransaction: 'Expense'
+          }}
         />
 
-        <Annotations />
+        <Annotations annotations={annotations} changeAnnotations={changeAnnotations} />
 
-        <Button mode="contained" textAlignVertical="center" style={SubmitStyle.button}>
+        <Button
+          mode="contained"
+          labelStyle={{
+            width: '100%',
+            height: 40,
+            flexDirection: 'column',
+            textAlignVertical: 'center'
+          }}
+          style={SubmitStyle.button}
+          onPress={storeData}
+        >
           Añadir gasto
         </Button>
       </View>
+
+      {showAlertAddTransaction &&
+        <Alert title='¡Gasto añadido con éxito!' params={{ fontColor: '#0003' }} />
+      }
+
     </ScrollView>
   );
 }
@@ -123,7 +177,7 @@ AddExpense.propTypes = {
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       title: PropTypes.string.isRequired,
-    }).isRequired
+    })
   ).isRequired,
   itemsCategories: PropTypes.arrayOf(
     PropTypes.shape({
@@ -138,6 +192,7 @@ AddExpense.propTypes = {
           scale: PropTypes.number,
           resizeMode: PropTypes.oneOf(['cover', 'contain', 'stretch', 'repeat', 'center']),
         }),
+        PropTypes.any
       ]),
     })
   ).isRequired,

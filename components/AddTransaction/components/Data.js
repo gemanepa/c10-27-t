@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useRef, useState } from 'react';
 import { Button } from 'react-native-paper';
 import { Picker } from '@react-native-picker/picker';
-import RNDateTimePicker from '@react-native-community/datetimepicker';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment';
 import 'moment/locale/es';
 
@@ -11,7 +11,6 @@ const DataStyles = StyleSheet.create({
   parentContainer: {
     flexDirection: 'row',
     width: '100%',
-    // padding: 20,
     paddingHorizontal: 20,
     gap: 10,
   },
@@ -33,8 +32,7 @@ const DataStyles = StyleSheet.create({
 
 export default function Data({ params }) {
   // funtios params
-  const { selectAccount, changeAccount, changeDate, date, renderPickerItems, listOfAccounts } =
-    params;
+  const { selectAccount, changeAccount, changeDate, date, listOfAccounts } = params;
 
   //  Status
   const pickerRef = useRef();
@@ -49,13 +47,20 @@ export default function Data({ params }) {
   // }
 
   const changeDateAndStatusDate = (event, selectedDate) => {
-    if (event.type === 'neutralButtonPressed') {
-      changeDate(new Date(0));
-    } else {
-      changeDate(selectedDate);
-    }
+    const currentDate = selectedDate || date;
     setOpenDate(false);
+    changeDate(currentDate);
   };
+
+  const renderPickerItems = (list2) => {
+    const prop = list2.map((item) => (
+      <Picker.Item key={item.id} label={item.title} value={item.id} />
+    ));
+
+    return prop;
+  };
+
+  // const isIOS = Platform.OS === 'ios';
 
   return (
     <View style={DataStyles.parentContainer}>
@@ -66,7 +71,7 @@ export default function Data({ params }) {
           onPress={() => openList()}
           style={DataStyles.button}
           textColor="black"
-          labelStyle={{ fontSize: 20 }}
+          labelStyle={{ fontSize: 18 }}
         >
           Cuenta
         </Button>
@@ -89,7 +94,7 @@ export default function Data({ params }) {
           onPress={() => setOpenDate(true)}
           style={DataStyles.button}
           textColor="black"
-          labelStyle={{ fontSize: 20 }}
+          labelStyle={{ fontSize: 18 }}
         >
           Fecha
         </Button>
@@ -102,8 +107,10 @@ export default function Data({ params }) {
           {moment(date).locale('es').format('LL')}
         </Button>
         {openDate && (
-          <RNDateTimePicker
+
+          <DateTimePicker
             value={date}
+            mode='date'
             disabled={openDate}
             onChange={changeDateAndStatusDate}
             negativeButton={{ textColor: 'red' }}
@@ -117,11 +124,10 @@ export default function Data({ params }) {
 
 Data.propTypes = {
   params: PropTypes.shape({
-    selectAccount: PropTypes.func,
+    selectAccount: PropTypes.string,
     changeAccount: PropTypes.func,
     changeDate: PropTypes.func,
-    date: PropTypes.string,
-    renderPickerItems: PropTypes.func,
+    date: PropTypes.any,
     listOfAccounts: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,
