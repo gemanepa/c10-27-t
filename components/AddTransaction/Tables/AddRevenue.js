@@ -119,7 +119,7 @@ export default function AddRevenue({ navigation, listOfAccounts, itemsCategories
       const previousCurrencyAmountData = await AsyncStorage.getItem('userCurrency');
       const previousCurrencyAmountParsed = JSON.parse(previousCurrencyAmountData);
       const updatedCurrencyAmount =
-        Number(previousCurrencyAmountParsed.amount) - Number(enterAmount);
+        Number(previousCurrencyAmountParsed.amount) + Number(enterAmount);
       const userCurrency = {
         currency: previousCurrencyAmountParsed.currency,
         amount: updatedCurrencyAmount,
