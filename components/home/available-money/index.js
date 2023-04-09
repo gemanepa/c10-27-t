@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     margin: 16,
     right: 0,
-    borderRadius: '50%',
+    borderRadius: 50,
     bottom: -10,
   },
   moneySign: {
@@ -47,7 +47,7 @@ export default function UpperSection({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <View style={{ borderWidth: 2, borderColor: 'black', borderRadius: '50%' }}>
+      <View style={{ borderWidth: 2, borderColor: 'black', borderRadius: 50 }}>
         <MaterialIcons name="attach-money" size={24} color="black" />
       </View>
       <Text variant="titleSmall">- Disponible -</Text>
