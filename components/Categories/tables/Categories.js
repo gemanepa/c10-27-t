@@ -12,16 +12,35 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     gap: 40,
   },
+  categoryContainer: {
+    width: '100%',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    // justifyContent: 'space-evenly',
+  },
+  itemContainer: {
+    width: '0%'
+    // width: `${width < 400 ? '25%' : 0}`,
+  },
   item: {
     marginBottom: 10,
-    width: `${width < 400 ? '25%' : 76}`,
-    // width: 76,
+    // width: `${width < 400 ? '25%' : 76}`,
+    width: 76,
     height: 71,
     flexDirection: 'column',
     alignItems: 'center',
     position: 'relative',
     borderRadius: 10,
     gap: 4,
+  },
+  imageItemContainer: {
+    width: 48,
+    height: 48,
+    backgroundColor: '#d9d9d9',
+    borderRadius: 50,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   titleItems: {
     fontSize: 12,
@@ -33,69 +52,78 @@ const styles = StyleSheet.create({
 });
 
 export default function Categories({ navigation, route }) {
-  const { itemsCategories, nameSelectCategoryStorage } = route.params;
-  const [itemsCategoriesCopy, setItemsCategoriesCopy] = useState(itemsCategories);
+  // CategoryNameSelectedInStorage
+  const { listOfCategories, CategoryNameSelectedInStorage } = route.params;
+  const [itemsCategoriesCopy, setItemsCategoriesCopy] = useState(listOfCategories);
 
-  const [selecdCategorie, setSelecdCategorie] = useState('');
+  const [selecdCategorie, setSelecdCategorie] = useState({});
 
   useEffect(() => {
     const init = async () => {
       const previusData =
-        (await AsyncStorage.getItem(nameSelectCategoryStorage)) || JSON.stringify({ category: '' });
+        (await AsyncStorage.getItem(CategoryNameSelectedInStorage)) || JSON.stringify({ category: '' });
       const previusDataParse = JSON.parse(previusData);
       setSelecdCategorie(previusDataParse.category);
-      setItemsCategoriesCopy(itemsCategories);
+      setItemsCategoriesCopy(listOfCategories);
     };
     init();
-  }, [nameSelectCategoryStorage, itemsCategories]);
+  }, [CategoryNameSelectedInStorage, listOfCategories]);
 
   const changeSelectedCategorie = async (value) => {
-    if (selecdCategorie !== value) {
+    if (selecdCategorie.id !== value.id) {
       setSelecdCategorie(value);
       await AsyncStorage.setItem(
-        nameSelectCategoryStorage,
-        JSON.stringify({ type: 'string', category: value })
+        CategoryNameSelectedInStorage,
+        JSON.stringify({ type: 'Selected category', category: value })
       );
     } else {
-      setSelecdCategorie('');
       await AsyncStorage.setItem(
-        nameSelectCategoryStorage,
-        JSON.stringify({ type: 'string', category: '' })
+        CategoryNameSelectedInStorage,
+        JSON.stringify({ category: {}, type: 'empty category selection' })
       );
+      setSelecdCategorie({});
     }
+    navigation.goBack();
   };
 
   const renderCategoriesItems = () => {
     const items = itemsCategoriesCopy.map((item) => (
-      <View
-        style={{
-          ...styles.item,
-          backgroundColor: `${item.id === selecdCategorie ? '#d9d9d9' : 'transparent'}`,
-        }}
-        key={item.id}
-      >
-        <Image source={item.image} style={styles.image} />
-        <Text style={styles.titleItems} onPress={() => changeSelectedCategorie(item.id)}>
-          {item.title}
-        </Text>
-        <Button
-          mode="contained"
+      <View style={styles.itemContainer} key={item.id} >
+
+        <View
           style={{
-            position: 'absolute',
-            height: '100%',
-            width: '100%',
-            borderRadius: 10,
-            backgroundColor: 'transparent',
+            ...styles.item,
+            backgroundColor: `${item.id === selecdCategorie.id ? item.backgroundColor : 'transparent'}`,
           }}
-          labelStyle={{ width: '100%', paddingVertical: `${width < 400 ? '20%' : '30%'}` }}
-          onPress={() => changeSelectedCategorie(item.id)}
-          theme={{
-            colors: {
-              primary: 'transparent',
-              onPrimary: 'black',
-            },
-          }}
-        />
+
+        >
+          {/* <Image source={item.image} style={styles.image} /> */}
+          <View style={{ ...styles.imageItemContainer, backgroundColor: item.backgroundColor }} >
+            <item.image />
+          </View>
+          <Text style={styles.titleItems} >
+            {item.title}
+          </Text>
+          <Button
+            mode="contained"
+            style={{
+              position: 'absolute',
+              height: '100%',
+              width: '100%',
+              borderRadius: 10,
+              backgroundColor: 'transparent',
+            }}
+            labelStyle={{ width: '100%', paddingVertical: `${width < 400 ? '20%' : '30%'}` }}
+            onPress={() => changeSelectedCategorie(item)}
+            theme={{
+              colors: {
+                primary: 'transparent',
+                onPrimary: item.backgroundColor,
+              },
+            }}
+          />
+        </View>
+
       </View>
     ));
     return items;
@@ -109,18 +137,18 @@ export default function Categories({ navigation, route }) {
 
   useEffect(() => {
     const founSearchQuery = [];
-    for (let item = 0; item < itemsCategories.length; item += 1) {
-      const titleItems = itemsCategories[item].title;
+    for (let item = 0; item < listOfCategories.length; item += 1) {
+      const titleItems = listOfCategories[item].title;
       if (titleItems.toUpperCase().includes(searchQuery.toUpperCase()) && searchQuery !== '') {
-        founSearchQuery.push(itemsCategories[item]);
+        founSearchQuery.push(listOfCategories[item]);
       }
     }
     if (searchQuery !== '') {
       setItemsCategoriesCopy(founSearchQuery);
     } else {
-      setItemsCategoriesCopy(itemsCategories);
+      setItemsCategoriesCopy(listOfCategories);
     }
-  }, [searchQuery, itemsCategories]);
+  }, [searchQuery, listOfCategories]);
 
   return (
     <ScrollView>
@@ -131,12 +159,7 @@ export default function Categories({ navigation, route }) {
           style={{ paddingHorizontal: 10, marginHorizontal: 10, borderRadius: 10 }}
         />
         <View
-          style={{
-            width: '100%',
-            flexDirection: 'row',
-            flexWrap: 'wrap',
-            justifyContent: 'space-evenly',
-          }}
+          style={styles.categoryContainer}
         >
           {itemsCategoriesCopy && renderCategoriesItems()}
 
@@ -173,7 +196,7 @@ Categories.propTypes = {
   }).isRequired,
   route: PropTypes.shape({
     params: PropTypes.shape({
-      itemsCategories: PropTypes.arrayOf(
+      listOfCategories: PropTypes.arrayOf(
         PropTypes.shape({
           id: PropTypes.number.isRequired,
           title: PropTypes.string.isRequired,
@@ -187,10 +210,11 @@ Categories.propTypes = {
               resizeMode: PropTypes.oneOf(['cover', 'contain', 'stretch', 'repeat', 'center']),
             }),
             PropTypes.any,
+            PropTypes.func,
           ]),
         })
       ),
-      nameSelectCategoryStorage: PropTypes.string,
+      CategoryNameSelectedInStorage: PropTypes.string,
     }),
   }).isRequired,
 };
