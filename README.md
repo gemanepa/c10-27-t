@@ -49,9 +49,8 @@
 </ul>
 <h2 id="how-to-run">How to run</h2>
 <ul>
-<li><code>npm start</code> (or <code>npx expo start</code>) and then using your phone scan the QR code in your</li>
+<li><code>npm start</code> (or <code>npx expo start</code>) and then using your phone scan the QR code in your <a href="https://expo.dev/client">Expo Go application</a></li>
 </ul>
-<p><a href="https://expo.dev/client">Expo Go application</a></p>
 <ul>
 <li><p><code>npm run web</code> (to run web version directly)</p>
 </li>
