@@ -1,5 +1,7 @@
 import { View, TextInput, Text, StyleSheet } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import PropTypes from 'prop-types';
+import Mesh from '../../../assets/addTransactionIcons/GRAFICO.svg';
 
 const EnterAmountStyles = StyleSheet.create({
   container: {
@@ -11,55 +13,63 @@ const EnterAmountStyles = StyleSheet.create({
     borderBottomLeftRadius: 100,
     borderBottomRightRadius: 100,
     gap: 20,
+    overflow: 'hidden',
   },
   container_Amount_And_Concept: {
     width: '50%',
-    position: 'relative',
+    // position: 'relative',
     flexDirection: 'column',
     gap: 10,
   },
   enterAmount: {
     width: '100%',
+    height: 60,
     flexDirection: 'row',
-    alignContent: 'center',
-    justifyContent: 'center',
-    gap: 10,
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    position: 'relative',
   },
   title: {
     textAlign: 'center',
     fontSize: 18,
   },
-  inputAmount: {
+  inputConcept: {
     width: '100%',
-    height: 60,
+    height: '100%',
     borderColor: 'black',
     borderWidth: 1,
     borderRadius: 20,
-    paddingRight: 60,
+    textAlign: 'center',
+    backgroundColor: '#f5f5f5',
+  },
+  inputAmount: {
+    width: '100%',
+    height: '100%',
+    borderColor: 'black',
+    borderWidth: 1,
+    borderRadius: 20,
+    paddingRight: '20%',
     textAlign: 'center',
     backgroundColor: '#f5f5f5',
   },
   currency: {
-    height: 60,
-    width: 60,
-    textAlign: 'center',
-    textAlignVertical: 'center',
     position: 'absolute',
-    right: 0,
     fontSize: 20,
+    padding: 5,
   },
 });
 
 export default function EnterAmount({ enterAmount, changeAmount, enterConcept, changeConcept }) {
   return (
-    <View style={EnterAmountStyles.container}>
+    <LinearGradient colors={['#03B263', '#018f95']} style={EnterAmountStyles.container}>
+      <Mesh style={{ position: 'absolute', left: '-20%' }} width="200%" height="200%" />
       <View style={EnterAmountStyles.container_Amount_And_Concept}>
         <Text style={EnterAmountStyles.title}>Concepto de ingreso</Text>
         <View style={EnterAmountStyles.enterAmount}>
           <TextInput
             value={enterConcept}
             onChangeText={changeConcept}
-            style={EnterAmountStyles.inputAmount}
+            style={EnterAmountStyles.inputConcept}
           />
         </View>
       </View>
@@ -77,7 +87,7 @@ export default function EnterAmount({ enterAmount, changeAmount, enterConcept, c
           <Text style={EnterAmountStyles.currency}> USD </Text>
         </View>
       </View>
-    </View>
+    </LinearGradient>
   );
 }
 

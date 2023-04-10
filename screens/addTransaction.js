@@ -1,16 +1,20 @@
 // import { View, Text } from 'react-native';
 import PropTypes from 'prop-types';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import AddRevenue from '../components/AddTransaction/Tables/AddRevenue';
-import AddExpense from '../components/AddTransaction/Tables/AddExpense';
-import HealthIcon from '../assets/addTransactionIcons/BTN_SaludHealthIcon.png';
+import Transactions from '../components/AddTransaction/Tables/Transactions';
+import categoriesExport from '../assets/categories/categoriesExport';
 
 const Tab = createMaterialTopTabNavigator();
 
 export default function AddTransaction({ navigation }) {
+  const [listOfExpenditureCategories, setListOfExpenditureCategories] = useState(false);
+  const [listOfRevenueCategories, setListOfRevenueCategories] = useState(false);
+
+  const { ListOfExpenditureCategories, ListOfRevenueCategories } = categoriesExport();
+
   useEffect(() => {
     navigation.setOptions({
       title: 'Añadir transacciones',
@@ -18,10 +22,12 @@ export default function AddTransaction({ navigation }) {
     const init = async () => {
       await AsyncStorage.setItem('categorySelectExpense', JSON.stringify({ category: '' }));
       await AsyncStorage.setItem('categorySelectRevenue', JSON.stringify({ category: '' }));
+      await setListOfRevenueCategories(ListOfRevenueCategories);
+      await setListOfExpenditureCategories(ListOfExpenditureCategories);
     };
 
     init();
-  }, [navigation]);
+  }, [navigation, ListOfExpenditureCategories, ListOfRevenueCategories]);
 
   const listOfAccounts = [
     { id: 1, title: 'Principal' },
@@ -32,34 +38,46 @@ export default function AddTransaction({ navigation }) {
     { id: 6, title: 'Opción 6' },
   ];
 
-  const itemsCategories = [
-    { id: 1, title: 'Salud', image: HealthIcon },
-    { id: 2, title: 'Higiene', image: HealthIcon },
-    { id: 3, title: 'Educacion', image: HealthIcon },
-    { id: 4, title: 'Hogar', image: HealthIcon },
-    { id: 5, title: 'Transporte', image: HealthIcon },
-    { id: 6, title: 'Comida', image: HealthIcon },
-    { id: 7, title: 'Ocio', image: HealthIcon },
-  ];
-  // { id: '8', title: 'Elemento 8', image: HealthIcon },
-
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      screenOptions={{
+        tabBarLabelStyle: { fontSize: 20, textTransform: 'capitalize' },
+        tabBarIndicatorStyle: {
+          backgroundColor: '#FA6C17',
+          paddingHorizontal: 20,
+        },
+      }}
+    >
       <Tab.Screen name="Gastos">
         {() => (
-          <AddExpense
-            listOfAccounts={listOfAccounts}
-            itemsCategories={itemsCategories}
+          <Transactions
             navigation={navigation}
+            params={{
+              listOfAccounts,
+              listOfCategories: listOfExpenditureCategories,
+              information: {
+                name: 'Expenses',
+                buttonSubmitText: 'Añadir gasto',
+                alertText: '¡Gasto añadido con éxito!',
+              },
+            }}
           />
         )}
       </Tab.Screen>
+
       <Tab.Screen name="Ingresos">
         {() => (
-          <AddRevenue
-            listOfAccounts={listOfAccounts}
-            itemsCategories={itemsCategories}
+          <Transactions
             navigation={navigation}
+            params={{
+              listOfAccounts,
+              listOfCategories: listOfRevenueCategories,
+              information: {
+                name: 'Revenues',
+                buttonSubmitText: 'Añadir Ingreso',
+                alertText: '¡Ingreso añadido con éxito!',
+              },
+            }}
           />
         )}
       </Tab.Screen>

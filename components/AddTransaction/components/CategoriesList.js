@@ -1,12 +1,14 @@
-import { View, Text, Image, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { Button } from 'react-native-paper';
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import PlusIcon from '../../../assets/categories/icons/PlusIcon.svg';
+
 const { width } = Dimensions.get('window');
 
-const CategoriesStyles = StyleSheet.create({
+const CategoriesListStyles = StyleSheet.create({
   container: {
     paddingHorizontal: 20,
     flexDirection: 'column',
@@ -26,6 +28,14 @@ const CategoriesStyles = StyleSheet.create({
     borderRadius: 10,
     gap: 4,
   },
+  imageItemContainer: {
+    width: 48,
+    height: 48,
+    borderRadius: 50,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   imageItem: {
     width: 48,
     height: 48,
@@ -38,49 +48,65 @@ const CategoriesStyles = StyleSheet.create({
     height: '100%',
     width: '100%',
     borderRadius: 10,
+    // backgroundColor: 'transparent',
   },
   buttonItemLabel: {
     width: '100%',
     paddingVertical: `${width < 400 ? '20%' : '30%'}`,
   },
   buttonItemTheme: {
-    colors: {
-      primary: 'transparent',
-      onPrimary: 'black',
-    },
+    primary: 'transparent',
+    // onPrimary: 'black',
   },
 });
 
 export default function CategoriesList({ params }) {
-  const { navigation, changeSelectedCategory, itemsCategories, selectedCategory, nameTransaction } =
-    params;
+  const {
+    navigation,
+    changeSelectedCategorie,
+    listOfCategories,
+    selectedCategory,
+    nameTransaction,
+  } = params;
 
-  const [itemsCategoriesCopy, setItemsCategoriesCopy] = useState([
-    itemsCategories[0],
-    itemsCategories[1],
-    itemsCategories[2],
-  ]);
-
+  const [itemsCategoriesCopy, setItemsCategoriesCopy] = useState(false);
   // /////// Features
+
+  useEffect(() => {
+    if (listOfCategories[0] && listOfCategories !== []) {
+      setItemsCategoriesCopy([listOfCategories[0], listOfCategories[1], listOfCategories[2]]);
+    }
+  }, [listOfCategories]);
+
   const renderCategoriesItems = () => {
     const items = itemsCategoriesCopy.map((item) => (
       <View
         style={{
-          ...CategoriesStyles.item,
-          backgroundColor: `${item.id === selectedCategory ? '#d9d9d9' : 'transparent'}`,
+          ...CategoriesListStyles.item,
+          backgroundColor: `${
+            item.id === selectedCategory.id ? item.backgroundColor : 'transparent'
+          }`,
         }}
         key={item.id}
       >
-        <Image source={item.image} style={CategoriesStyles.imageItem} />
-        <Text style={CategoriesStyles.titleItems} onPress={() => changeSelectedCategory(item.id)}>
-          {item.title}
-        </Text>
+        {/* <Image source={item.image} style={CategoriesListStyles.imageItem} /> */}
+        <View
+          style={{
+            ...CategoriesListStyles.imageItemContainer,
+            backgroundColor: item.backgroundColor,
+          }}
+        >
+          <item.image />
+        </View>
+        <Text style={CategoriesListStyles.titleItems}>{item.title}</Text>
         <Button
           mode="contained"
-          style={CategoriesStyles.buttonItem}
-          labelStyle={CategoriesStyles.buttonItemLabel}
-          onPress={() => changeSelectedCategory(item.id)}
-          theme={CategoriesStyles.buttonItemTheme}
+          style={CategoriesListStyles.buttonItem}
+          labelStyle={CategoriesListStyles.buttonItemLabel}
+          onPress={() => changeSelectedCategorie(item)}
+          theme={{
+            colors: { ...CategoriesListStyles.buttonItemTheme, onPrimary: item.backgroundColor },
+          }}
         />
       </View>
     ));
@@ -88,44 +114,53 @@ export default function CategoriesList({ params }) {
   };
 
   //  Check if the category was changed
-  const [count, setCount] = useState(0);
+  // const [count, setCount] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(async () => {
-      const previusData =
+      const previousData =
         (await AsyncStorage.getItem(`categorySelect${nameTransaction}`)) ||
         JSON.stringify({ category: '' });
-      const previusDataParse = JSON.parse(previusData);
-      if (selectedCategory !== previusDataParse.category && previusDataParse.type) {
+      const previousDataParse = JSON.parse(previousData);
+      if (
+        selectedCategory.id !== previousDataParse.category.id &&
+        previousDataParse.type === 'Selected category'
+      ) {
         const changeListCategories = itemsCategoriesCopy.filter(
-          (value) => value.id !== previusDataParse.category
+          (value) => value.id !== previousDataParse.category.id
         );
-        changeSelectedCategory(previusDataParse.category);
+
+        changeSelectedCategorie(previousDataParse.category);
+
         if (changeListCategories.length === 3) {
           changeListCategories.pop();
         }
-        const FoundCategory = itemsCategories.filter((iem) => iem.id === previusDataParse.category);
+
+        const FoundCategory = listOfCategories.filter(
+          (iem) => iem.id === previousDataParse.category.id
+        );
         changeListCategories.unshift(...FoundCategory);
         setItemsCategoriesCopy([...changeListCategories]);
+      } else if (previousDataParse.type === 'empty category selection') {
+        changeSelectedCategorie({});
       }
       // setCount(count + 1);
     }, 1000);
-
     return () => clearInterval(interval);
   }, [
-    count,
+    // count,
     selectedCategory,
     nameTransaction,
-    changeSelectedCategory,
+    changeSelectedCategorie,
     itemsCategoriesCopy,
-    itemsCategories,
+    listOfCategories,
   ]);
 
   return (
-    <View style={CategoriesStyles.container}>
+    <View style={CategoriesListStyles.container}>
       <Button
         mode="contained"
-        style={CategoriesStyles.buttonTitle}
+        style={CategoriesListStyles.buttonTitle}
         textColor="black"
         labelStyle={{ fontSize: 20 }}
       >
@@ -133,29 +168,28 @@ export default function CategoriesList({ params }) {
       </Button>
 
       <View style={{ width: '100%', flexDirection: 'row', flexWrap: 'wrap' }}>
-        {renderCategoriesItems()}
+        {itemsCategoriesCopy && renderCategoriesItems()}
 
-        <View style={CategoriesStyles.item}>
-          <Image
-            source={require('../../../assets/addTransactionIcons/Add.png')}
-            style={{ width: 50, height: 50 }}
-          />
-          <Text style={CategoriesStyles.titleItems}>Mas</Text>
-
+        <View style={CategoriesListStyles.item}>
+          <View style={{ ...CategoriesListStyles.imageItemContainer, backgroundColor: '#FA6C17' }}>
+            <PlusIcon />
+          </View>
+          <Text style={CategoriesListStyles.titleItems}>Mas</Text>
           <Button
             mode="contained"
             style={{ position: 'absolute', height: '100%', width: '100%', borderRadius: 10 }}
             labelStyle={{ width: '100%', paddingVertical: '30%' }}
             onPress={() =>
-              navigation.navigate('Categories', {
-                itemsCategories,
-                nameSelectCategoryStorage: `categorySelect${nameTransaction}`,
+              !selectedCategory.id &&
+              navigation.navigate('AddCategory', {
+                listOfCategories,
+                CategoryNameSelectedInStorage: `categorySelect${nameTransaction}`,
               })
             }
             theme={{
               colors: {
                 primary: 'transparent',
-                onPrimary: 'black',
+                onPrimary: '#FA6C17',
               },
             }}
           />
@@ -172,8 +206,8 @@ CategoriesList.propTypes = {
       goBack: PropTypes.func.isRequired,
       setOptions: PropTypes.func.isRequired,
     }).isRequired,
-    changeSelectedCategory: PropTypes.func,
-    itemsCategories: PropTypes.arrayOf(
+    changeSelectedCategorie: PropTypes.func,
+    listOfCategories: PropTypes.oneOfType([
       PropTypes.shape({
         id: PropTypes.number.isRequired,
         title: PropTypes.string.isRequired,
@@ -188,8 +222,10 @@ CategoriesList.propTypes = {
           }),
           PropTypes.any,
         ]).isRequired,
-      }).isRequired
-    ).isRequired,
+      }).isRequired,
+      PropTypes.bool,
+      PropTypes.any,
+    ]).isRequired,
     selectedCategory: PropTypes.oneOfType([PropTypes.any, PropTypes.number]),
     nameTransaction: PropTypes.string,
   }).isRequired,
