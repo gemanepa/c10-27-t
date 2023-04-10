@@ -125,7 +125,8 @@ export default function Transactions({ navigation, params }) {
       if (information.mathematicalSymbol === '+') {
         updatedCurrencyAmount =
           Number(previousCurrencyAmountParsed.amount) + Number(enterAmount);
-      } else {
+      }
+      if (information.mathematicalSymbol === '-') {
         updatedCurrencyAmount =
           Number(previousCurrencyAmountParsed.amount) - Number(enterAmount);
       }

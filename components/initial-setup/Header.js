@@ -1,5 +1,5 @@
 import { Image, Text, View, StyleSheet } from 'react-native';
-import icon from '../../assets/snack-icon.png';
+import icon from '../../assets/LOGO_APP.png';
 
 const styles = StyleSheet.create({
   headerContainer: {
@@ -15,8 +15,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   logo: {
-    height: 64,
-    width: 64,
+    height: 100,
+    width: 100,
     marginBottom: 20,
   },
 });

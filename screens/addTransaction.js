@@ -39,9 +39,6 @@ export default function AddTransaction({ navigation }) {
     { id: 6, title: 'Opción 6' },
   ];
 
-
-
-
   return (
     <Tab.Navigator
       screenOptions={{
@@ -62,7 +59,7 @@ export default function AddTransaction({ navigation }) {
               listOfAccounts,
               listOfCategories: listOfExpenditureCategories,
               information: {
-                name: 'Expense',
+                name: 'Expenses',
                 buttonSubmitText: 'Añadir gasto',
                 mathematicalSymbol: '-',
                 alertText: "¡Gasto añadido con éxito!"
@@ -80,7 +77,7 @@ export default function AddTransaction({ navigation }) {
               listOfAccounts,
               listOfCategories: listOfRevenueCategories,
               information: {
-                name: 'Revenue',
+                name: 'Revenues',
                 buttonSubmitText: 'Añadir Ingreso',
                 mathematicalSymbol: '+',
                 alertText: "¡Ingreso añadido con éxito!"

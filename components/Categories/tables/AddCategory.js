@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function Categories({ navigation, route }) {
+export default function AddCategory({ navigation, route }) {
   // CategoryNameSelectedInStorage
   const { listOfCategories, CategoryNameSelectedInStorage } = route.params;
   const [itemsCategoriesCopy, setItemsCategoriesCopy] = useState(listOfCategories);
@@ -189,7 +189,7 @@ export default function Categories({ navigation, route }) {
   );
 }
 
-Categories.propTypes = {
+AddCategory.propTypes = {
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
     goBack: PropTypes.func.isRequired,
