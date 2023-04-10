@@ -1,6 +1,7 @@
 # Cash Control
 
 ![](https://i.imgur.com/t0eGqvq.png)
+
 Android + iOS mobile application for controlling and monitoring of daily expenses and revenues
 
 ## Team Members
