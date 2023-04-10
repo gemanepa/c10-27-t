@@ -1,6 +1,6 @@
-import { ScrollView, View, StyleSheet, } from 'react-native';
+import { ScrollView, View, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Button } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -36,6 +36,9 @@ const SubmitStyle = StyleSheet.create({
 
 export default function Transactions({ navigation, params }) {
   const { listOfAccounts, listOfCategories, information } = params;
+  const { name } = information;
+
+  const isExpense = name === 'Expenses';
 
   const [enterAmount, setEnterAmount] = useState('');
   const [enterConcept, setEnterConcept] = useState('');
@@ -50,7 +53,7 @@ export default function Transactions({ navigation, params }) {
 
   const [showAlertAddTransaction, setShowAlertAddTransaction] = useState(false);
 
-  const isAllFull = (!enterAmount || !enterConcept || !selectAccount || !selectedCategory.id) ? false : true;
+  const isAllFull = enterAmount && enterConcept && selectAccount && selectedCategory.id;
 
   // Amount Functions
   const changeAmount = (value) => {
@@ -75,10 +78,16 @@ export default function Transactions({ navigation, params }) {
   const changeSelectedCategorie = async (value) => {
     if (selectedCategory.id !== value.id) {
       setSelectedCategory(value);
-      await AsyncStorage.setItem(`categorySelect${information.name}`, JSON.stringify({ category: value }));
+      await AsyncStorage.setItem(
+        `categorySelect${information.name}`,
+        JSON.stringify({ category: value })
+      );
     } else {
       setSelectedCategory({});
-      await AsyncStorage.setItem(`categorySelect${information.name}`, JSON.stringify({ category: {} }));
+      await AsyncStorage.setItem(
+        `categorySelect${information.name}`,
+        JSON.stringify({ category: {} })
+      );
     }
   };
 
@@ -87,19 +96,14 @@ export default function Transactions({ navigation, params }) {
     setAnnotations(value);
   };
 
-  // Alert features
-  // const changeShowAlertAddTransaction = () => {
-  //   setShowAlertAddTransaction(false);
-  // }
-
   // Submit
-  const StoreTransactionData = async () => {
+  const storeTransactionData = async () => {
     if (!enterAmount || !enterConcept || !selectAccount || !selectedCategory.id) {
       return;
     }
-    const createUpdatedExpensesData = (previusDataParsed) => {
-      const updatedExpense = {
-        type: 'income',
+    const createUpdatedUserTransactions = (previousDataParsed) => {
+      const updatedTransaction = {
+        type: isExpense ? 'expense' : 'income',
         concept: enterConcept,
         amount: enterAmount,
         account: selectAccount,
@@ -108,35 +112,30 @@ export default function Transactions({ navigation, params }) {
         annotations,
       };
 
-      return [updatedExpense, ...previusDataParsed];
+      return [updatedTransaction, ...previousDataParsed];
     };
 
-    const updateUserExpenses = async () => {
-      const previusData = (await AsyncStorage.getItem(`user${information.name}`)) || JSON.stringify([]);
-      const previusDataParsed = JSON.parse(previusData);
-      const updatedExpensesData = createUpdatedExpensesData(previusDataParsed);
-      await AsyncStorage.setItem(`user${information.name}`, JSON.stringify(updatedExpensesData));
+    const updateUserTransactions = async () => {
+      const previousData = (await AsyncStorage.getItem('userTransactions')) || JSON.stringify([]);
+      const previousDataParsed = JSON.parse(previousData);
+      const updatedTransactionsData = createUpdatedUserTransactions(previousDataParsed);
+      await AsyncStorage.setItem('userTransactions', JSON.stringify(updatedTransactionsData));
     };
 
     const updateUserCurrency = async () => {
-      const previousCurrencyAmountData = await AsyncStorage.getItem('userCurrency');
-      const previousCurrencyAmountParsed = JSON.parse(previousCurrencyAmountData);
-      let updatedCurrencyAmount = Number(previousCurrencyAmountParsed.amount)
+      try {
+        const previousCurrencyAmountData = await AsyncStorage.getItem('userCurrency');
+        const previousCurrencyAmountParsed = JSON.parse(previousCurrencyAmountData);
+        const { amount, currency } = previousCurrencyAmountParsed;
+        const updatedCurrencyAmount = isExpense
+          ? amount - Number(enterAmount)
+          : amount + Number(enterAmount);
 
-      if (information.mathematicalSymbol === '+') {
-        updatedCurrencyAmount =
-          Number(previousCurrencyAmountParsed.amount) + Number(enterAmount);
+        const userCurrency = { currency, amount: updatedCurrencyAmount };
+        await AsyncStorage.setItem('userCurrency', JSON.stringify(userCurrency));
+      } catch (error) {
+        console.error(error); // eslint-disable-line no-console
       }
-      if (information.mathematicalSymbol === '-') {
-        updatedCurrencyAmount =
-          Number(previousCurrencyAmountParsed.amount) - Number(enterAmount);
-      }
-
-      const userCurrency = {
-        currency: previousCurrencyAmountParsed.currency,
-        amount: updatedCurrencyAmount,
-      };
-      await AsyncStorage.setItem('userCurrency', JSON.stringify(userCurrency));
     };
 
     const navigateBack = () => {
@@ -144,12 +143,12 @@ export default function Transactions({ navigation, params }) {
     };
 
     try {
-      await updateUserExpenses();
+      await updateUserTransactions();
       await updateUserCurrency();
       setShowAlertAddTransaction(true);
       setTimeout(navigateBack, 1500);
     } catch (error) {
-      console.log(error); // eslint-disable-line no-console
+      console.error(error); // eslint-disable-line no-console
     }
   };
 
@@ -173,8 +172,7 @@ export default function Transactions({ navigation, params }) {
           }}
         />
 
-        {listOfCategories &&
-
+        {listOfCategories && (
           <CategoriesList
             params={{
               navigation,
@@ -184,8 +182,7 @@ export default function Transactions({ navigation, params }) {
               nameTransaction: information.name,
             }}
           />
-
-        }
+        )}
 
         <Annotations annotations={annotations} changeAnnotations={changeAnnotations} />
 
@@ -193,7 +190,8 @@ export default function Transactions({ navigation, params }) {
           mode="contained"
           textAlignVertical="center"
           style={SubmitStyle.button}
-          onPress={() => isAllFull && StoreTransactionData()}
+          onPress={() => isAllFull && storeTransactionData()}
+          disabled={!isAllFull}
           labelStyle={{
             width: '100%',
             height: 40,
@@ -202,11 +200,8 @@ export default function Transactions({ navigation, params }) {
           }}
           theme={{
             colors: {
-              primary: `${isAllFull ?
-                '#FA6C17' :
-                '#FEEBE0'
-                }`
-            }
+              primary: isAllFull ? '#FA6C17' : '#FEEBE0',
+            },
           }}
         >
           {information.buttonSubmitText}
@@ -256,7 +251,6 @@ Transactions.propTypes = {
       buttonSubmitText: PropTypes.string,
       mathematicalSymbol: PropTypes.string,
       alertText: PropTypes.string,
-    })
-
-  }).isRequired
+    }),
+  }).isRequired,
 };

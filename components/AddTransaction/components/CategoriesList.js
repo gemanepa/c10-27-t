@@ -34,7 +34,7 @@ const CategoriesListStyles = StyleSheet.create({
     borderRadius: 50,
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   imageItem: {
     width: 48,
@@ -61,44 +61,52 @@ const CategoriesListStyles = StyleSheet.create({
 });
 
 export default function CategoriesList({ params }) {
-  const { navigation, changeSelectedCategorie, listOfCategories, selectedCategory, nameTransaction } =
-    params;
-
+  const {
+    navigation,
+    changeSelectedCategorie,
+    listOfCategories,
+    selectedCategory,
+    nameTransaction,
+  } = params;
 
   const [itemsCategoriesCopy, setItemsCategoriesCopy] = useState(false);
   // /////// Features
 
-
-
   useEffect(() => {
     if (listOfCategories[0] && listOfCategories !== []) {
       setItemsCategoriesCopy([listOfCategories[0], listOfCategories[1], listOfCategories[2]]);
-    };
+    }
   }, [listOfCategories]);
-
 
   const renderCategoriesItems = () => {
     const items = itemsCategoriesCopy.map((item) => (
       <View
         style={{
           ...CategoriesListStyles.item,
-          backgroundColor: `${item.id === selectedCategory.id ? item.backgroundColor : 'transparent'}`,
+          backgroundColor: `${
+            item.id === selectedCategory.id ? item.backgroundColor : 'transparent'
+          }`,
         }}
         key={item.id}
       >
         {/* <Image source={item.image} style={CategoriesListStyles.imageItem} /> */}
-        <View style={{ ...CategoriesListStyles.imageItemContainer, backgroundColor: item.backgroundColor }} >
+        <View
+          style={{
+            ...CategoriesListStyles.imageItemContainer,
+            backgroundColor: item.backgroundColor,
+          }}
+        >
           <item.image />
         </View>
-        <Text style={CategoriesListStyles.titleItems} >
-          {item.title}
-        </Text>
+        <Text style={CategoriesListStyles.titleItems}>{item.title}</Text>
         <Button
           mode="contained"
           style={CategoriesListStyles.buttonItem}
           labelStyle={CategoriesListStyles.buttonItemLabel}
           onPress={() => changeSelectedCategorie(item)}
-          theme={{ colors: { ...CategoriesListStyles.buttonItemTheme, onPrimary: item.backgroundColor } }}
+          theme={{
+            colors: { ...CategoriesListStyles.buttonItemTheme, onPrimary: item.backgroundColor },
+          }}
         />
       </View>
     ));
@@ -110,28 +118,31 @@ export default function CategoriesList({ params }) {
 
   useEffect(() => {
     const interval = setInterval(async () => {
-      const previusData =
+      const previousData =
         (await AsyncStorage.getItem(`categorySelect${nameTransaction}`)) ||
         JSON.stringify({ category: '' });
-      const previusDataParse = JSON.parse(previusData);
-      if (selectedCategory.id !== previusDataParse.category.id && previusDataParse.type === 'Selected category') {
-
+      const previousDataParse = JSON.parse(previousData);
+      if (
+        selectedCategory.id !== previousDataParse.category.id &&
+        previousDataParse.type === 'Selected category'
+      ) {
         const changeListCategories = itemsCategoriesCopy.filter(
-          (value) => value.id !== previusDataParse.category.id
+          (value) => value.id !== previousDataParse.category.id
         );
 
-        changeSelectedCategorie(previusDataParse.category);
+        changeSelectedCategorie(previousDataParse.category);
 
         if (changeListCategories.length === 3) {
           changeListCategories.pop();
         }
 
-        const FoundCategory = listOfCategories.filter((iem) => iem.id === previusDataParse.category.id);
+        const FoundCategory = listOfCategories.filter(
+          (iem) => iem.id === previousDataParse.category.id
+        );
         changeListCategories.unshift(...FoundCategory);
         setItemsCategoriesCopy([...changeListCategories]);
-
-      } else if (previusDataParse.type === 'empty category selection') {
-        changeSelectedCategorie({})
+      } else if (previousDataParse.type === 'empty category selection') {
+        changeSelectedCategorie({});
       }
       // setCount(count + 1);
     }, 1000);
@@ -157,12 +168,10 @@ export default function CategoriesList({ params }) {
       </Button>
 
       <View style={{ width: '100%', flexDirection: 'row', flexWrap: 'wrap' }}>
-        {itemsCategoriesCopy &&
-          renderCategoriesItems()
-        }
+        {itemsCategoriesCopy && renderCategoriesItems()}
 
         <View style={CategoriesListStyles.item}>
-          <View style={{ ...CategoriesListStyles.imageItemContainer, backgroundColor: '#FA6C17' }} >
+          <View style={{ ...CategoriesListStyles.imageItemContainer, backgroundColor: '#FA6C17' }}>
             <PlusIcon />
           </View>
           <Text style={CategoriesListStyles.titleItems}>Mas</Text>
@@ -170,7 +179,8 @@ export default function CategoriesList({ params }) {
             mode="contained"
             style={{ position: 'absolute', height: '100%', width: '100%', borderRadius: 10 }}
             labelStyle={{ width: '100%', paddingVertical: '30%' }}
-            onPress={() => !selectedCategory.id &&
+            onPress={() =>
+              !selectedCategory.id &&
               navigation.navigate('AddCategory', {
                 listOfCategories,
                 CategoryNameSelectedInStorage: `categorySelect${nameTransaction}`,

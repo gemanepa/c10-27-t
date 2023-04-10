@@ -58,8 +58,8 @@ function ButtonGroup({ route }) {
       const storagedCurrencyData = await getAsyncStorageData('userCurrency');
       const { currency } = storagedCurrencyData;
 
-      const getExpensesData = async () => {
-        const parsed = (await getAsyncStorageData('userExpenses')) || [];
+      const getTransactionsData = async () => {
+        const parsed = (await getAsyncStorageData('userTransactions')) || [];
         const mapped = parsed
           .map((element) => ({
             key: element.category + element.amount + element.date,
@@ -72,9 +72,9 @@ function ButtonGroup({ route }) {
         return mapped;
       };
 
-      const expensesData = await getExpensesData();
+      const transactionsData = await getTransactionsData();
 
-      const newTableData = [...expensesData, ...tablesMockData[tabType]].sort(
+      const newTableData = [...transactionsData, ...tablesMockData[tabType]].sort(
         (a, b) => b.date - a.date
       );
 

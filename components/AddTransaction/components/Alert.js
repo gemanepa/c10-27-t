@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { View, StyleSheet, Text, Dimensions, Modal, Animated } from 'react-native';
 import { Button } from 'react-native-paper';
 import PropTypes from 'prop-types';
-import Aviso from '../../../assets/addTransactionIcons/Aviso.svg'
+import Aviso from '../../../assets/addTransactionIcons/Aviso.svg';
 
 const { width, height } = Dimensions.get('window');
 

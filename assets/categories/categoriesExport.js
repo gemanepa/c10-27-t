@@ -20,11 +20,8 @@ import OtherIcon from './icons/OtherIcon.svg';
 import BusinessIcon from './icons/BusinessIcon.svg';
 
 export default function CategoriesExport() {
-
   const [ListOfExpenditureCategories, setListOfExpenditureCategories] = useState(false);
   const [ListOfRevenueCategories, setListOfRevenueCategories] = useState(false);
-
-
 
   useEffect(() => {
     const listOfExpenditureCategories = [
@@ -38,8 +35,8 @@ export default function CategoriesExport() {
       { title: 'Regalos', id: 8, image: GiftIcon, backgroundColor: '#01B496' },
       { title: 'Rutina', id: 9, image: GymIcon, backgroundColor: '#EFB841' },
       { title: 'Familia', id: 10, image: FamilyIcon, backgroundColor: '#01B496' },
-    ]
-    setListOfExpenditureCategories(listOfExpenditureCategories)
+    ];
+    setListOfExpenditureCategories(listOfExpenditureCategories);
 
     const listOfRevenueCategories = [
       { title: 'Salario', id: 1, image: SalaryIcon, backgroundColor: '#EFB841' },
@@ -47,37 +44,52 @@ export default function CategoriesExport() {
       { title: 'Regalo', id: 3, image: GiftIcon, backgroundColor: '#01B496' },
       { title: 'Otros', id: 4, image: OtherIcon, backgroundColor: '#03B263' },
       { title: 'Negocio', id: 5, image: BusinessIcon, backgroundColor: '#03B263' },
-    ]
-    setListOfRevenueCategories(listOfRevenueCategories)
-
+    ];
+    setListOfRevenueCategories(listOfRevenueCategories);
   }, []);
 
   const checkListOfExpenditureCategoriesInStorage = async () => {
     try {
-      const listOfExpenditureCategoriesInStorage = await AsyncStorage.getItem('ListOfExpenditureCategories') || JSON.stringify([]);
-      const listOfExpenditureCategoriesInStorageParse = JSON.parse(listOfExpenditureCategoriesInStorage);
+      const listOfExpenditureCategoriesInStorage =
+        (await AsyncStorage.getItem('ListOfExpenditureCategories')) || JSON.stringify([]);
+      const listOfExpenditureCategoriesInStorageParse = JSON.parse(
+        listOfExpenditureCategoriesInStorage
+      );
       if (listOfExpenditureCategoriesInStorageParse === []) {
         return ListOfExpenditureCategories;
-      };
+      }
       return listOfExpenditureCategoriesInStorageParse;
     } catch (error) {
-      return Alert.alert('Advertencia', 'Hay un problema al querer obtener la lista de categorías ');
-    };
+      return Alert.alert(
+        'Advertencia',
+        'Hay un problema al querer obtener la lista de categorías '
+      );
+    }
   };
 
   const checkListOfRevenueCategoriesInStorage = async () => {
     try {
-      const listOfExpenditureCategoriesInStorage = await AsyncStorage.getItem('ListOfExpenditureCategories') || JSON.stringify([]);
-      const listOfExpenditureCategoriesInStorageParse = JSON.parse(listOfExpenditureCategoriesInStorage);
+      const listOfExpenditureCategoriesInStorage =
+        (await AsyncStorage.getItem('ListOfExpenditureCategories')) || JSON.stringify([]);
+      const listOfExpenditureCategoriesInStorageParse = JSON.parse(
+        listOfExpenditureCategoriesInStorage
+      );
       if (listOfExpenditureCategoriesInStorageParse === []) {
         return ListOfExpenditureCategories;
-      };
+      }
       return listOfExpenditureCategoriesInStorageParse;
     } catch (error) {
-      return Alert.alert('Advertencia', 'Hay un problema al querer obtener la lista de categorías ');
-    };
+      return Alert.alert(
+        'Advertencia',
+        'Hay un problema al querer obtener la lista de categorías '
+      );
+    }
   };
 
-  return { ListOfExpenditureCategories, checkListOfExpenditureCategoriesInStorage, ListOfRevenueCategories, checkListOfRevenueCategoriesInStorage }
-};
-
+  return {
+    ListOfExpenditureCategories,
+    checkListOfExpenditureCategoriesInStorage,
+    ListOfRevenueCategories,
+    checkListOfRevenueCategoriesInStorage,
+  };
+}

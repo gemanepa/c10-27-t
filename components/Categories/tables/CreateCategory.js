@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import { View, StyleSheet, TextInput, Text } from 'react-native';
 
 const CreateCategoryStyles = StyleSheet.create({
@@ -8,14 +8,14 @@ const CreateCategoryStyles = StyleSheet.create({
     gap: 40,
     paddingVertical: 40,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   containerCategoryName: {
     width: '100%',
     flexDirection: 'column',
     gap: 10,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   inputCategoryName: {
     width: '100%',
@@ -33,15 +33,14 @@ const CreateCategoryStyles = StyleSheet.create({
   },
 });
 export default function CreateCategory() {
-
   const [categoryName, setCategoryName] = useState('');
   const changeCategoryName = (value) => {
-    setCategoryName(value)
-  }
+    setCategoryName(value);
+  };
   return (
     <View style={CreateCategoryStyles.parentContainer}>
-      <View style={CreateCategoryStyles.containerCategoryName} >
-        <Text style={{ fontSize: 18 }} >Nombre de categoría</Text>
+      <View style={CreateCategoryStyles.containerCategoryName}>
+        <Text style={{ fontSize: 18 }}>Nombre de categoría</Text>
         <TextInput
           placeholder=""
           style={CreateCategoryStyles.inputCategoryName}
@@ -50,12 +49,9 @@ export default function CreateCategory() {
         />
       </View>
 
-      <View style={CreateCategoryStyles.containerSelectAnIcon} >
-        <Text>
-          Lista
-        </Text>
+      <View style={CreateCategoryStyles.containerSelectAnIcon}>
+        <Text>Lista</Text>
       </View>
     </View>
   );
-};
-
+}

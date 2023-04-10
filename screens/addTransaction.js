@@ -4,7 +4,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import Transactions from '../components/AddTransaction/Tables/Transactions'
+import Transactions from '../components/AddTransaction/Tables/Transactions';
 import categoriesExport from '../assets/categories/categoriesExport';
 
 const Tab = createMaterialTopTabNavigator();
@@ -13,8 +13,7 @@ export default function AddTransaction({ navigation }) {
   const [listOfExpenditureCategories, setListOfExpenditureCategories] = useState(false);
   const [listOfRevenueCategories, setListOfRevenueCategories] = useState(false);
 
-  const { ListOfExpenditureCategories, ListOfRevenueCategories, } = categoriesExport();
-
+  const { ListOfExpenditureCategories, ListOfRevenueCategories } = categoriesExport();
 
   useEffect(() => {
     navigation.setOptions({
@@ -47,11 +46,9 @@ export default function AddTransaction({ navigation }) {
           backgroundColor: '#FA6C17',
           paddingHorizontal: 20,
         },
-      }
-      }
-
+      }}
     >
-      <Tab.Screen name="Gastos" >
+      <Tab.Screen name="Gastos">
         {() => (
           <Transactions
             navigation={navigation}
@@ -61,15 +58,14 @@ export default function AddTransaction({ navigation }) {
               information: {
                 name: 'Expenses',
                 buttonSubmitText: 'Añadir gasto',
-                mathematicalSymbol: '-',
-                alertText: "¡Gasto añadido con éxito!"
-              }
+                alertText: '¡Gasto añadido con éxito!',
+              },
             }}
           />
         )}
       </Tab.Screen>
 
-      <Tab.Screen name="Ingresos"  >
+      <Tab.Screen name="Ingresos">
         {() => (
           <Transactions
             navigation={navigation}
@@ -79,9 +75,8 @@ export default function AddTransaction({ navigation }) {
               information: {
                 name: 'Revenues',
                 buttonSubmitText: 'Añadir Ingreso',
-                mathematicalSymbol: '+',
-                alertText: "¡Ingreso añadido con éxito!"
-              }
+                alertText: '¡Ingreso añadido con éxito!',
+              },
             }}
           />
         )}
