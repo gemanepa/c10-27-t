@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
   },
   inputsContainer: {
     flex: 1,
-    paddingTop: 60,
+    paddingTop: '5%',
     paddingHorizontal: '15%',
     justifyContent: 'space-between',
     alignItems: 'center',
