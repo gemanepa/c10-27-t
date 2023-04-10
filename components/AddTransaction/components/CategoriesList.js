@@ -170,8 +170,8 @@ export default function CategoriesList({ params }) {
             mode="contained"
             style={{ position: 'absolute', height: '100%', width: '100%', borderRadius: 10 }}
             labelStyle={{ width: '100%', paddingVertical: '30%' }}
-            onPress={() =>
-              navigation.navigate('Categories', {
+            onPress={() => !selectedCategory.id &&
+              navigation.navigate('AddCategory', {
                 listOfCategories,
                 CategoryNameSelectedInStorage: `categorySelect${nameTransaction}`,
               })

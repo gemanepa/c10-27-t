@@ -7,7 +7,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { FAB } from 'react-native-paper';
 import HomeScreen from './screens/index';
 import AddTransaction from './screens/addTransaction';
-import Categories from './components/Categories/tables/Categories';
+import AddCategory from './components/Categories/tables/AddCategory';
+import CreateCategory from './components/Categories/tables/CreateCategory';
 import DetailsScreen from './screens/details';
 import SettingUpScreen from './screens/initial-setup';
 import useAsyncStorage from './hooks/useAsyncStorage';
@@ -46,7 +47,8 @@ function App() {
         <Stack.Navigator>
           <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
           <Stack.Screen name="AddTransaction" component={AddTransaction} />
-          <Stack.Screen name="Categories" component={Categories} />
+          <Stack.Screen name="AddCategory" component={AddCategory} />
+          <Stack.Screen name="CreateCategory" component={CreateCategory} />
           <Stack.Screen name="Details" component={DetailsScreen} />
         </Stack.Navigator>
       </NavigationContainer>

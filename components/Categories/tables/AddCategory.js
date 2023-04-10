@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, View, StyleSheet, Text, Image, Dimensions } from 'react-native';
+import { ScrollView, View, StyleSheet, Text, Dimensions } from 'react-native';
 import PropTypes from 'prop-types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Searchbar, Button } from 'react-native-paper';
+
+import PlusIcon from '../../../assets/categories/icons/PlusIcon.svg';
 
 const { width } = Dimensions.get('window');
 
@@ -19,7 +21,7 @@ const styles = StyleSheet.create({
     // justifyContent: 'space-evenly',
   },
   itemContainer: {
-    width: '0%'
+    width: '25%'
     // width: `${width < 400 ? '25%' : 0}`,
   },
   item: {
@@ -164,20 +166,19 @@ export default function Categories({ navigation, route }) {
           {itemsCategoriesCopy && renderCategoriesItems()}
 
           <View style={styles.item}>
-            <Image
-              source={require('../../../assets/addTransactionIcons/Add.png')}
-              style={styles.image}
-            />
+            <View style={{ ...styles.imageItemContainer, backgroundColor: '#FA6C17' }} >
+              <PlusIcon />
+            </View>
             <Text style={styles.titleItems}>Crear</Text>
             <Button
               mode="contained"
               style={{ position: 'absolute', height: '100%', width: '100%', borderRadius: 10 }}
               labelStyle={{ width: '100%', paddingVertical: `${width < 400 ? '20%' : '30%'}` }}
-              onPress={() => console.log(width)}
+              onPress={() => navigation.navigate('CreateCategory')}
               theme={{
                 colors: {
                   primary: 'transparent',
-                  onPrimary: 'black',
+                  onPrimary: '#FA6C17',
                 },
               }}
             />

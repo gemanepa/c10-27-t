@@ -45,7 +45,7 @@ export default function AddTransaction({ navigation }) {
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarLabelStyle: { fontSize: 20 },
+        tabBarLabelStyle: { fontSize: 20, textTransform: 'capitalize' },
         tabBarIndicatorStyle: {
           backgroundColor: '#FA6C17',
           paddingHorizontal: 20,
@@ -64,14 +64,15 @@ export default function AddTransaction({ navigation }) {
               information: {
                 name: 'Expense',
                 buttonSubmitText: 'Añadir gasto',
-                mathematicalSymbol: '-'
+                mathematicalSymbol: '-',
+                alertText: "¡Gasto añadido con éxito!"
               }
             }}
           />
         )}
       </Tab.Screen>
 
-      <Tab.Screen name="Ingresos">
+      <Tab.Screen name="Ingresos"  >
         {() => (
           <Transactions
             navigation={navigation}
@@ -81,7 +82,8 @@ export default function AddTransaction({ navigation }) {
               information: {
                 name: 'Revenue',
                 buttonSubmitText: 'Añadir Ingreso',
-                mathematicalSymbol: '+'
+                mathematicalSymbol: '+',
+                alertText: "¡Ingreso añadido con éxito!"
               }
             }}
           />

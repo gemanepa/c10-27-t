@@ -1,6 +1,6 @@
 import { ScrollView, View, StyleSheet, } from 'react-native';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -25,7 +25,7 @@ const TransactionsStyles = StyleSheet.create({
 const SubmitStyle = StyleSheet.create({
   button: {
     marginHorizontal: '15%',
-    backgroundColor: '#858282',
+    // backgroundColor: '#858282',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
@@ -49,6 +49,7 @@ export default function Transactions({ navigation, params }) {
   const [annotations, setAnnotations] = useState('');
 
   const [showAlertAddTransaction, setShowAlertAddTransaction] = useState(false);
+  const [isAllFull, setIsAllFull] = useState(false);
 
   // Amount Functions
   const changeAmount = (value) => {
@@ -92,7 +93,7 @@ export default function Transactions({ navigation, params }) {
 
   // Submit
   const StoreTransactionData = async () => {
-    if (!enterAmount || !enterConcept || !selectAccount || !selectedCategory) {
+    if (!enterAmount || !enterConcept || !selectAccount || !selectedCategory.id) {
       return;
     }
     const createUpdatedExpensesData = (previusDataParsed) => {
@@ -102,7 +103,7 @@ export default function Transactions({ navigation, params }) {
         amount: enterAmount,
         account: selectAccount,
         date,
-        category: listOfCategories.find((item) => item.id === selectedCategory).title,
+        category: selectedCategory.title,
         annotations,
       };
 
@@ -150,6 +151,15 @@ export default function Transactions({ navigation, params }) {
     }
   };
 
+  // Check if everything is full
+  useEffect(() => {
+    if (!enterAmount || !enterConcept || !selectAccount || !selectedCategory.id) {
+      setIsAllFull(false);
+    } else {
+      setIsAllFull(true)
+    }
+  }, [enterAmount, enterConcept, selectAccount, selectedCategory])
+
   return (
     <ScrollView style={TransactionsStyles.container_view}>
       <View style={TransactionsStyles.container}>
@@ -190,12 +200,20 @@ export default function Transactions({ navigation, params }) {
           mode="contained"
           textAlignVertical="center"
           style={SubmitStyle.button}
-          onPress={StoreTransactionData}
+          onPress={() => isAllFull && StoreTransactionData()}
           labelStyle={{
             width: '100%',
             height: 40,
             flexDirection: 'column',
             textAlignVertical: 'center',
+          }}
+          theme={{
+            colors: {
+              primary: `${isAllFull ?
+                '#FA6C17' :
+                '#FEEBE0'
+                }`
+            }
           }}
         >
           {information.buttonSubmitText}
@@ -203,7 +221,7 @@ export default function Transactions({ navigation, params }) {
       </View>
 
       {showAlertAddTransaction && (
-        <Alert title="¡Ingreso añadido con éxito!" params={{ fontColor: '#0003' }} />
+        <Alert title={information.alertText} params={{ fontColor: '#0003' }} />
       )}
     </ScrollView>
   );
@@ -243,103 +261,9 @@ Transactions.propTypes = {
     information: PropTypes.shape({
       name: PropTypes.string,
       buttonSubmitText: PropTypes.string,
-      mathematicalSymbol: PropTypes.string
+      mathematicalSymbol: PropTypes.string,
+      alertText: PropTypes.string,
     })
 
   }).isRequired
 };
-
-
-/*
-
-// Submit
-  const StoreTransactionData = async () => {
-    try {
-      const previusData = (await AsyncStorage.getItem('userExpenses')) || JSON.stringify([]);
-      const previusDataParse = JSON.parse(previusData);
-      const updatedExpensesData = [
-        ...previusDataParse,
-        {
-          type: 'string',
-          concept: enterConcept,
-          amount: enterAmount,
-          account: selectAccount,
-          date,
-          categorie: selectedCategory,
-          annotations,
-        },
-      ];
-      await AsyncStorage.setItem(`user${information.name}`, JSON.stringify(updatedExpensesData));
-      setShowAlertAddTransaction(true);
-      setTimeout(() => {
-        if (showAlertAddTransaction === false) {
-          navigation.goBack();
-        }
-      }, 1500);
-    } catch (error) {
-      // console.log(error);
-      AlertNotification.alert('Algo salio mal', 'error al actualizar');
-    }
-  };
-
- // /////////////////////////////////////////////////////////////// Submit
-  const storeData = async () => {
-    if (!enterAmount || !enterConcept || !selectAccount || !selectedCategory) {
-      return;
-    }
-    const createUpdatedExpensesData = (previusDataParsed) => {
-      const updatedExpense = {
-        type: 'income',
-        concept: enterConcept,
-        amount: enterAmount,
-        account: selectAccount,
-        date,
-        category: itemsCategories.find((item) => item.id === selectedCategory).title,
-        annotations,
-      };
-
-      return [updatedExpense, ...previusDataParsed];
-    };
-
-    const updateUserExpenses = async () => {
-      const previusData = (await AsyncStorage.getItem(`user${information.name}`)) || JSON.stringify([]);
-      const previusDataParsed = JSON.parse(previusData);
-      const updatedExpensesData = createUpdatedExpensesData(previusDataParsed);
-      await AsyncStorage.setItem(`user${information.name}`, JSON.stringify(updatedExpensesData));
-    };
-
-    const updateUserCurrency = async () => {
-      const previousCurrencyAmountData = await AsyncStorage.getItem('userCurrency');
-      const previousCurrencyAmountParsed = JSON.parse(previousCurrencyAmountData);
-      let updatedCurrencyAmount = Number(previousCurrencyAmountParsed.amount)
-
-      if (information.mathematicalSymbol === '+'){
-        updatedCurrencyAmount = 
-          Number(previousCurrencyAmountParsed.amount) + Number(enterAmount);
-      }else {
-        updatedCurrencyAmount = 
-          Number(previousCurrencyAmountParsed.amount) + Number(enterAmount);
-      }
-
-      const userCurrency = {
-        currency: previousCurrencyAmountParsed.currency,
-        amount: updatedCurrencyAmount,
-      };
-      await AsyncStorage.setItem('userCurrency', JSON.stringify(userCurrency));
-    };
-
-    const navigateBack = () => {
-      navigation.goBack();
-    };
-
-    try {
-      await updateUserExpenses();
-      await updateUserCurrency();
-      setShowAlertAddTransaction(true);
-      setTimeout(navigateBack, 1500);
-    } catch (error) {
-      console.log(error); // eslint-disable-line no-console
-    }
-  };
-
-*/
