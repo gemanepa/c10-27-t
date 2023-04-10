@@ -49,7 +49,8 @@ export default function Transactions({ navigation, params }) {
   const [annotations, setAnnotations] = useState('');
 
   const [showAlertAddTransaction, setShowAlertAddTransaction] = useState(false);
-  const [isAllFull, setIsAllFull] = useState(false);
+
+  const isAllFull = (!enterAmount || !enterConcept || !selectAccount || !selectedCategory.id) ? false : true;
 
   // Amount Functions
   const changeAmount = (value) => {
@@ -151,15 +152,6 @@ export default function Transactions({ navigation, params }) {
       console.log(error); // eslint-disable-line no-console
     }
   };
-
-  // Check if everything is full
-  useEffect(() => {
-    if (!enterAmount || !enterConcept || !selectAccount || !selectedCategory.id) {
-      setIsAllFull(false);
-    } else {
-      setIsAllFull(true)
-    }
-  }, [enterAmount, enterConcept, selectAccount, selectedCategory])
 
   return (
     <ScrollView style={TransactionsStyles.container_view}>
