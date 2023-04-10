@@ -35,7 +35,7 @@ const SubmitStyle = StyleSheet.create({
 // //////////////// component Body /////////////////////
 
 export default function Transactions({ navigation, params }) {
-  const { listOfAccounts, listOfCategories, information } = params;
+  const { listOfAccounts, listOfCategories, changeListOfCategories, information } = params;
 
   const [enterAmount, setEnterAmount] = useState('');
   const [enterConcept, setEnterConcept] = useState('');
@@ -251,6 +251,7 @@ Transactions.propTypes = {
       PropTypes.bool,
       PropTypes.any,
     ]).isRequired,
+    changeListOfCategories: PropTypes.func,
     information: PropTypes.shape({
       name: PropTypes.string,
       buttonSubmitText: PropTypes.string,
