@@ -14,7 +14,11 @@ export default function AddTransaction({ navigation }) {
   const [listOfExpenditureCategories, setListOfExpenditureCategories] = useState(false);
   const [listOfRevenueCategories, setListOfRevenueCategories] = useState(false);
 
-  const { checkListOfExpenditureCategoriesInStorage, checkListOfRevenueCategoriesInStorage, resetListOfRevenueCategoriesInStorage } = categoriesExport();
+  const {
+    checkListOfExpenditureCategoriesInStorage,
+    checkListOfRevenueCategoriesInStorage,
+    resetListOfRevenueCategoriesInStorage,
+  } = categoriesExport();
 
   useEffect(() => {
     navigation.setOptions({
@@ -30,7 +34,12 @@ export default function AddTransaction({ navigation }) {
     };
 
     init();
-  }, [navigation, checkListOfExpenditureCategoriesInStorage, checkListOfRevenueCategoriesInStorage, listOfExpenditureCategories]);
+  }, [
+    navigation,
+    checkListOfExpenditureCategoriesInStorage,
+    checkListOfRevenueCategoriesInStorage,
+    listOfExpenditureCategories,
+  ]);
 
   const listOfAccounts = [
     { id: 1, title: 'Principal' },

@@ -70,11 +70,7 @@ export default function Alert({ title, params }) {
         <View style={{ ...styles.container, backgroundColor: fontColor }}>
           <Animated.View style={[styles.item, { opacity: opacityItemAnimation }]}>
             <View style={styles.item}>
-              {
-                typeIcon === 'success' ?
-                  <Aviso /> :
-                  <ConstructionIcon />
-              }
+              {typeIcon === 'success' ? <Aviso /> : <ConstructionIcon />}
               <Text style={styles.titleItems}>{title}</Text>
             </View>
             {message && <Text style={styles.messageItems}>{message}</Text>}
@@ -105,6 +101,6 @@ Alert.propTypes = {
     ]),
     fontColor: PropTypes.string.isRequired,
     message: PropTypes.string,
-    typeIcon: PropTypes.string
+    typeIcon: PropTypes.string,
   }).isRequired,
 };

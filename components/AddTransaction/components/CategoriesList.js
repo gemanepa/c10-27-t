@@ -83,7 +83,7 @@ export default function CategoriesList({ params }) {
 
   const renderImage = (param) => {
     const ImageItem = ListOfIcons[param.imageIndex];
-    return <ImageItem width={40} height={40} />
+    return <ImageItem width={40} height={40} />;
   };
 
   const renderCategoriesItems = () => {
@@ -91,8 +91,9 @@ export default function CategoriesList({ params }) {
       <View
         style={{
           ...CategoriesListStyles.item,
-          backgroundColor: `${item.id === selectedCategory.id ? item.backgroundColor : 'transparent'
-            }`,
+          backgroundColor: `${
+            item.id === selectedCategory.id ? item.backgroundColor : 'transparent'
+          }`,
         }}
         key={item.id}
       >
@@ -149,7 +150,10 @@ export default function CategoriesList({ params }) {
         );
         changeListCategories.unshift(...FoundCategory);
         setItemsCategoriesCopy([...changeListCategories]);
-      } else if (previousDataParse.type === 'A category is added to the list' && previousDataParse.category.id) {
+      } else if (
+        previousDataParse.type === 'A category is added to the list' &&
+        previousDataParse.category.id
+      ) {
         changeSelectedCategorie(previousDataParse.category);
         changeListOfCategories(previousDataParse.categories);
         const changeListCategories = itemsCategoriesCopy;

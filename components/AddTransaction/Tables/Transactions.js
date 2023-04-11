@@ -37,13 +37,11 @@ const SubmitStyle = StyleSheet.create({
 // //////////////// component Body /////////////////////
 
 export default function Transactions({ navigation, params }) {
-
   const { listOfAccounts, listOfCategories, changeListOfCategories, information } = params;
 
   const { name } = information;
 
   const isExpense = name === 'Expenses';
-
 
   const [enterAmount, setEnterAmount] = useState('');
   const [enterConcept, setEnterConcept] = useState('');
@@ -103,7 +101,7 @@ export default function Transactions({ navigation, params }) {
       );
     };
     init();
-  }, [information.name])
+  }, [information.name]);
 
   // Annotations features
   const changeAnnotations = (value) => {

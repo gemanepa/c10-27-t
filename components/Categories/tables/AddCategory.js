@@ -57,7 +57,6 @@ const styles = StyleSheet.create({
 });
 
 export default function AddCategory({ navigation, route }) {
-
   const { listOfCategories, CategoryNameSelectedInStorage, nameTransaction } = route.params;
   const [itemsCategoriesCopy, setItemsCategoriesCopy] = useState(false);
 
@@ -97,20 +96,18 @@ export default function AddCategory({ navigation, route }) {
 
   const renderImage = (param) => {
     const ImageItem = ListOfIcons[param.imageIndex];
-    return <ImageItem width={40} height={40} fill='red' />
+    return <ImageItem width={40} height={40} fill="red" />;
   };
 
   const renderCategoriesItems = () => {
     const items = itemsCategoriesCopy.map((item) => (
-
       <View style={styles.itemContainer} key={item.id}>
-
-
         <View
           style={{
             ...styles.item,
-            backgroundColor: `${item.id === selecdCategorie.id ? item.backgroundColor : 'transparent'
-              }`,
+            backgroundColor: `${
+              item.id === selecdCategorie.id ? item.backgroundColor : 'transparent'
+            }`,
           }}
         >
           {/* <Image source={item.image} style={styles.image} /> */}
@@ -169,9 +166,16 @@ export default function AddCategory({ navigation, route }) {
         <Searchbar
           onChangeText={onChangeSearch}
           placeholder="Encuentra una categoría"
-          placeholderTextColor='#9BA5B3'
+          placeholderTextColor="#9BA5B3"
           iconColor="#FA6C17"
-          style={{ paddingHorizontal: 10, marginHorizontal: 10, borderRadius: 10, backgroundColor: '#FEFFFF', borderWidth: 1, borderColor: '#a9aaaa' }}
+          style={{
+            paddingHorizontal: 10,
+            marginHorizontal: 10,
+            borderRadius: 10,
+            backgroundColor: '#FEFFFF',
+            borderWidth: 1,
+            borderColor: '#a9aaaa',
+          }}
         />
         <View style={styles.categoryContainer}>
           {itemsCategoriesCopy && renderCategoriesItems()}

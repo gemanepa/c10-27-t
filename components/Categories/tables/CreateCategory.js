@@ -54,7 +54,7 @@ const CreateCategoryStyles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    marginVertical: 5
+    marginVertical: 5,
   },
   button: {
     marginHorizontal: '15%',
@@ -73,12 +73,11 @@ export default function CreateCategory({ navigation, route }) {
     navigation.setOptions({
       title: 'Crear categoría',
     });
-
   }, [navigation]);
 
   const [categoryName, setCategoryName] = useState('');
   const [selectedIcon, setSelectedIcon] = useState('');
-  const [selectedColor, setSelectedColor] = useState('gray')
+  const [selectedColor, setSelectedColor] = useState('gray');
   const isAllFull = categoryName !== '' && selectedIcon !== '' && selectedColor !== 'gray';
 
   const changeCategoryName = (value) => {
@@ -87,16 +86,20 @@ export default function CreateCategory({ navigation, route }) {
 
   const renderIcons = (image) => {
     const Icon = ListOfIcons[image];
-    return <Icon />
+    return <Icon />;
   };
-
 
   const crateCategory = async () => {
     if (isExpense) {
-      const ListCategories = await checkListOfExpenditureCategoriesInStorage()
+      const ListCategories = await checkListOfExpenditureCategoriesInStorage();
       const sizeList = ListCategories.length;
-      const newId = ListCategories[sizeList - 1].id + 1
-      const category = { title: categoryName, id: newId, image: selectedIcon, backgroundColor: selectedColor };
+      const newId = ListCategories[sizeList - 1].id + 1;
+      const category = {
+        title: categoryName,
+        id: newId,
+        image: selectedIcon,
+        backgroundColor: selectedColor,
+      };
       const categories = await AddCategoryExpenditureInStorage(category);
 
       await AsyncStorage.setItem(
@@ -104,10 +107,15 @@ export default function CreateCategory({ navigation, route }) {
         JSON.stringify({ type: 'A category is added to the list', category, categories })
       );
     } else {
-      const ListCategories = await checkListOfRevenueCategoriesInStorage()
+      const ListCategories = await checkListOfRevenueCategoriesInStorage();
       const sizeList = ListCategories.length;
-      const newId = ListCategories[sizeList - 1].id + 1
-      const category = { title: categoryName, id: newId, image: selectedIcon, backgroundColor: selectedColor };
+      const newId = ListCategories[sizeList - 1].id + 1;
+      const category = {
+        title: categoryName,
+        id: newId,
+        image: selectedIcon,
+        backgroundColor: selectedColor,
+      };
       const categories = await AddCategoryRevenueInStorage(category);
       await AsyncStorage.setItem(
         `categorySelect${nameTransaction}`,
@@ -116,12 +124,10 @@ export default function CreateCategory({ navigation, route }) {
     }
 
     navigation.pop(2);
-  }
-
+  };
 
   return (
-    <ScrollView >
-
+    <ScrollView>
       <View style={CreateCategoryStyles.parentContainer}>
         <View style={CreateCategoryStyles.containerCategoryName}>
           <Text style={{ fontSize: 18 }}>Nombre de categoría</Text>
@@ -134,30 +140,48 @@ export default function CreateCategory({ navigation, route }) {
         </View>
 
         <View style={CreateCategoryStyles.containerSelectAnIcon}>
-          {CreateCategoryList.map(item =>
-            <View key={item.image} style={{ width: '25%', position: 'relative', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }} >
-              <View style={{ ...CreateCategoryStyles.imageItemContainer, backgroundColor: `${item.image === selectedIcon ? selectedColor : '#FEF0E8'}` }}>
+          {CreateCategoryList.map((item) => (
+            <View
+              key={item.image}
+              style={{
+                width: '25%',
+                position: 'relative',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <View
+                style={{
+                  ...CreateCategoryStyles.imageItemContainer,
+                  backgroundColor: `${item.image === selectedIcon ? selectedColor : '#FEF0E8'}`,
+                }}
+              >
                 {renderIcons(item.image)}
               </View>
               <Button
-                mode='contained'
+                mode="contained"
                 style={{ position: 'absolute', ...CreateCategoryStyles.imageItemContainer }}
                 labelStyle={{ paddingHorizontal: '20%', paddingVertical: '30%' }}
                 theme={{ colors: { primary: 'transparent', onPrimary: selectedColor } }}
                 onPress={() => setSelectedIcon(item.image)}
               />
             </View>
-          )
-          }
-
+          ))}
         </View>
 
-        <View style={{ width: '100%', flexDirection: 'column', gap: 20 }} >
-          <Text style={{ fontSize: 18, textAlign: 'center' }} >
-            Selecciona Color
-          </Text>
-          <View style={{ flexDirection: 'row', width: '100%', flexWrap: 'wrap', justifyContent: 'center', gap: 20 }} >
-            {ListColor.map(item =>
+        <View style={{ width: '100%', flexDirection: 'column', gap: 20 }}>
+          <Text style={{ fontSize: 18, textAlign: 'center' }}>Selecciona Color</Text>
+          <View
+            style={{
+              flexDirection: 'row',
+              width: '100%',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+              gap: 20,
+            }}
+          >
+            {ListColor.map((item) => (
               <Text
                 key={item}
                 style={{
@@ -167,19 +191,21 @@ export default function CreateCategory({ navigation, route }) {
                   backgroundColor: item,
                   borderRadius: 50,
                   borderWidth: 1,
-                  borderBottomColor: `${selectedColor === item ? '#334050' : 'transparent'}`
+                  borderBottomColor: `${selectedColor === item ? '#334050' : 'transparent'}`,
                 }}
                 onPress={() => setSelectedColor(item)}
               />
-            )
-            }
+            ))}
           </View>
         </View>
 
         <Button
-          mode='contained'
+          mode="contained"
           onPress={crateCategory}
-          style={{ ...CreateCategoryStyles.button, backgroundColor: `${isAllFull ? '#FA6C17' : '#FEEBE0'}` }}
+          style={{
+            ...CreateCategoryStyles.button,
+            backgroundColor: `${isAllFull ? '#FA6C17' : '#FEEBE0'}`,
+          }}
           disabled={!isAllFull}
           labelStyle={{
             width: '100%',
@@ -187,7 +213,6 @@ export default function CreateCategory({ navigation, route }) {
             flexDirection: 'column',
             textAlignVertical: 'center',
           }}
-
         >
           Añadir Categoria
         </Button>
@@ -195,7 +220,6 @@ export default function CreateCategory({ navigation, route }) {
     </ScrollView>
   );
 }
-
 
 CreateCategory.propTypes = {
   navigation: PropTypes.shape({

@@ -36,12 +36,12 @@ export default function Data({ params }) {
   const { selectAccount, changeAccount, changeDate, date, listOfAccounts } = params;
 
   //  Status
-  const [openListAccount, setOpenListAccount] = useState(false);;
+  const [openListAccount, setOpenListAccount] = useState(false);
   const [openDate, setOpenDate] = useState(false);
 
   // Features
   function openList() {
-    setOpenListAccount(!openListAccount)
+    setOpenListAccount(!openListAccount);
   }
   // function closeList() {
   //   pickerRef.current.blur();
@@ -61,7 +61,10 @@ export default function Data({ params }) {
         label={item.title}
         value={item.id}
         title={item.title}
-        onPress={() => { openList(); changeAccount(item.title) }}
+        onPress={() => {
+          openList();
+          changeAccount(item.title);
+        }}
       />
     ));
 
@@ -87,16 +90,13 @@ export default function Data({ params }) {
         <List.Accordion
           title={selectAccount}
           // style={{ borderWidth: 1, borderColor: 'black', borderRadius: 20, height: '100%' }}
-          style={{ ...DataStyles.date, color: 'transparent', }}
+          style={{ ...DataStyles.date, color: 'transparent' }}
           expanded={openListAccount}
           onPress={() => openList()}
           theme={{ colors: { primary: 'blue', onPrimary: 'black', secondary: 'red' } }}
         >
           {renderPickerItems(listOfAccounts)}
         </List.Accordion>
-
-
-
       </View>
 
       <View style={DataStyles.container}>
