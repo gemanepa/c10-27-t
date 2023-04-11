@@ -2,7 +2,8 @@ import React, { useRef, useEffect } from 'react';
 import { View, StyleSheet, Text, Dimensions, Modal, Animated } from 'react-native';
 import { Button } from 'react-native-paper';
 import PropTypes from 'prop-types';
-import Aviso from '../../../assets/addTransactionIcons/Aviso.svg'
+import Aviso from '../../../assets/addTransactionIcons/Aviso.svg';
+import ConstructionIcon from '../../../assets/addTransactionIcons/ConstructionIcon.svg';
 
 const { width, height } = Dimensions.get('window');
 
@@ -19,7 +20,7 @@ const styles = StyleSheet.create({
     width: '70%',
     maxWidth: 300,
     minHeight: 200,
-    paddingHorizontal: 5,
+    padding: 5,
     borderRadius: 15,
     backgroundColor: '#FFFFFF',
     flexDirection: 'column',
@@ -37,7 +38,7 @@ const styles = StyleSheet.create({
 });
 
 export default function Alert({ title, params }) {
-  const { changeShowAlert, fontColor, message } = params;
+  const { changeShowAlert, fontColor, message, typeIcon } = params;
   const opacityItemAnimation = useRef(new Animated.Value(0)).current;
   const opacityContainerAnimation = useRef(new Animated.Value(0)).current;
 
@@ -69,11 +70,11 @@ export default function Alert({ title, params }) {
         <View style={{ ...styles.container, backgroundColor: fontColor }}>
           <Animated.View style={[styles.item, { opacity: opacityItemAnimation }]}>
             <View style={styles.item}>
-              {/* <Image
-                source={require('../../../assets/addTransactionIcons/Add.png')}
-                style={{ width: 50, height: 50 }}
-              /> */}
-              <Aviso />
+              {
+                typeIcon === 'success' ?
+                  <Aviso /> :
+                  <ConstructionIcon />
+              }
               <Text style={styles.titleItems}>{title}</Text>
             </View>
             {message && <Text style={styles.messageItems}>{message}</Text>}
@@ -104,5 +105,6 @@ Alert.propTypes = {
     ]),
     fontColor: PropTypes.string.isRequired,
     message: PropTypes.string,
+    typeIcon: PropTypes.string
   }).isRequired,
 };

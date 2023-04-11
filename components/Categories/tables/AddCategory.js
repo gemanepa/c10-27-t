@@ -5,14 +5,17 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Searchbar, Button } from 'react-native-paper';
 
 import PlusIcon from '../../../assets/categories/icons/PlusIcon.svg';
+import CategoriesExport from '../../../assets/categories/categoriesExport';
 
 const { width } = Dimensions.get('window');
+const { ListOfIcons } = CategoriesExport();
 
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
     paddingVertical: 20,
     gap: 40,
+    backgroundColor: 'transparent',
   },
   categoryContainer: {
     width: '100%',
@@ -21,7 +24,7 @@ const styles = StyleSheet.create({
     // justifyContent: 'space-evenly',
   },
   itemContainer: {
-    width: '25%'
+    width: '25%',
     // width: `${width < 400 ? '25%' : 0}`,
   },
   item: {
@@ -42,7 +45,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   titleItems: {
     fontSize: 12,
@@ -54,26 +57,30 @@ const styles = StyleSheet.create({
 });
 
 export default function AddCategory({ navigation, route }) {
-  // CategoryNameSelectedInStorage
-  const { listOfCategories, CategoryNameSelectedInStorage } = route.params;
-  const [itemsCategoriesCopy, setItemsCategoriesCopy] = useState(listOfCategories);
 
-  const [selecdCategorie, setSelecdCategorie] = useState({});
+  const { listOfCategories, CategoryNameSelectedInStorage, nameTransaction } = route.params;
+  const [itemsCategoriesCopy, setItemsCategoriesCopy] = useState(false);
+
+  const [selecdCategorie, setSelectedCategorie] = useState({});
 
   useEffect(() => {
+    navigation.setOptions({
+      title: 'Añadir categoría',
+    });
     const init = async () => {
-      const previusData =
-        (await AsyncStorage.getItem(CategoryNameSelectedInStorage)) || JSON.stringify({ category: '' });
-      const previusDataParse = JSON.parse(previusData);
-      setSelecdCategorie(previusDataParse.category);
+      const previousData =
+        (await AsyncStorage.getItem(CategoryNameSelectedInStorage)) ||
+        JSON.stringify({ category: '' });
+      const previousDataParse = JSON.parse(previousData);
+      setSelectedCategorie(previousDataParse.category);
       setItemsCategoriesCopy(listOfCategories);
     };
     init();
-  }, [CategoryNameSelectedInStorage, listOfCategories]);
+  }, [navigation, CategoryNameSelectedInStorage, listOfCategories]);
 
   const changeSelectedCategorie = async (value) => {
     if (selecdCategorie.id !== value.id) {
-      setSelecdCategorie(value);
+      setSelectedCategorie(value);
       await AsyncStorage.setItem(
         CategoryNameSelectedInStorage,
         JSON.stringify({ type: 'Selected category', category: value })
@@ -83,29 +90,34 @@ export default function AddCategory({ navigation, route }) {
         CategoryNameSelectedInStorage,
         JSON.stringify({ category: {}, type: 'empty category selection' })
       );
-      setSelecdCategorie({});
+      setSelectedCategorie({});
     }
     navigation.goBack();
   };
 
+  const renderImage = (param) => {
+    const ImageItem = ListOfIcons[param.imageIndex];
+    return <ImageItem width={40} height={40} fill='red' />
+  };
+
   const renderCategoriesItems = () => {
     const items = itemsCategoriesCopy.map((item) => (
-      <View style={styles.itemContainer} key={item.id} >
+
+      <View style={styles.itemContainer} key={item.id}>
+
 
         <View
           style={{
             ...styles.item,
-            backgroundColor: `${item.id === selecdCategorie.id ? item.backgroundColor : 'transparent'}`,
+            backgroundColor: `${item.id === selecdCategorie.id ? item.backgroundColor : 'transparent'
+              }`,
           }}
-
         >
           {/* <Image source={item.image} style={styles.image} /> */}
-          <View style={{ ...styles.imageItemContainer, backgroundColor: item.backgroundColor }} >
-            <item.image />
+          <View style={{ ...styles.imageItemContainer, backgroundColor: item.backgroundColor }}>
+            {renderImage({ imageIndex: item.image })}
           </View>
-          <Text style={styles.titleItems} >
-            {item.title}
-          </Text>
+          <Text style={styles.titleItems}>{item.title}</Text>
           <Button
             mode="contained"
             style={{
@@ -125,7 +137,6 @@ export default function AddCategory({ navigation, route }) {
             }}
           />
         </View>
-
       </View>
     ));
     return items;
@@ -158,15 +169,15 @@ export default function AddCategory({ navigation, route }) {
         <Searchbar
           onChangeText={onChangeSearch}
           placeholder="Encuentra una categoría"
-          style={{ paddingHorizontal: 10, marginHorizontal: 10, borderRadius: 10 }}
+          placeholderTextColor='#9BA5B3'
+          iconColor="#FA6C17"
+          style={{ paddingHorizontal: 10, marginHorizontal: 10, borderRadius: 10, backgroundColor: '#FEFFFF', borderWidth: 1, borderColor: '#a9aaaa' }}
         />
-        <View
-          style={styles.categoryContainer}
-        >
+        <View style={styles.categoryContainer}>
           {itemsCategoriesCopy && renderCategoriesItems()}
 
           <View style={styles.item}>
-            <View style={{ ...styles.imageItemContainer, backgroundColor: '#FA6C17' }} >
+            <View style={{ ...styles.imageItemContainer, backgroundColor: '#FA6C17' }}>
               <PlusIcon />
             </View>
             <Text style={styles.titleItems}>Crear</Text>
@@ -174,7 +185,7 @@ export default function AddCategory({ navigation, route }) {
               mode="contained"
               style={{ position: 'absolute', height: '100%', width: '100%', borderRadius: 10 }}
               labelStyle={{ width: '100%', paddingVertical: `${width < 400 ? '20%' : '30%'}` }}
-              onPress={() => navigation.navigate('CreateCategory')}
+              onPress={() => navigation.navigate('CreateCategory', { nameTransaction })}
               theme={{
                 colors: {
                   primary: 'transparent',
@@ -216,6 +227,7 @@ AddCategory.propTypes = {
         })
       ),
       CategoryNameSelectedInStorage: PropTypes.string,
+      nameTransaction: PropTypes.string,
     }),
   }).isRequired,
 };

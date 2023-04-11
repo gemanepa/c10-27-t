@@ -36,7 +36,7 @@ function App() {
   const removeValue = async () => {
     try {
       await AsyncStorage.removeItem('userCurrency');
-      await AsyncStorage.removeItem('userExpenses');
+      await AsyncStorage.removeItem('userTransactions');
       setInitialSettingUp('reset');
     } catch (e) {
       console.error(e); // eslint-disable-line no-console
