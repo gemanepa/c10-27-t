@@ -1,5 +1,7 @@
 import { Image, Text, View, StyleSheet } from 'react-native';
-import icon from '../../assets/LOGO_APP.png';
+import PropTypes from 'prop-types';
+import stepOneIcon from '../../assets/initial-setup/intro-image.png';
+import stepTwoIcon from '../../assets/initial-setup/pin-screen-img.png';
 
 const styles = StyleSheet.create({
   headerContainer: {
@@ -7,12 +9,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingTop: 50,
     paddingBottom: 10,
-    paddingHorizontal: 40,
   },
   paragraph: {
     fontSize: 30,
-    fontWeight: 'bold',
+    fontWeight: 700,
     textAlign: 'center',
+    color: '#fff',
+    width: 250,
   },
   logo: {
     height: 100,
@@ -21,14 +24,22 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function SettingUpHeaderScreen() {
+export default function SettingUpHeaderScreen({ headerText }) {
   return (
     <View style={styles.headerContainer}>
-      <Image style={styles.logo} source={icon} />
-      <Text style={styles.paragraph}>Organicemos tus finanzas juntos</Text>
-      <Text style={styles.paragraph}>¡Empecemos!</Text>
+      <Image
+        style={styles.logo}
+        source={headerText === '¡Protejamos tus datos!' ? stepTwoIcon : stepOneIcon}
+      />
+      <Text
+        style={{ ...styles.paragraph, width: headerText === '¡Protejamos tus datos!' ? 200 : 250 }}
+      >
+        {headerText}
+      </Text>
     </View>
   );
 }
 
-SettingUpHeaderScreen.propTypes = {};
+SettingUpHeaderScreen.propTypes = {
+  headerText: PropTypes.string.isRequired,
+};

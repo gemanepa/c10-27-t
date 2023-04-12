@@ -17,8 +17,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   dropdownText: {
-    fontSize: 14,
-    fontWeight: 500,
+    fontSize: 16,
+    fontWeight: 400,
     textAlign: 'center',
     alignSelf: 'center',
   },
@@ -39,8 +39,8 @@ const styles = StyleSheet.create({
     borderBottomColor: '#ccc',
   },
   optionText: {
-    fontSize: 14,
-    fontWeight: 500,
+    fontSize: 16,
+    fontWeight: 400,
   },
 });
 
