@@ -27,16 +27,21 @@ const styles = StyleSheet.create({
 function App() {
   const [initialSettingUp, setInitialSettingUp] = useState('initial');
   const [storageLoading, storagedData] = useAsyncStorage('userCurrency');
+  const [pinLoading, pinData] = useAsyncStorage('userPin');
 
-  if (storageLoading) return null;
+  if (storageLoading || pinLoading) return null;
 
-  if ((!storagedData && initialSettingUp === 'initial') || initialSettingUp === 'reset')
+  if (
+    ((!storagedData || !pinData) && initialSettingUp === 'initial') ||
+    initialSettingUp === 'reset'
+  )
     return <SettingUpScreen setInitialSettingUp={setInitialSettingUp} />;
 
   const removeValue = async () => {
     try {
       await AsyncStorage.removeItem('userCurrency');
       await AsyncStorage.removeItem('userTransactions');
+      await AsyncStorage.removeItem('userPin');
       setInitialSettingUp('reset');
     } catch (e) {
       console.error(e); // eslint-disable-line no-console

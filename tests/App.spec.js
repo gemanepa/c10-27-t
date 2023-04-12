@@ -18,7 +18,7 @@ describe('App', () => {
     // Wait for the next render cycle to complete
     await waitFor(() => expect(useAsyncStorage).toHaveBeenCalled());
 
-    expect(getByText('Organicemos tus finanzas juntos')).toBeTruthy();
+    expect(getByText('¡Organicemos tus finanzas juntos!')).toBeTruthy();
   });
 
   it('displays the home screen when there is a user currency', async () => {

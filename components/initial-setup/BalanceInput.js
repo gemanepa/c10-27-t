@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: 'white',
     width: 145,
-    fontSize: 14,
+    fontSize: 16,
     textAlign: 'center',
     height: 50,
   },
@@ -30,8 +30,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   currencyText: {
-    fontSize: 14,
-    fontWeight: 500,
+    fontSize: 16,
+    fontWeight: 400,
   },
 });
 
