@@ -1,5 +1,5 @@
 <h1 id="cash-control" align="center">Cash Control</h1>
-<p align="center"><img src="https://i.imgur.com/t0eGqvq.png" alt=""></p>
+<p align="center"><img src="https://raw.githubusercontent.com/No-Country/c10-27-t-reactchallenge-rn-o-flutter/master/assets/LOGO_APP.png" alt=""></p>
 <p align="center">Android + iOS mobile application for controlling and monitoring of daily expenses and revenues</p>
 <h2 id="team-members">Team Members</h2>
 <ul>
