@@ -22,25 +22,27 @@ export default function AddTransaction({ navigation }) {
   } = categoriesExport();
 
   useEffect(() => {
-    navigation.setOptions({
-      title: 'Añadir transacciones',
-    });
     const init = async () => {
-      if (!listOfExpenditureCategories) {
-        await AsyncStorage.setItem('categorySelectExpense', JSON.stringify({ category: '' }));
-        await AsyncStorage.setItem('categorySelectRevenue', JSON.stringify({ category: '' }));
-        setListOfRevenueCategories(await checkListOfRevenueCategoriesInStorage());
-        setListOfExpenditureCategories(await checkListOfExpenditureCategoriesInStorage());
-      }
+      await AsyncStorage.setItem('categorySelectExpense', JSON.stringify({ category: '' }));
+      await AsyncStorage.setItem('categorySelectRevenue', JSON.stringify({ category: '' }));
+      setListOfRevenueCategories(await checkListOfRevenueCategoriesInStorage());
+      setListOfExpenditureCategories(await checkListOfExpenditureCategoriesInStorage());
     };
 
-    init();
+    if (!listOfExpenditureCategories) {
+      init();
+    }
   }, [
-    navigation,
     checkListOfExpenditureCategoriesInStorage,
     checkListOfRevenueCategoriesInStorage,
     listOfExpenditureCategories,
   ]);
+
+  useEffect(() => {
+    navigation.setOptions({
+      title: 'Añadir transacciones',
+    });
+  }, [navigation]);
 
   const listOfAccounts = [
     { id: 1, title: 'Principal' },
