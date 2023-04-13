@@ -21,7 +21,7 @@ describe('App', () => {
     expect(getByText('¡Organicemos tus finanzas juntos!')).toBeTruthy();
   });
 
-  it('displays the home screen when there is a user currency', async () => {
+  it('displays the insert pin screen', async () => {
     // Set the mock return value for useAsyncStorage
     useAsyncStorage.mockReturnValue([false, { currency: 'USD', amount: 100 }]);
     // Mock the getAsyncStorageData function
@@ -32,6 +32,6 @@ describe('App', () => {
     // Wait for the next render cycle to complete
     await waitFor(() => expect(useAsyncStorage).toHaveBeenCalled());
 
-    expect(getByText('- Disponible -')).toBeTruthy();
+    expect(getByText('Ingresa tu PIN')).toBeTruthy();
   });
 });
