@@ -1,6 +1,6 @@
 import { ScrollView, View, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -14,18 +14,20 @@ import Alert from '../components/Alert';
 const TransactionsStyles = StyleSheet.create({
   container_view: {
     flexDirection: 'column',
+    backgroundColor: 'transparent',
   },
   container: {
     flexDirection: 'column',
     gap: 20,
     paddingBottom: 30,
+    backgroundColor: 'transparent',
   },
 });
 
 const SubmitStyle = StyleSheet.create({
   button: {
     marginHorizontal: '15%',
-    // backgroundColor: '#858282',
+    // backgroundColor: '#FEEBE0',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
@@ -35,7 +37,8 @@ const SubmitStyle = StyleSheet.create({
 // //////////////// component Body /////////////////////
 
 export default function Transactions({ navigation, params }) {
-  const { listOfAccounts, listOfCategories, information } = params;
+  const { listOfAccounts, listOfCategories, changeListOfCategories, information } = params;
+
   const { name } = information;
 
   const isExpense = name === 'Expenses';
@@ -90,6 +93,15 @@ export default function Transactions({ navigation, params }) {
       );
     }
   };
+  useEffect(() => {
+    const init = async () => {
+      await AsyncStorage.setItem(
+        `categorySelect${information.name}`,
+        JSON.stringify({ category: {} })
+      );
+    };
+    init();
+  }, [information.name]);
 
   // Annotations features
   const changeAnnotations = (value) => {
@@ -145,6 +157,7 @@ export default function Transactions({ navigation, params }) {
     try {
       await updateUserTransactions();
       await updateUserCurrency();
+      changeSelectedCategorie({});
       setShowAlertAddTransaction(true);
       setTimeout(navigateBack, 1500);
     } catch (error) {
@@ -179,6 +192,7 @@ export default function Transactions({ navigation, params }) {
               selectedCategory,
               changeSelectedCategorie,
               listOfCategories,
+              changeListOfCategories,
               nameTransaction: information.name,
             }}
           />
@@ -189,19 +203,14 @@ export default function Transactions({ navigation, params }) {
         <Button
           mode="contained"
           textAlignVertical="center"
-          style={SubmitStyle.button}
+          style={{ ...SubmitStyle.button, backgroundColor: `${isAllFull ? '#FA6C17' : '#FEEBE0'}` }}
           onPress={() => isAllFull && storeTransactionData()}
           disabled={!isAllFull}
           labelStyle={{
             width: '100%',
-            height: 40,
+            height: 24,
             flexDirection: 'column',
             textAlignVertical: 'center',
-          }}
-          theme={{
-            colors: {
-              primary: isAllFull ? '#FA6C17' : '#FEEBE0',
-            },
           }}
         >
           {information.buttonSubmitText}
@@ -209,7 +218,13 @@ export default function Transactions({ navigation, params }) {
       </View>
 
       {showAlertAddTransaction && (
-        <Alert title={information.alertText} params={{ fontColor: '#0003' }} />
+        <Alert
+          title={information.alertText}
+          params={{
+            fontColor: '#0003',
+            typeIcon: 'success',
+          }}
+        />
       )}
     </ScrollView>
   );
@@ -246,6 +261,7 @@ Transactions.propTypes = {
       PropTypes.bool,
       PropTypes.any,
     ]).isRequired,
+    changeListOfCategories: PropTypes.func,
     information: PropTypes.shape({
       name: PropTypes.string,
       buttonSubmitText: PropTypes.string,

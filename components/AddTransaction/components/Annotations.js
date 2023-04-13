@@ -13,11 +13,12 @@ const AnnotationsStyles = StyleSheet.create({
   },
 
   inputAnnotation: {
-    height: 60,
+    height: 48,
     borderWidth: 1,
     borderColor: 'black',
-    borderRadius: 20,
+    borderRadius: 10,
     textAlign: 'center',
+    backgroundColor: '#FEFFFF',
   },
 });
 

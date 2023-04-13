@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Transactions from '../components/AddTransaction/Tables/Transactions';
+
 import categoriesExport from '../assets/categories/categoriesExport';
 
 const Tab = createMaterialTopTabNavigator();
@@ -13,21 +14,32 @@ export default function AddTransaction({ navigation }) {
   const [listOfExpenditureCategories, setListOfExpenditureCategories] = useState(false);
   const [listOfRevenueCategories, setListOfRevenueCategories] = useState(false);
 
-  const { ListOfExpenditureCategories, ListOfRevenueCategories } = categoriesExport();
+  const {
+    checkListOfExpenditureCategoriesInStorage,
+    checkListOfRevenueCategoriesInStorage,
+    resetListOfRevenueCategoriesInStorage,
+  } = categoriesExport();
 
   useEffect(() => {
     navigation.setOptions({
       title: 'Añadir transacciones',
     });
     const init = async () => {
-      await AsyncStorage.setItem('categorySelectExpense', JSON.stringify({ category: '' }));
-      await AsyncStorage.setItem('categorySelectRevenue', JSON.stringify({ category: '' }));
-      await setListOfRevenueCategories(ListOfRevenueCategories);
-      await setListOfExpenditureCategories(ListOfExpenditureCategories);
+      if (!listOfExpenditureCategories) {
+        await AsyncStorage.setItem('categorySelectExpense', JSON.stringify({ category: '' }));
+        await AsyncStorage.setItem('categorySelectRevenue', JSON.stringify({ category: '' }));
+        setListOfRevenueCategories(await resetListOfRevenueCategoriesInStorage());
+        setListOfExpenditureCategories(await checkListOfExpenditureCategoriesInStorage());
+      }
     };
 
     init();
-  }, [navigation, ListOfExpenditureCategories, ListOfRevenueCategories]);
+  }, [
+    navigation,
+    checkListOfExpenditureCategoriesInStorage,
+    checkListOfRevenueCategoriesInStorage,
+    listOfExpenditureCategories,
+  ]);
 
   const listOfAccounts = [
     { id: 1, title: 'Principal' },
@@ -37,6 +49,13 @@ export default function AddTransaction({ navigation }) {
     { id: 5, title: 'Opción 5' },
     { id: 6, title: 'Opción 6' },
   ];
+
+  const changeListOfExpenditureCategories = (value) => {
+    setListOfExpenditureCategories(value);
+  };
+  const changeListOfRevenueCategories = (value) => {
+    setListOfRevenueCategories(value);
+  };
 
   return (
     <Tab.Navigator
@@ -55,6 +74,7 @@ export default function AddTransaction({ navigation }) {
             params={{
               listOfAccounts,
               listOfCategories: listOfExpenditureCategories,
+              changeListOfCategories: changeListOfExpenditureCategories,
               information: {
                 name: 'Expenses',
                 buttonSubmitText: 'Añadir gasto',
@@ -72,6 +92,7 @@ export default function AddTransaction({ navigation }) {
             params={{
               listOfAccounts,
               listOfCategories: listOfRevenueCategories,
+              changeListOfCategories: changeListOfRevenueCategories,
               information: {
                 name: 'Revenues',
                 buttonSubmitText: 'Añadir Ingreso',

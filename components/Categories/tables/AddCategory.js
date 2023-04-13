@@ -5,14 +5,17 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Searchbar, Button } from 'react-native-paper';
 
 import PlusIcon from '../../../assets/categories/icons/PlusIcon.svg';
+import CategoriesExport from '../../../assets/categories/categoriesExport';
 
 const { width } = Dimensions.get('window');
+const { whiteListOfIcons } = CategoriesExport();
 
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
     paddingVertical: 20,
     gap: 40,
+    backgroundColor: 'transparent',
   },
   categoryContainer: {
     width: '100%',
@@ -54,13 +57,15 @@ const styles = StyleSheet.create({
 });
 
 export default function AddCategory({ navigation, route }) {
-  // CategoryNameSelectedInStorage
-  const { listOfCategories, CategoryNameSelectedInStorage } = route.params;
-  const [itemsCategoriesCopy, setItemsCategoriesCopy] = useState(listOfCategories);
+  const { listOfCategories, CategoryNameSelectedInStorage, nameTransaction } = route.params;
+  const [itemsCategoriesCopy, setItemsCategoriesCopy] = useState(false);
 
   const [selecdCategorie, setSelectedCategorie] = useState({});
 
   useEffect(() => {
+    navigation.setOptions({
+      title: 'Añadir categoría',
+    });
     const init = async () => {
       const previousData =
         (await AsyncStorage.getItem(CategoryNameSelectedInStorage)) ||
@@ -70,7 +75,7 @@ export default function AddCategory({ navigation, route }) {
       setItemsCategoriesCopy(listOfCategories);
     };
     init();
-  }, [CategoryNameSelectedInStorage, listOfCategories]);
+  }, [navigation, CategoryNameSelectedInStorage, listOfCategories]);
 
   const changeSelectedCategorie = async (value) => {
     if (selecdCategorie.id !== value.id) {
@@ -89,6 +94,11 @@ export default function AddCategory({ navigation, route }) {
     navigation.goBack();
   };
 
+  const renderImage = (param) => {
+    const ImageItem = whiteListOfIcons[param.imageIndex];
+    return <ImageItem width={40} height={40} fill="red" />;
+  };
+
   const renderCategoriesItems = () => {
     const items = itemsCategoriesCopy.map((item) => (
       <View style={styles.itemContainer} key={item.id}>
@@ -102,7 +112,7 @@ export default function AddCategory({ navigation, route }) {
         >
           {/* <Image source={item.image} style={styles.image} /> */}
           <View style={{ ...styles.imageItemContainer, backgroundColor: item.backgroundColor }}>
-            <item.image />
+            {renderImage({ imageIndex: item.image })}
           </View>
           <Text style={styles.titleItems}>{item.title}</Text>
           <Button
@@ -156,7 +166,16 @@ export default function AddCategory({ navigation, route }) {
         <Searchbar
           onChangeText={onChangeSearch}
           placeholder="Encuentra una categoría"
-          style={{ paddingHorizontal: 10, marginHorizontal: 10, borderRadius: 10 }}
+          placeholderTextColor="#9BA5B3"
+          iconColor="#FA6C17"
+          style={{
+            paddingHorizontal: 10,
+            marginHorizontal: 10,
+            borderRadius: 10,
+            backgroundColor: '#FEFFFF',
+            borderWidth: 1,
+            borderColor: '#a9aaaa',
+          }}
         />
         <View style={styles.categoryContainer}>
           {itemsCategoriesCopy && renderCategoriesItems()}
@@ -170,7 +189,7 @@ export default function AddCategory({ navigation, route }) {
               mode="contained"
               style={{ position: 'absolute', height: '100%', width: '100%', borderRadius: 10 }}
               labelStyle={{ width: '100%', paddingVertical: `${width < 400 ? '20%' : '30%'}` }}
-              onPress={() => navigation.navigate('CreateCategory')}
+              onPress={() => navigation.navigate('CreateCategory', { nameTransaction })}
               theme={{
                 colors: {
                   primary: 'transparent',
@@ -212,6 +231,7 @@ AddCategory.propTypes = {
         })
       ),
       CategoryNameSelectedInStorage: PropTypes.string,
+      nameTransaction: PropTypes.string,
     }),
   }).isRequired,
 };

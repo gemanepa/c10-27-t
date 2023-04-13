@@ -1,7 +1,7 @@
 import { View, TextInput, Text, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import PropTypes from 'prop-types';
-import Mesh from '../../../assets/addTransactionIcons/GRAFICO.svg';
+import Mesh from '../../../assets/alertsIcons/GRAFICO.svg';
 
 const EnterAmountStyles = StyleSheet.create({
   container: {
@@ -23,7 +23,7 @@ const EnterAmountStyles = StyleSheet.create({
   },
   enterAmount: {
     width: '100%',
-    height: 60,
+    height: 48,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-end',
@@ -38,7 +38,7 @@ const EnterAmountStyles = StyleSheet.create({
     height: '100%',
     borderColor: 'black',
     borderWidth: 1,
-    borderRadius: 20,
+    borderRadius: 10,
     textAlign: 'center',
     backgroundColor: '#f5f5f5',
   },
@@ -47,15 +47,15 @@ const EnterAmountStyles = StyleSheet.create({
     height: '100%',
     borderColor: 'black',
     borderWidth: 1,
-    borderRadius: 20,
+    borderRadius: 10,
     paddingRight: '20%',
     textAlign: 'center',
     backgroundColor: '#f5f5f5',
   },
   currency: {
     position: 'absolute',
-    fontSize: 20,
-    padding: 5,
+    fontSize: 16,
+    paddingHorizontal: 14,
   },
 });
 
@@ -75,7 +75,7 @@ export default function EnterAmount({ enterAmount, changeAmount, enterConcept, c
       </View>
 
       <View style={EnterAmountStyles.container_Amount_And_Concept}>
-        <Text style={EnterAmountStyles.title}>Ingresa Monto</Text>
+        <Text style={EnterAmountStyles.title}>Ingresa el monto</Text>
         <View style={EnterAmountStyles.enterAmount}>
           <TextInput
             value={enterAmount}

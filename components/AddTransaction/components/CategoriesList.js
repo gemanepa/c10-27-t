@@ -5,12 +5,14 @@ import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import PlusIcon from '../../../assets/categories/icons/PlusIcon.svg';
+import CategoriesExport from '../../../assets/categories/categoriesExport';
 
 const { width } = Dimensions.get('window');
+const { whiteListOfIcons } = CategoriesExport();
 
 const CategoriesListStyles = StyleSheet.create({
   container: {
-    paddingHorizontal: 20,
+    // paddingHorizontal: 20,
     flexDirection: 'column',
     gap: 10,
   },
@@ -65,6 +67,7 @@ export default function CategoriesList({ params }) {
     navigation,
     changeSelectedCategorie,
     listOfCategories,
+    changeListOfCategories,
     selectedCategory,
     nameTransaction,
   } = params;
@@ -77,6 +80,11 @@ export default function CategoriesList({ params }) {
       setItemsCategoriesCopy([listOfCategories[0], listOfCategories[1], listOfCategories[2]]);
     }
   }, [listOfCategories]);
+
+  const renderImage = (param) => {
+    const ImageItem = whiteListOfIcons[param.imageIndex];
+    return <ImageItem width={40} height={40} />;
+  };
 
   const renderCategoriesItems = () => {
     const items = itemsCategoriesCopy.map((item) => (
@@ -96,7 +104,8 @@ export default function CategoriesList({ params }) {
             backgroundColor: item.backgroundColor,
           }}
         >
-          <item.image />
+          {/* <item.image /> */}
+          {renderImage({ imageIndex: item.image })}
         </View>
         <Text style={CategoriesListStyles.titleItems}>{item.title}</Text>
         <Button
@@ -141,6 +150,16 @@ export default function CategoriesList({ params }) {
         );
         changeListCategories.unshift(...FoundCategory);
         setItemsCategoriesCopy([...changeListCategories]);
+      } else if (
+        previousDataParse.type === 'A category is added to the list' &&
+        previousDataParse.category.id
+      ) {
+        changeSelectedCategorie(previousDataParse.category);
+        changeListOfCategories(previousDataParse.categories);
+        const changeListCategories = itemsCategoriesCopy;
+        changeListCategories.pop();
+        changeListCategories.unshift(previousDataParse.category);
+        // setItemsCategoriesCopy([...changeListCategories]);
       } else if (previousDataParse.type === 'empty category selection') {
         changeSelectedCategorie({});
       }
@@ -149,9 +168,11 @@ export default function CategoriesList({ params }) {
     return () => clearInterval(interval);
   }, [
     // count,
+    navigation,
     selectedCategory,
     nameTransaction,
     changeSelectedCategorie,
+    changeListOfCategories,
     itemsCategoriesCopy,
     listOfCategories,
   ]);
@@ -184,6 +205,7 @@ export default function CategoriesList({ params }) {
               navigation.navigate('AddCategory', {
                 listOfCategories,
                 CategoryNameSelectedInStorage: `categorySelect${nameTransaction}`,
+                nameTransaction,
               })
             }
             theme={{
@@ -226,6 +248,7 @@ CategoriesList.propTypes = {
       PropTypes.bool,
       PropTypes.any,
     ]).isRequired,
+    changeListOfCategories: PropTypes.func,
     selectedCategory: PropTypes.oneOfType([PropTypes.any, PropTypes.number]),
     nameTransaction: PropTypes.string,
   }).isRequired,
