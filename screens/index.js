@@ -1,4 +1,4 @@
-import { View, StyleSheet } from 'react-native';
+import { Platform, View, StyleSheet } from 'react-native';
 import Constants from 'expo-constants';
 import { LinearGradient } from 'expo-linear-gradient';
 import { FAB } from 'react-native-paper';
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     margin: 16,
     right: 0,
     borderRadius: 50,
-    top: 180,
+    top: Platform.OS === 'ios' ? 180 : 150,
     backgroundColor: '#FA6C17',
     width: 48,
     height: 48,
