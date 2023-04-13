@@ -11,9 +11,17 @@ const renderScene = SceneMap({
 const renderTabBar = (props) => (
   <TabBar
     {...props} // eslint-disable-line react/jsx-props-no-spreading
-    indicatorStyle={{ backgroundColor: 'gray' }}
-    style={{ backgroundColor: 'white' }}
-    labelStyle={{ color: 'black' }}
+    indicatorStyle={{
+      backgroundColor: '#FA6C17',
+      width: 160,
+      height: 3,
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: 50,
+      marginLeft: 20,
+    }}
+    style={{ backgroundColor: '#F6F6FD' }}
+    labelStyle={{ color: '#334050', fontSize: 20, fontWeight: 500, textTransform: 'capitalize' }}
   />
 );
 

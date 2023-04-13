@@ -204,7 +204,13 @@ export default function SettingUpScreen({ setInitialSettingUp }) {
   );
 
   return (
-    <LinearGradient style={styles.container} colors={['#03B263', 'green', '#F6F6FD', '#F6F6FD']}>
+    <LinearGradient
+      style={styles.container}
+      start={[0, 1]}
+      end={[1, 0]}
+      locations={[0.2, 0.9]}
+      colors={['#03B263', '#01B496']}
+    >
       <Header headerText={headerText} />
       <View style={styles.inputsContainer}>{step === 1 ? stepOneInputs : stepTwoInputs}</View>
     </LinearGradient>

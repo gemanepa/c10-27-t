@@ -1,35 +1,45 @@
 import { useState, useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useIsFocused } from '@react-navigation/native';
-import PropTypes from 'prop-types';
-import { Text, FAB } from 'react-native-paper';
+import { Text } from 'react-native-paper';
 import { MaterialIcons } from '@expo/vector-icons';
 import getAsyncStorageData from '../../../utils/get-storage-data';
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 0.3,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'lightgray',
-    borderBottomLeftRadius: 150,
-    borderBottomRightRadius: 150,
-    position: 'relative',
-  },
-  fab: {
-    position: 'absolute',
-    margin: 16,
-    right: 0,
+  moneySignContainer: {
+    borderWidth: 3,
+    borderColor: '#EFB841',
     borderRadius: 50,
-    bottom: -10,
+    marginBottom: 10,
   },
-  moneySign: {
-    fontSize: 20,
-    fontWeight: 'bold',
+  upperText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 400,
+    textShadowColor: 'rgba(0, 0, 0, 0.5)',
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 5,
+    marginBottom: 10,
+  },
+  textAmount: {
+    color: 'white',
+    fontSize: 50,
+    fontWeight: 700,
+    textShadowColor: 'rgba(0, 0, 0, 0.5)',
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 5,
+  },
+  textCurrency: {
+    color: 'white',
+    fontSize: 25,
+    fontWeight: 600,
+    textShadowColor: 'rgba(0, 0, 0, 0.5)',
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 5,
   },
 });
 
-export default function UpperSection({ navigation }) {
+export default function UpperSection() {
   const [storagedData, setStoragedData] = useState(null);
   const isFocused = useIsFocused();
   useEffect(() => {
@@ -46,31 +56,23 @@ export default function UpperSection({ navigation }) {
   }
 
   return (
-    <View style={styles.container}>
-      <View style={{ borderWidth: 2, borderColor: 'black', borderRadius: 50 }}>
-        <MaterialIcons name="attach-money" size={24} color="black" />
+    <>
+      <View style={styles.moneySignContainer}>
+        <MaterialIcons name="attach-money" size={20} color="#EFB841" />
       </View>
-      <Text variant="titleSmall">- Disponible -</Text>
+      <Text style={styles.upperText} variant="titleSmall">
+        - Disponible -
+      </Text>
       {storagedData && (
         <>
-          <Text variant="displayMedium">{formatNumber(storagedData.amount)}</Text>
-          <Text variant="headlineSmall">{storagedData.currency}</Text>
+          <Text style={styles.textAmount} variant="displayMedium">
+            {formatNumber(storagedData.amount)}
+          </Text>
+          <Text style={styles.textCurrency} variant="headlineSmall">
+            {storagedData.currency}
+          </Text>
         </>
       )}
-
-      <FAB
-        style={styles.fab}
-        small
-        icon="plus"
-        onPress={() => navigation.navigate('AddTransaction')}
-      />
-    </View>
+    </>
   );
 }
-
-UpperSection.propTypes = {
-  navigation: PropTypes.shape({
-    navigate: PropTypes.func.isRequired,
-    goBack: PropTypes.func.isRequired,
-  }).isRequired,
-};
