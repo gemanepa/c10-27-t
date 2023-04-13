@@ -37,7 +37,7 @@ const SubmitStyle = StyleSheet.create({
 // //////////////// component Body /////////////////////
 
 export default function Transactions({ navigation, params }) {
-  const { listOfAccounts, listOfCategories, changeListOfCategories, information } = params;
+  const { listOfAccounts, listOfCategories, information } = params;
 
   const { name } = information;
 
@@ -192,7 +192,6 @@ export default function Transactions({ navigation, params }) {
               selectedCategory,
               changeSelectedCategorie,
               listOfCategories,
-              changeListOfCategories,
               nameTransaction: information.name,
             }}
           />
