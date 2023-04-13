@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import { Button } from 'react-native-paper';
 import { useIsFocused } from '@react-navigation/native';
 import { generateRandomTableData } from './utils';
@@ -24,8 +24,13 @@ function RenderContent({ buttonClicked, tableData }) {
 
 const styles = StyleSheet.create({
   buttonStyle: {
-    opacity: 0.7, // default style for inactive buttons
-    backgroundColor: '#808080',
+    opacity: 0.4, // default style for inactive buttons
+    backgroundColor: '#FA6C17',
+    borderRadius: 10,
+  },
+  buttonText: {
+    color: 'white',
+    fontWeight: 700,
   },
   activeButton: {
     opacity: 1, // highlight the active button
@@ -88,7 +93,7 @@ function ButtonGroup({ route }) {
     const buttonStyles = [styles.buttonStyle, isActive && styles.activeButton];
     return (
       <Button mode="contained" onPress={() => setButtonClicked(buttonNumber)} style={buttonStyles}>
-        {label}
+        <Text style={styles.buttonText}>{label}</Text>
       </Button>
     );
   };

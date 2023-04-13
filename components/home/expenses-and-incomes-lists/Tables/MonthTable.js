@@ -5,9 +5,9 @@ import styles from './styles';
 
 function MonthTable({ tableData }) {
   const renderTableHeader = () => (
-    <View style={styles.tableRow}>
-      <Text style={[styles.tableCell, { flex: 1 }]}>Categoria</Text>
-      <Text style={[styles.tableCell, { flex: 1 }]}>Cantidad</Text>
+    <View style={styles.tableHeader}>
+      <Text style={[styles.tableHeaderCell]}>Categoria</Text>
+      <Text style={[styles.tableHeaderCell]}>Cantidad</Text>
     </View>
   );
 
@@ -47,8 +47,8 @@ function MonthTable({ tableData }) {
               <Text style={styles.labelText}>{month}</Text>
             </View>
           )}
-          <Text style={[styles.tableCell, { flex: 1 }]}>{rowData.category}</Text>
-          <Text style={[styles.tableCell, { flex: 1 }]}>{rowData.amount}</Text>
+          <Text style={[styles.tableCell]}>{rowData.category}</Text>
+          <Text style={[styles.tableCell, { fontWeight: 700 }]}>{rowData.amount}</Text>
         </View>
       ));
 

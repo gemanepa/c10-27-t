@@ -61,7 +61,13 @@ const EnterAmountStyles = StyleSheet.create({
 
 export default function EnterAmount({ enterAmount, changeAmount, enterConcept, changeConcept }) {
   return (
-    <LinearGradient colors={['#03B263', '#018f95']} style={EnterAmountStyles.container}>
+    <LinearGradient
+      colors={['#03B263', '#018f95']}
+      start={[0, 1]}
+      end={[1, 0]}
+      locations={[0.2, 0.9]}
+      style={EnterAmountStyles.container}
+    >
       <Mesh style={{ position: 'absolute', left: '-20%' }} width="200%" height="200%" />
       <View style={EnterAmountStyles.container_Amount_And_Concept}>
         <Text style={EnterAmountStyles.title}>Concepto de ingreso</Text>

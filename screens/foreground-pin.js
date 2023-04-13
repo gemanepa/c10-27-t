@@ -35,13 +35,16 @@ function ForegroundPinScreen({ setUserInputPin }) {
   const color = incorrectPin ? 'red' : 'white';
   return (
     <LinearGradient
+      start={[0, 1]}
+      end={[1, 0]}
+      locations={[0.2, 0.9]}
+      colors={['#03B263', '#01B496']}
       style={{
         flex: 1,
         backgroundColor: 'rgba(0,0,0,0.5)',
         justifyContent: 'center',
         alignItems: 'center',
       }}
-      colors={['#03B263', 'green']}
     >
       <Image
         style={{

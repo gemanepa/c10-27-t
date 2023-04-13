@@ -23,6 +23,11 @@ const styles = StyleSheet.create({
     margin: 16,
     right: 0,
     bottom: 0,
+    backgroundColor: '#FA6C17',
+    width: 48,
+    height: 48,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
@@ -82,7 +87,7 @@ function App() {
           <Stack.Screen name="Details" component={DetailsScreen} />
         </Stack.Navigator>
       </NavigationContainer>
-      <FAB style={styles.fab} small icon="repeat-variant" onPress={removeValue} />
+      <FAB color="white" style={styles.fab} small icon="repeat-variant" onPress={removeValue} />
       <StatusBar style="auto" />
     </>
   );
