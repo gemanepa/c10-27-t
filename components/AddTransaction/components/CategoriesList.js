@@ -67,7 +67,6 @@ export default function CategoriesList({ params }) {
     navigation,
     changeSelectedCategorie,
     listOfCategories,
-    changeListOfCategories,
     selectedCategory,
     nameTransaction,
   } = params;
@@ -150,18 +149,21 @@ export default function CategoriesList({ params }) {
         );
         changeListCategories.unshift(...FoundCategory);
         setItemsCategoriesCopy([...changeListCategories]);
+      } else if (previousDataParse.type === 'empty category selection') {
+        changeSelectedCategorie({});
       } else if (
         previousDataParse.type === 'A category is added to the list' &&
         previousDataParse.category.id
       ) {
         changeSelectedCategorie(previousDataParse.category);
-        changeListOfCategories(previousDataParse.categories);
-        const changeListCategories = itemsCategoriesCopy;
-        changeListCategories.pop();
+        const changeListCategories = itemsCategoriesCopy.filter(
+          (value) => value.id !== previousDataParse.category.id
+        );
+        if (changeListCategories.length === 3) {
+          changeListCategories.pop();
+        }
         changeListCategories.unshift(previousDataParse.category);
-        // setItemsCategoriesCopy([...changeListCategories]);
-      } else if (previousDataParse.type === 'empty category selection') {
-        changeSelectedCategorie({});
+        setItemsCategoriesCopy([...changeListCategories]);
       }
       // setCount(count + 1);
     }, 1000);
@@ -172,7 +174,6 @@ export default function CategoriesList({ params }) {
     selectedCategory,
     nameTransaction,
     changeSelectedCategorie,
-    changeListOfCategories,
     itemsCategoriesCopy,
     listOfCategories,
   ]);

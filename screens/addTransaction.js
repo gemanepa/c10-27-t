@@ -16,8 +16,9 @@ export default function AddTransaction({ navigation }) {
 
   const {
     checkListOfExpenditureCategoriesInStorage,
+    // resetListOfExpenditureCategoriesInStorage,
     checkListOfRevenueCategoriesInStorage,
-    resetListOfRevenueCategoriesInStorage,
+    // resetListOfRevenueCategoriesInStorage,
   } = categoriesExport();
 
   useEffect(() => {
@@ -28,7 +29,7 @@ export default function AddTransaction({ navigation }) {
       if (!listOfExpenditureCategories) {
         await AsyncStorage.setItem('categorySelectExpense', JSON.stringify({ category: '' }));
         await AsyncStorage.setItem('categorySelectRevenue', JSON.stringify({ category: '' }));
-        setListOfRevenueCategories(await resetListOfRevenueCategoriesInStorage());
+        setListOfRevenueCategories(await checkListOfRevenueCategoriesInStorage());
         setListOfExpenditureCategories(await checkListOfExpenditureCategoriesInStorage());
       }
     };
@@ -50,13 +51,6 @@ export default function AddTransaction({ navigation }) {
     { id: 6, title: 'Opción 6' },
   ];
 
-  const changeListOfExpenditureCategories = (value) => {
-    setListOfExpenditureCategories(value);
-  };
-  const changeListOfRevenueCategories = (value) => {
-    setListOfRevenueCategories(value);
-  };
-
   return (
     <Tab.Navigator
       screenOptions={{
@@ -74,7 +68,6 @@ export default function AddTransaction({ navigation }) {
             params={{
               listOfAccounts,
               listOfCategories: listOfExpenditureCategories,
-              changeListOfCategories: changeListOfExpenditureCategories,
               information: {
                 name: 'Expenses',
                 buttonSubmitText: 'Añadir gasto',
@@ -92,7 +85,6 @@ export default function AddTransaction({ navigation }) {
             params={{
               listOfAccounts,
               listOfCategories: listOfRevenueCategories,
-              changeListOfCategories: changeListOfRevenueCategories,
               information: {
                 name: 'Revenues',
                 buttonSubmitText: 'Añadir Ingreso',
