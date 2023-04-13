@@ -1,7 +1,7 @@
 import { View, TextInput, Text, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import PropTypes from 'prop-types';
-import Mesh from '../../../assets/addTransactionIcons/GRAFICO.svg';
+import Mesh from '../../../assets/alertsIcons/GRAFICO.svg';
 
 const EnterAmountStyles = StyleSheet.create({
   container: {
@@ -38,7 +38,7 @@ const EnterAmountStyles = StyleSheet.create({
     height: '100%',
     borderColor: 'black',
     borderWidth: 1,
-    borderRadius: 20,
+    borderRadius: 10,
     textAlign: 'center',
     backgroundColor: '#f5f5f5',
   },
@@ -47,15 +47,15 @@ const EnterAmountStyles = StyleSheet.create({
     height: '100%',
     borderColor: 'black',
     borderWidth: 1,
-    borderRadius: 20,
+    borderRadius: 10,
     paddingRight: '20%',
     textAlign: 'center',
     backgroundColor: '#f5f5f5',
   },
   currency: {
     position: 'absolute',
-    fontSize: 20,
-    padding: 5,
+    fontSize: 16,
+    paddingHorizontal: 14,
   },
 });
 

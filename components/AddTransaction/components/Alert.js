@@ -2,8 +2,8 @@ import React, { useRef, useEffect } from 'react';
 import { View, StyleSheet, Text, Dimensions, Modal, Animated } from 'react-native';
 import { Button } from 'react-native-paper';
 import PropTypes from 'prop-types';
-import Aviso from '../../../assets/addTransactionIcons/Aviso.svg';
-import ConstructionIcon from '../../../assets/addTransactionIcons/ConstructionIcon.svg';
+import Aviso from '../../../assets/alertsIcons/Aviso.svg';
+import ConstructionIcon from '../../../assets/alertsIcons/ConstructionIcon.svg';
 
 const { width, height } = Dimensions.get('window');
 
@@ -17,16 +17,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   item: {
-    width: '70%',
     maxWidth: 300,
     minHeight: 200,
-    padding: 5,
+    padding: 15,
     borderRadius: 15,
     backgroundColor: '#FFFFFF',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
     gap: 30,
+  },
+  containerLyrics: {
+    width: '100%',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
   titleItems: {
     fontSize: 25,
@@ -71,20 +75,22 @@ export default function Alert({ title, params }) {
           <Animated.View style={[styles.item, { opacity: opacityItemAnimation }]}>
             <View style={styles.item}>
               {typeIcon === 'success' ? <Aviso /> : <ConstructionIcon />}
-              <Text style={styles.titleItems}>{title}</Text>
+              <View style={styles.containerLyrics}>
+                <Text style={styles.titleItems}>{title}</Text>
+                {message && <Text style={styles.messageItems}>{message}</Text>}
+              </View>
             </View>
-            {message && <Text style={styles.messageItems}>{message}</Text>}
           </Animated.View>
         </View>
-
-        <Button
-          mode="contained"
-          title="Learn More"
-          labelStyle={{ width, height, backgroundColor: 'transparent' }}
-          style={{ backgroundColor: 'transparent' }}
-          onPress={changeShowAlert2}
-        />
       </Animated.View>
+
+      <Button
+        mode="contained"
+        title="Learn More"
+        labelStyle={{ width, height, backgroundColor: 'transparent' }}
+        style={{ backgroundColor: 'transparent' }}
+        onPress={changeShowAlert2}
+      />
     </Modal>
   );
 }

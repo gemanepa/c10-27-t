@@ -218,7 +218,13 @@ export default function Transactions({ navigation, params }) {
       </View>
 
       {showAlertAddTransaction && (
-        <Alert title={information.alertText} params={{ fontColor: '#0003', typeIcon: 'success' }} />
+        <Alert
+          title={information.alertText}
+          params={{
+            fontColor: '#0003',
+            typeIcon: 'success',
+          }}
+        />
       )}
     </ScrollView>
   );

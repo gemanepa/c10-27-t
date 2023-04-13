@@ -10,7 +10,7 @@ const {
   AddCategoryExpenditureInStorage,
   checkListOfRevenueCategoriesInStorage,
   AddCategoryRevenueInStorage,
-  ListOfIcons,
+  blackListOfIcons,
   CreateCategoryList,
 } = CategoriesExport();
 
@@ -37,7 +37,7 @@ const CreateCategoryStyles = StyleSheet.create({
     height: 60,
     borderColor: '#334050',
     borderWidth: 1,
-    borderRadius: 20,
+    borderRadius: 10,
     textAlign: 'center',
     backgroundColor: '#FEFFFF',
   },
@@ -85,7 +85,7 @@ export default function CreateCategory({ navigation, route }) {
   };
 
   const renderIcons = (image) => {
-    const Icon = ListOfIcons[image];
+    const Icon = blackListOfIcons[image];
     return <Icon />;
   };
 

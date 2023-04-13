@@ -8,7 +8,7 @@ import PlusIcon from '../../../assets/categories/icons/PlusIcon.svg';
 import CategoriesExport from '../../../assets/categories/categoriesExport';
 
 const { width } = Dimensions.get('window');
-const { ListOfIcons } = CategoriesExport();
+const { whiteListOfIcons } = CategoriesExport();
 
 const styles = StyleSheet.create({
   container: {
@@ -95,7 +95,7 @@ export default function AddCategory({ navigation, route }) {
   };
 
   const renderImage = (param) => {
-    const ImageItem = ListOfIcons[param.imageIndex];
+    const ImageItem = whiteListOfIcons[param.imageIndex];
     return <ImageItem width={40} height={40} fill="red" />;
   };
 

@@ -1,11 +1,12 @@
 import { View, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { Button, List } from 'react-native-paper';
 // import { Picker } from '@react-native-picker/picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment';
 import 'moment/locale/es';
+import Alert from './Alert';
 
 const DataStyles = StyleSheet.create({
   parentContainer: {
@@ -26,8 +27,11 @@ const DataStyles = StyleSheet.create({
     padding: 0,
     borderColor: 'black',
     borderWidth: 1,
-    borderRadius: 20,
-    backgroundColor: 'transparent',
+    borderRadius: 10,
+    backgroundColor: '#FEFFFF',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
@@ -38,13 +42,14 @@ export default function Data({ params }) {
   //  Status
   const [openListAccount, setOpenListAccount] = useState(false);
   const [openDate, setOpenDate] = useState(false);
+  const [isShowAlert, setIsShowAlert] = useState(false);
 
   // Features
   function openList() {
     setOpenListAccount(!openListAccount);
   }
   // function closeList() {
-  //   pickerRef.current.blur();
+  //   setOpenListAccount(!openListAccount);
   // }
 
   const changeDateAndStatusDate = (event, selectedDate) => {
@@ -72,6 +77,9 @@ export default function Data({ params }) {
   };
 
   // const isIOS = Platform.OS === 'ios';
+  const changeIsShowAlert = () => {
+    setIsShowAlert(false);
+  };
 
   return (
     <View style={DataStyles.parentContainer}>
@@ -79,7 +87,8 @@ export default function Data({ params }) {
         <Button
           title="Mostrar Picker"
           mode="contained"
-          onPress={() => openList()}
+          // onPress={() => openList()}
+          onPress={() => setIsShowAlert(true)}
           style={DataStyles.button}
           textColor="black"
           labelStyle={{ fontSize: 18 }}
@@ -92,7 +101,8 @@ export default function Data({ params }) {
           // style={{ borderWidth: 1, borderColor: 'black', borderRadius: 20, height: '100%' }}
           style={{ ...DataStyles.date, color: 'transparent' }}
           expanded={openListAccount}
-          onPress={() => openList()}
+          // onPress={() => openList()}
+          onPress={() => setIsShowAlert(true)}
           theme={{ colors: { primary: 'blue', onPrimary: 'black', secondary: 'red' } }}
         >
           {renderPickerItems(listOfAccounts)}
@@ -129,6 +139,16 @@ export default function Data({ params }) {
           />
         )}
       </View>
+      {isShowAlert && (
+        <Alert
+          title="Estamos trabajando en esta opción"
+          params={{
+            message: '¡Pronto estará lista!',
+            fontColor: '#0003',
+            changeShowAlert: changeIsShowAlert,
+          }}
+        />
+      )}
     </View>
   );
 }

@@ -8,11 +8,11 @@ import PlusIcon from '../../../assets/categories/icons/PlusIcon.svg';
 import CategoriesExport from '../../../assets/categories/categoriesExport';
 
 const { width } = Dimensions.get('window');
-const { ListOfIcons } = CategoriesExport();
+const { whiteListOfIcons } = CategoriesExport();
 
 const CategoriesListStyles = StyleSheet.create({
   container: {
-    paddingHorizontal: 20,
+    // paddingHorizontal: 20,
     flexDirection: 'column',
     gap: 10,
   },
@@ -82,7 +82,7 @@ export default function CategoriesList({ params }) {
   }, [listOfCategories]);
 
   const renderImage = (param) => {
-    const ImageItem = ListOfIcons[param.imageIndex];
+    const ImageItem = whiteListOfIcons[param.imageIndex];
     return <ImageItem width={40} height={40} />;
   };
 

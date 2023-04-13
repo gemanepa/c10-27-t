@@ -2,71 +2,138 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Alert } from 'react-native';
 
-import HealthIcon from './CATEGORIAS/ICONOS NEGROS/BTN_Salud.svg';
-import FoodIcon from './CATEGORIAS/ICONOS NEGROS/BTN_ALIMENTACION.svg';
-import EducationIcon from './CATEGORIAS/ICONOS NEGROS/BtnEducacion.svg';
-import HomeIcon from './CATEGORIAS/ICONOS NEGROS/BtnHogar.svg';
-import BusIcon from './CATEGORIAS/ICONOS NEGROS/BTN_BUS.svg';
-import HygieneIcon from './CATEGORIAS/ICONOS NEGROS/BtnHigiene.svg';
-import LeisureIcon from './CATEGORIAS/ICONOS NEGROS/BTN_OCIO.svg';
-import GiftIcon from './CATEGORIAS/ICONOS NEGROS/BtnRegalo.svg';
-import GymIcon from './CATEGORIAS/ICONOS NEGROS/BtnGym.svg';
-import FamilyIcon from './CATEGORIAS/ICONOS NEGROS/BtnFamilia.svg';
+import blackHealthIcon from './icons/blackIcons/BTN_Salud.svg';
+import blackFoodIcon from './icons/blackIcons/BTN_ALIMENTACION.svg';
+import blackEducationIcon from './icons/blackIcons/BtnEducacion.svg';
+import blackHomeIcon from './icons/blackIcons/BtnHogar.svg';
+import blackBusIcon from './icons/blackIcons/BTN_BUS.svg';
+import blackHygieneIcon from './icons/blackIcons/BtnHigiene.svg';
+import blackLeisureIcon from './icons/blackIcons/BTN_OCIO.svg';
+import blackGiftIcon from './icons/blackIcons/BtnRegalo.svg';
+import blackGymIcon from './icons/blackIcons/BtnGym.svg';
+import blackFamilyIcon from './icons/blackIcons/BtnFamilia.svg';
 
-import SalaryIcon from './CATEGORIAS/ICONOS NEGROS/BtnSalario.svg';
-import InterestIcon from './CATEGORIAS/ICONOS NEGROS/IconInteres.svg';
-import OtherIcon from './CATEGORIAS/ICONOS NEGROS/BtnOtros.svg';
-import BusinessIcon from './CATEGORIAS/ICONOS NEGROS/BtnNegocio.svg';
+import blackSalaryIcon from './icons/blackIcons/BtnSalario.svg';
+import blackInterestIcon from './icons/blackIcons/IconInteres.svg';
+import blackOtherIcon from './icons/blackIcons/BtnOtros.svg';
+import blackBusinessIcon from './icons/blackIcons/BtnNegocio.svg';
 
-import PigIcon from './CATEGORIAS/ICONOS NEGROS/Property 1=Btn.svg';
-import MathematicalSymbolsIcon from './CATEGORIAS/ICONOS NEGROS/Property 1=Btn-1.svg';
-import MonumentIcon from './CATEGORIAS/ICONOS NEGROS/Property 1=Btn-2.svg';
-import RateIcon from './CATEGORIAS/ICONOS NEGROS/Property 1=Btn-3.svg';
-import PizzaIcon from './CATEGORIAS/ICONOS NEGROS/Property 1=Btn-5.svg';
-import FastFood from './CATEGORIAS/ICONOS NEGROS/Property 1=Btn-6.svg';
-import HamburgerIcon from './CATEGORIAS/ICONOS NEGROS/Property 1=Btn-7.svg';
-import CardIcon from './CATEGORIAS/ICONOS NEGROS/Property 1=Btn-4.svg';
-import SuitcaseIcon from './CATEGORIAS/ICONOS NEGROS/Property 1=Btn-9.svg';
-import TruckIcon from './CATEGORIAS/ICONOS NEGROS/Property 1=Btn-8.svg';
-import ShoppingCartIcon from './CATEGORIAS/ICONOS NEGROS/Property 1=Btn-10.svg';
-import GameControlIcon from './CATEGORIAS/ICONOS NEGROS/Property 1=Btn-11.svg';
-import CarIcon from './CATEGORIAS/ICONOS NEGROS/Property 1=Btn-12.svg';
-import CakeIcon from './CATEGORIAS/ICONOS NEGROS/Property 1=Btn-15.svg';
-import LaptopAndCellPhone from './CATEGORIAS/ICONOS NEGROS/Property 1=Btn-13.svg';
-import BroomIcon from './CATEGORIAS/ICONOS NEGROS/Property 1=Btn-14.svg';
+import blackPigIcon from './icons/blackIcons/Property 1=Btn.svg';
+import blackMathematicalSymbolsIcon from './icons/blackIcons/Property 1=Btn-1.svg';
+import blackMonumentIcon from './icons/blackIcons/Property 1=Btn-2.svg';
+import blackRateIcon from './icons/blackIcons/Property 1=Btn-3.svg';
+import blackPizzaIcon from './icons/blackIcons/Property 1=Btn-5.svg';
+import blackFastFood from './icons/blackIcons/Property 1=Btn-6.svg';
+import blackHamburgerIcon from './icons/blackIcons/Property 1=Btn-7.svg';
+import blackCardIcon from './icons/blackIcons/Property 1=Btn-4.svg';
+import blackSuitcaseIcon from './icons/blackIcons/Property 1=Btn-9.svg';
+import blackTruckIcon from './icons/blackIcons/Property 1=Btn-8.svg';
+import blackShoppingCartIcon from './icons/blackIcons/Property 1=Btn-10.svg';
+import blackGameControlIcon from './icons/blackIcons/Property 1=Btn-11.svg';
+import blackCarIcon from './icons/blackIcons/Property 1=Btn-12.svg';
+import blackCakeIcon from './icons/blackIcons/Property 1=Btn-15.svg';
+import blackLaptopAndCellPhone from './icons/blackIcons/Property 1=Btn-13.svg';
+import blackBroomIcon from './icons/blackIcons/Property 1=Btn-14.svg';
 
-const ListOfIcons = {
-  0: HealthIcon,
-  1: FoodIcon,
-  2: EducationIcon,
-  3: HomeIcon,
-  4: BusIcon,
-  5: HygieneIcon,
-  6: LeisureIcon,
-  7: GiftIcon,
-  8: GymIcon,
-  9: FamilyIcon,
-  10: SalaryIcon,
-  11: InterestIcon,
-  12: GiftIcon,
-  13: OtherIcon,
-  14: BusinessIcon,
-  15: PigIcon,
-  16: MathematicalSymbolsIcon,
-  17: MonumentIcon,
-  18: RateIcon,
-  19: PizzaIcon,
-  20: FastFood,
-  21: HamburgerIcon,
-  22: CardIcon,
-  23: SuitcaseIcon,
-  24: TruckIcon,
-  25: ShoppingCartIcon,
-  26: GameControlIcon,
-  27: CarIcon,
-  28: CakeIcon,
-  29: LaptopAndCellPhone,
-  30: BroomIcon,
+import whiteHealthIcon from './icons/whiteIcons/BTN_Salud.svg';
+import whiteFoodIcon from './icons/whiteIcons/BTN_ALIMENTACION.svg';
+import whiteEducationIcon from './icons/whiteIcons/BtnEducacion.svg';
+import whiteHomeIcon from './icons/whiteIcons/BtnHogar.svg';
+import whiteBusIcon from './icons/whiteIcons/BTN_BUS.svg';
+import whiteHygieneIcon from './icons/whiteIcons/BtnHigiene.svg';
+import whiteLeisureIcon from './icons/whiteIcons/BTN_OCIO.svg';
+import whiteGiftIcon from './icons/whiteIcons/BtnRegalo.svg';
+import whiteGymIcon from './icons/whiteIcons/BtnGym.svg';
+import whiteFamilyIcon from './icons/whiteIcons/BtnFamilia.svg';
+
+import whiteSalaryIcon from './icons/whiteIcons/BtnSalario.svg';
+import whiteInterestIcon from './icons/whiteIcons/IconInteres.svg';
+import whiteOtherIcon from './icons/whiteIcons/BtnOtros.svg';
+import whiteBusinessIcon from './icons/whiteIcons/BtnNegocio.svg';
+
+import whitePigIcon from './icons/whiteIcons/Property 1=Btn.svg';
+import whiteMathematicalSymbolsIcon from './icons/whiteIcons/Property 1=Btn-1.svg';
+import whiteMonumentIcon from './icons/whiteIcons/Property 1=Btn-2.svg';
+import whiteRateIcon from './icons/whiteIcons/Property 1=Btn-3.svg';
+import whitePizzaIcon from './icons/whiteIcons/Property 1=Btn-5.svg';
+import whiteFastFood from './icons/whiteIcons/Property 1=Btn-6.svg';
+import whiteHamburgerIcon from './icons/whiteIcons/Property 1=Btn-7.svg';
+import whiteCardIcon from './icons/whiteIcons/Property 1=Btn-4.svg';
+import whiteSuitcaseIcon from './icons/whiteIcons/Property 1=Btn-9.svg';
+import whiteTruckIcon from './icons/whiteIcons/Property 1=Btn-8.svg';
+import whiteShoppingCartIcon from './icons/whiteIcons/Property 1=Btn-10.svg';
+import whiteGameControlIcon from './icons/whiteIcons/Property 1=Btn-11.svg';
+import whiteCarIcon from './icons/whiteIcons/Property 1=Btn-12.svg';
+import whiteCakeIcon from './icons/whiteIcons/Property 1=Btn-15.svg';
+import whiteLaptopAndCellPhone from './icons/whiteIcons/Property 1=Btn-13.svg';
+import whiteBroomIcon from './icons/whiteIcons/Property 1=Btn-14.svg';
+
+const blackListOfIcons = {
+  0: blackHealthIcon,
+  1: blackFoodIcon,
+  2: blackEducationIcon,
+  3: blackHomeIcon,
+  4: blackBusIcon,
+  5: blackHygieneIcon,
+  6: blackLeisureIcon,
+  7: blackGiftIcon,
+  8: blackGymIcon,
+  9: blackFamilyIcon,
+  10: blackSalaryIcon,
+  11: blackInterestIcon,
+  12: blackGiftIcon,
+  13: blackOtherIcon,
+  14: blackBusinessIcon,
+  15: blackPigIcon,
+  16: blackMathematicalSymbolsIcon,
+  17: blackMonumentIcon,
+  18: blackRateIcon,
+  19: blackPizzaIcon,
+  20: blackFastFood,
+  21: blackHamburgerIcon,
+  22: blackCardIcon,
+  23: blackSuitcaseIcon,
+  24: blackTruckIcon,
+  25: blackShoppingCartIcon,
+  26: blackGameControlIcon,
+  27: blackCarIcon,
+  28: blackCakeIcon,
+  29: blackLaptopAndCellPhone,
+  30: blackBroomIcon,
+};
+
+const whiteListOfIcons = {
+  0: whiteHealthIcon,
+  1: whiteFoodIcon,
+  2: whiteEducationIcon,
+  3: whiteHomeIcon,
+  4: whiteBusIcon,
+  5: whiteHygieneIcon,
+  6: whiteLeisureIcon,
+  7: whiteGiftIcon,
+  8: whiteGymIcon,
+  9: whiteFamilyIcon,
+  10: whiteSalaryIcon,
+  11: whiteInterestIcon,
+  12: whiteGiftIcon,
+  13: whiteOtherIcon,
+  14: whiteBusinessIcon,
+  15: whitePigIcon,
+  16: whiteMathematicalSymbolsIcon,
+  17: whiteMonumentIcon,
+  18: whiteRateIcon,
+  19: whitePizzaIcon,
+  20: whiteFastFood,
+  21: whiteHamburgerIcon,
+  22: whiteCardIcon,
+  23: whiteSuitcaseIcon,
+  24: whiteTruckIcon,
+  25: whiteShoppingCartIcon,
+  26: whiteGameControlIcon,
+  27: whiteCarIcon,
+  28: whiteCakeIcon,
+  29: whiteLaptopAndCellPhone,
+  30: whiteBroomIcon,
 };
 
 const ListOfExpenditureCategories = [
@@ -227,7 +294,8 @@ export default function CategoriesExport() {
     checkListOfRevenueCategoriesInStorage,
     resetListOfRevenueCategoriesInStorage,
     AddCategoryRevenueInStorage,
-    ListOfIcons,
+    blackListOfIcons,
+    whiteListOfIcons,
     CreateCategoryList,
   };
 }
