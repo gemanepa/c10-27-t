@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const useAsyncStorage = (key) => {
+const useAsyncStorage = (key, reload) => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState(null);
 
@@ -10,7 +10,8 @@ const useAsyncStorage = (key) => {
       try {
         const value = await AsyncStorage.getItem(key);
         if (value !== null) {
-          setData(JSON.parse(value));
+          const newVal = JSON.parse(value);
+          if (data !== newVal) setData(newVal);
         }
       } catch (error) {
         console.error(error); // eslint-disable-line no-console
@@ -20,7 +21,7 @@ const useAsyncStorage = (key) => {
     };
 
     retrieveData();
-  }, [key]);
+  }, [key, reload]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return [loading, data];
 };

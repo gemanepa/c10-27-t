@@ -1,5 +1,6 @@
-import { useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { useState, useEffect } from 'react';
+import { AppState, StyleSheet } from 'react-native';
+import { useAppState } from '@react-native-community/hooks';
 import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -11,6 +12,7 @@ import AddCategory from './components/Categories/tables/AddCategory';
 import CreateCategory from './components/Categories/tables/CreateCategory';
 import DetailsScreen from './screens/details';
 import SettingUpScreen from './screens/initial-setup';
+import ForegroundPinScreen from './screens/foreground-pin';
 import useAsyncStorage from './hooks/useAsyncStorage';
 
 const Stack = createNativeStackNavigator();
@@ -26,8 +28,25 @@ const styles = StyleSheet.create({
 
 function App() {
   const [initialSettingUp, setInitialSettingUp] = useState('initial');
-  const [storageLoading, storagedData] = useAsyncStorage('userCurrency');
-  const [pinLoading, pinData] = useAsyncStorage('userPin');
+  const [storageLoading, storagedData] = useAsyncStorage('userCurrency', initialSettingUp);
+  const [pinLoading, pinData] = useAsyncStorage('userPin', initialSettingUp);
+
+  const [activeApp, setActiveApp] = useState(AppState.currentState);
+  const appState = useAppState();
+
+  const [userInputPin, setUserInputPin] = useState('');
+
+  useEffect(() => {
+    if (appState === 'active' && activeApp !== 'active') {
+      // we enter in this conditional when app comes to the foreground
+      setActiveApp('active');
+    } else if (appState !== activeApp) {
+      // we enter in this conditional when app goes to the background
+      if (userInputPin !== '') setUserInputPin('');
+      if (initialSettingUp !== 'initial') setInitialSettingUp('initial');
+      setActiveApp(appState);
+    }
+  }, [appState]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (storageLoading || pinLoading) return null;
 
@@ -47,6 +66,11 @@ function App() {
       console.error(e); // eslint-disable-line no-console
     }
   };
+
+  if (pinData && userInputPin !== pinData && initialSettingUp !== 'success') {
+    return <ForegroundPinScreen setUserInputPin={setUserInputPin} />;
+  }
+
   return (
     <>
       <NavigationContainer>
