@@ -39,7 +39,7 @@ const SubmitStyle = StyleSheet.create({
 export default function Transactions({ navigation, params }) {
   const { listOfAccounts, listOfCategories, information } = params;
 
-  const { name } = information;
+  const { name, titleOfTheFirstInput } = information;
 
   const isExpense = name === 'Expenses';
 
@@ -173,6 +173,7 @@ export default function Transactions({ navigation, params }) {
           changeAmount={changeAmount}
           enterConcept={enterConcept}
           changeConcept={changeConcept}
+          titleOfTheFirstInput={titleOfTheFirstInput}
         />
 
         <Data
@@ -266,6 +267,7 @@ Transactions.propTypes = {
       buttonSubmitText: PropTypes.string,
       mathematicalSymbol: PropTypes.string,
       alertText: PropTypes.string,
+      titleOfTheFirstInput: PropTypes.string,
     }),
   }).isRequired,
 };

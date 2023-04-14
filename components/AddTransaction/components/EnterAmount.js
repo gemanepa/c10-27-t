@@ -1,7 +1,6 @@
 import { View, TextInput, Text, StyleSheet } from 'react-native';
 // import { LinearGradient } from 'expo-linear-gradient';
 import PropTypes from 'prop-types';
-import Mesh from '../../../assets/alertsIcons/GRAFICO.svg';
 import LayerBackground from '../../generalComponents/layerBackground';
 
 const EnterAmountStyles = StyleSheet.create({
@@ -13,6 +12,7 @@ const EnterAmountStyles = StyleSheet.create({
     backgroundColor: '#d9d9d9',
     borderBottomLeftRadius: 100,
     borderBottomRightRadius: 100,
+    position: 'relative',
     gap: 20,
     overflow: 'hidden',
   },
@@ -60,18 +60,28 @@ const EnterAmountStyles = StyleSheet.create({
   },
 });
 
-export default function EnterAmount({ enterAmount, changeAmount, enterConcept, changeConcept }) {
+export default function EnterAmount({ enterAmount, changeAmount, enterConcept, changeConcept, titleOfTheFirstInput }) {
   return (
     <LayerBackground
       params={{
         linearGradient: {
           style: { ...EnterAmountStyles.container },
         },
+        mesh: {
+          width: '160%',
+          height: '160%',
+          style: {
+            position: 'absolute',
+            left: '-30%'
+          }
+        }
       }}
     >
-      <Mesh style={{ position: 'absolute', left: '-20%' }} width="200%" height="200%" />
+
       <View style={EnterAmountStyles.container_Amount_And_Concept}>
-        <Text style={EnterAmountStyles.title}>Concepto de ingreso</Text>
+        <Text style={EnterAmountStyles.title}>
+          {titleOfTheFirstInput}
+        </Text>
         <View style={EnterAmountStyles.enterAmount}>
           <TextInput
             value={enterConcept}
@@ -103,4 +113,5 @@ EnterAmount.propTypes = {
   changeAmount: PropTypes.func.isRequired,
   enterConcept: PropTypes.string.isRequired,
   changeConcept: PropTypes.func.isRequired,
+  titleOfTheFirstInput: PropTypes.string.isRequired
 };
