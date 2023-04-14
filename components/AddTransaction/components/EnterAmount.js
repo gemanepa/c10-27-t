@@ -1,11 +1,12 @@
 import { View, TextInput, Text, StyleSheet } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
+// import { LinearGradient } from 'expo-linear-gradient';
 import PropTypes from 'prop-types';
 import Mesh from '../../../assets/alertsIcons/GRAFICO.svg';
+import LayerBackground from '../../generalComponents/layerBackground';
 
 const EnterAmountStyles = StyleSheet.create({
   container: {
-    minHeight: 100,
+    minHeight: 200,
     paddingVertical: '8%',
     flexDirection: 'column',
     alignItems: 'center',
@@ -61,12 +62,12 @@ const EnterAmountStyles = StyleSheet.create({
 
 export default function EnterAmount({ enterAmount, changeAmount, enterConcept, changeConcept }) {
   return (
-    <LinearGradient
-      colors={['#03B263', '#018f95']}
-      start={[0, 1]}
-      end={[1, 0]}
-      locations={[0.2, 0.9]}
-      style={EnterAmountStyles.container}
+    <LayerBackground
+      params={{
+        linearGradient: {
+          style: { ...EnterAmountStyles.container },
+        },
+      }}
     >
       <Mesh style={{ position: 'absolute', left: '-20%' }} width="200%" height="200%" />
       <View style={EnterAmountStyles.container_Amount_And_Concept}>
@@ -93,7 +94,7 @@ export default function EnterAmount({ enterAmount, changeAmount, enterConcept, c
           <Text style={EnterAmountStyles.currency}> USD </Text>
         </View>
       </View>
-    </LinearGradient>
+    </LayerBackground>
   );
 }
 
