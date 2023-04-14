@@ -62,15 +62,14 @@ export default function layerBackground({ children, params }) {
     container: meshStyle,
   });
 
-
-  let layerStyle = {}
-  let layerWidth = '100%'
-  let layerHeight = '100%'
+  let layerStyle = {};
+  let layerWidth = '100%';
+  let layerHeight = '100%';
   let Layer = ListOfStatisticalLayers['0'];
 
   if (layer) {
     if (layer.style) {
-      layerStyle = layer.style
+      layerStyle = layer.style;
     }
     if (layer.width) {
       layerWidth = layer.width;
@@ -79,14 +78,12 @@ export default function layerBackground({ children, params }) {
       layerHeight = layer.height;
     }
     if (layer.vector) {
-      Layer = ListOfStatisticalLayers[layer.vector]
+      Layer = ListOfStatisticalLayers[layer.vector];
     }
   }
   layerStyle = StyleSheet.create({
     container: layerStyle,
   });
-
-
 
   // const renderComponent = () => {
 
@@ -100,12 +97,8 @@ export default function layerBackground({ children, params }) {
       locations={locations}
       style={linearGradientStyle.container}
     >
-      {mesh &&
-        <Mesh style={meshStyle.container} width={meshWidth} height={meshHeight} />
-      }
-      {layer &&
-        <Layer width={layerWidth} height={layerHeight} style={layerStyle.container} />
-      }
+      {mesh && <Mesh style={meshStyle.container} width={meshWidth} height={meshHeight} />}
+      {layer && <Layer width={layerWidth} height={layerHeight} style={layerStyle.container} />}
       {children}
     </LinearGradient>
   );

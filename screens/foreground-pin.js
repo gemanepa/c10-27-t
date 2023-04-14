@@ -37,7 +37,7 @@ function ForegroundPinScreen({ setUserInputPin }) {
     <LayerBackground
       params={{
         linearGradient: {
-          colors: ['#01B496', '#03B263',],
+          colors: ['#01B496', '#03B263'],
           style: {
             flex: 1,
             backgroundColor: 'rgba(0,0,0,0.5)',
@@ -48,18 +48,18 @@ function ForegroundPinScreen({ setUserInputPin }) {
         mesh: {
           style: {
             position: 'absolute',
-            opacity: 0.6
+            opacity: 0.6,
             // left: '-20%',
             // top: '-55%'
           },
           vector: '1',
           width: '100%',
-          height: '100%'
+          height: '100%',
         },
         layer: {
           vector: '0',
-          style: { position: 'absolute', bottom: '-18%', opacity: 0.6 }
-        }
+          style: { position: 'absolute', bottom: '-18%', opacity: 0.6 },
+        },
       }}
     >
       <Image

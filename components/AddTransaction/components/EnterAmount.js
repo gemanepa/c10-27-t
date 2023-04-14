@@ -60,7 +60,13 @@ const EnterAmountStyles = StyleSheet.create({
   },
 });
 
-export default function EnterAmount({ enterAmount, changeAmount, enterConcept, changeConcept, titleOfTheFirstInput }) {
+export default function EnterAmount({
+  enterAmount,
+  changeAmount,
+  enterConcept,
+  changeConcept,
+  titleOfTheFirstInput,
+}) {
   return (
     <LayerBackground
       params={{
@@ -72,16 +78,13 @@ export default function EnterAmount({ enterAmount, changeAmount, enterConcept, c
           height: '160%',
           style: {
             position: 'absolute',
-            left: '-30%'
-          }
-        }
+            left: '-30%',
+          },
+        },
       }}
     >
-
       <View style={EnterAmountStyles.container_Amount_And_Concept}>
-        <Text style={EnterAmountStyles.title}>
-          {titleOfTheFirstInput}
-        </Text>
+        <Text style={EnterAmountStyles.title}>{titleOfTheFirstInput}</Text>
         <View style={EnterAmountStyles.enterAmount}>
           <TextInput
             value={enterConcept}
@@ -113,5 +116,5 @@ EnterAmount.propTypes = {
   changeAmount: PropTypes.func.isRequired,
   enterConcept: PropTypes.string.isRequired,
   changeConcept: PropTypes.func.isRequired,
-  titleOfTheFirstInput: PropTypes.string.isRequired
+  titleOfTheFirstInput: PropTypes.string.isRequired,
 };
