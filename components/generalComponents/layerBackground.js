@@ -1,6 +1,5 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
-import { StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 
 // import Mesh from '../../assets/alertsIcons/GRAFICO.svg';
@@ -10,101 +9,39 @@ const { ListOfStatisticalLayers, ListOfMesh, ListBackgroundsWithAllTheElements }
   GeneralComponentsExport();
 
 export default function layerBackground({ children, params }) {
-  const { linearGradient, mesh, layer, backgroundLayer } = params;
+  const { linearGradient = {}, mesh = {}, layer = {}, backgroundLayer = {} } = params;
 
-  let colors = ['#03B263', '#01B496'];
-  let start = [0, 1];
-  let end = [1, 0];
-  let locations = [0.2, 0.9];
-  let linearGradientStyle = { width: '100%' };
+  const {
+    colors = ['red', 'purple'],
+    start = [0, 1],
+    end = [0, 1],
+    locations = [0.2, 0.9],
+    style: linearGradientStyle = { width: '100%' },
+  } = linearGradient;
 
-  if (linearGradient) {
-    if (linearGradient.colors) {
-      colors = linearGradient.colors;
-    }
-    if (linearGradient.start) {
-      start = linearGradient.start;
-    }
-    if (linearGradient.end) {
-      end = linearGradient.end;
-    }
-    if (linearGradient.locations) {
-      locations = linearGradient.locations;
-    }
-    if (linearGradient.style) {
-      linearGradientStyle = linearGradient.style;
-    }
-  }
+  const {
+    width: meshWidth = '200%',
+    height: meshHeight = '200%',
+    style: meshStyle = { position: 'absolute', left: '-20%' },
+    vector: meshVector = 0,
+  } = mesh;
+  const Mesh = ListOfMesh[meshVector];
 
-  linearGradientStyle = StyleSheet.create({
-    container: linearGradientStyle,
-  });
+  const {
+    width: layerWidth = '100%',
+    height: layerHeight = '100%',
+    style: layerStyle = {},
+    vector: layerVector = 0,
+  } = layer;
+  const Layer = ListOfStatisticalLayers[layerVector];
 
-  let meshWidth = '200%';
-  let meshHeight = '200%';
-
-  let meshStyle = { position: 'absolute', left: '-20%' };
-  let Mesh = ListOfMesh['0'];
-  if (mesh) {
-    if (mesh.width) {
-      meshWidth = mesh.width;
-    }
-    if (mesh.height) {
-      meshHeight = mesh.height;
-    }
-    if (mesh.style) {
-      meshStyle = mesh.style;
-    }
-    if (mesh.vector) {
-      Mesh = ListOfMesh[mesh.vector];
-    }
-  }
-  meshStyle = StyleSheet.create({
-    container: meshStyle,
-  });
-
-  let layerStyle = {};
-  let layerWidth = '100%';
-  let layerHeight = '100%';
-  let Layer = ListOfStatisticalLayers['0'];
-
-  if (layer) {
-    if (layer.style) {
-      layerStyle = layer.style;
-    }
-    if (layer.width) {
-      layerWidth = layer.width;
-    }
-    if (layer.height) {
-      layerHeight = layer.height;
-    }
-    if (layer.vector) {
-      Layer = ListOfStatisticalLayers[layer.vector];
-    }
-  }
-  layerStyle = StyleSheet.create({
-    container: layerStyle,
-  });
-
-  let BackgroundLayer = ListBackgroundsWithAllTheElements['0'];
-  let backgroundLayerStyle = { position: 'absolute' };
-  let backgroundLayerWidth = '100%';
-  let backgroundLayerHeight = '100%';
-
-  if (backgroundLayer) {
-    if (backgroundLayer.style) {
-      backgroundLayerStyle = backgroundLayer.style;
-    }
-    if (BackgroundLayer.width) {
-      backgroundLayerWidth = backgroundLayer.width;
-    }
-    if (BackgroundLayer.height) {
-      backgroundLayerHeight = backgroundLayer.height;
-    }
-    if (backgroundLayer.vector) {
-      BackgroundLayer = ListBackgroundsWithAllTheElements[backgroundLayer.vector];
-    }
-  }
+  const {
+    width: backgroundLayerWidth = '100%',
+    height: backgroundLayerHeight = '100%',
+    style: backgroundLayerStyle = { position: 'absolute' },
+    vector: backgroundLayerVector = 0,
+  } = backgroundLayer;
+  const BackgroundLayer = ListBackgroundsWithAllTheElements[backgroundLayerVector];
 
   return (
     <LinearGradient
@@ -112,11 +49,15 @@ export default function layerBackground({ children, params }) {
       start={start}
       end={end}
       locations={locations}
-      style={linearGradientStyle.container}
+      style={linearGradientStyle}
     >
-      {mesh && <Mesh style={meshStyle.container} width={meshWidth} height={meshHeight} />}
-      {layer && <Layer width={layerWidth} height={layerHeight} style={layerStyle.container} />}
-      {backgroundLayer && (
+      {JSON.stringify(mesh) !== '{}' && (
+        <Mesh style={meshStyle} width={meshWidth} height={meshHeight} />
+      )}
+      {JSON.stringify(layer) !== '{}' && (
+        <Layer width={layerWidth} height={layerHeight} style={layerStyle} />
+      )}
+      {JSON.stringify(backgroundLayer) !== '{}' && (
         <BackgroundLayer
           width={backgroundLayerWidth}
           height={backgroundLayerHeight}
