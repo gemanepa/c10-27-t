@@ -6,12 +6,13 @@ import PropTypes from 'prop-types';
 // import Mesh from '../../assets/alertsIcons/GRAFICO.svg';
 import GeneralComponentsExport from '../../assets/generalComponents/generalComponentsExport';
 
-const { ListOfStatisticalLayers, ListOfMesh } = GeneralComponentsExport();
+const { ListOfStatisticalLayers, ListOfMesh, ListBackgroundsWithAllTheElements } =
+  GeneralComponentsExport();
 
 export default function layerBackground({ children, params }) {
-  const { linearGradient, mesh, layer } = params;
+  const { linearGradient, mesh, layer, backgroundLayer } = params;
 
-  let colors = ['#03B263', '#018f95'];
+  let colors = ['#03B263', '#01B496'];
   let start = [0, 1];
   let end = [1, 0];
   let locations = [0.2, 0.9];
@@ -62,15 +63,14 @@ export default function layerBackground({ children, params }) {
     container: meshStyle,
   });
 
-
-  let layerStyle = {}
-  let layerWidth = '100%'
-  let layerHeight = '100%'
+  let layerStyle = {};
+  let layerWidth = '100%';
+  let layerHeight = '100%';
   let Layer = ListOfStatisticalLayers['0'];
 
   if (layer) {
     if (layer.style) {
-      layerStyle = layer.style
+      layerStyle = layer.style;
     }
     if (layer.width) {
       layerWidth = layer.width;
@@ -79,18 +79,32 @@ export default function layerBackground({ children, params }) {
       layerHeight = layer.height;
     }
     if (layer.vector) {
-      Layer = ListOfStatisticalLayers[layer.vector]
+      Layer = ListOfStatisticalLayers[layer.vector];
     }
   }
   layerStyle = StyleSheet.create({
     container: layerStyle,
   });
 
+  let BackgroundLayer = ListBackgroundsWithAllTheElements['0'];
+  let backgroundLayerStyle = { position: 'absolute' };
+  let backgroundLayerWidth = '100%';
+  let backgroundLayerHeight = '100%';
 
-
-  // const renderComponent = () => {
-
-  // };
+  if (backgroundLayer) {
+    if (backgroundLayer.style) {
+      backgroundLayerStyle = backgroundLayer.style;
+    }
+    if (BackgroundLayer.width) {
+      backgroundLayerWidth = backgroundLayer.width;
+    }
+    if (BackgroundLayer.height) {
+      backgroundLayerHeight = backgroundLayer.height;
+    }
+    if (backgroundLayer.vector) {
+      BackgroundLayer = ListBackgroundsWithAllTheElements[backgroundLayer.vector];
+    }
+  }
 
   return (
     <LinearGradient
@@ -100,16 +114,42 @@ export default function layerBackground({ children, params }) {
       locations={locations}
       style={linearGradientStyle.container}
     >
-      {mesh &&
-        <Mesh style={meshStyle.container} width={meshWidth} height={meshHeight} />
-      }
-      {layer &&
-        <Layer width={layerWidth} height={layerHeight} style={layerStyle.container} />
-      }
+      {mesh && <Mesh style={meshStyle.container} width={meshWidth} height={meshHeight} />}
+      {layer && <Layer width={layerWidth} height={layerHeight} style={layerStyle.container} />}
+      {backgroundLayer && (
+        <BackgroundLayer
+          width={backgroundLayerWidth}
+          height={backgroundLayerHeight}
+          style={backgroundLayerStyle}
+        />
+      )}
       {children}
     </LinearGradient>
   );
 }
+
+const stylePropTypes = PropTypes.shape({
+  position: PropTypes.string,
+  top: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  left: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  right: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  bottom: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  margin: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  marginTop: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  marginBottom: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  marginLeft: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  marginRight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  padding: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  paddingTop: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  paddingBottom: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  paddingLeft: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  paddingRight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  backgroundColor: PropTypes.string,
+  color: PropTypes.string,
+  fontSize: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  fontWeight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  lineHeight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+});
 
 layerBackground.propTypes = {
   children: PropTypes.oneOfType([PropTypes.bool, PropTypes.func, PropTypes.node, PropTypes.any]),
@@ -119,17 +159,21 @@ layerBackground.propTypes = {
       start: PropTypes.arrayOf(PropTypes.number),
       end: PropTypes.arrayOf(PropTypes.number),
       locations: PropTypes.arrayOf(PropTypes.number),
-      style: PropTypes.object,
+      style: stylePropTypes,
     }),
     mesh: PropTypes.shape({
-      width: PropTypes.oneOf([PropTypes.number, PropTypes.string, PropTypes.any]),
-      height: PropTypes.oneOf([PropTypes.number, PropTypes.string, PropTypes.any]),
-      style: PropTypes.object,
+      width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+      height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     }),
     layer: PropTypes.shape({
-      width: PropTypes.oneOf([PropTypes.number, PropTypes.string, PropTypes.any]),
-      height: PropTypes.oneOf([PropTypes.number, PropTypes.string, PropTypes.any]),
-      style: PropTypes.object,
+      width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+      height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+      style: stylePropTypes,
+    }),
+    backgroundLayer: PropTypes.shape({
+      width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+      height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+      style: stylePropTypes,
     }),
   }).isRequired,
 };

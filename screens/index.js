@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderBottomLeftRadius: 90,
     borderBottomRightRadius: 90,
-    overflow: 'hidden'
+    overflow: 'hidden',
   },
   asdf: {
     flex: 0.75,
@@ -58,11 +58,11 @@ export default function HomeScreen({ navigation }) {
             vector: '3',
             style: {
               position: 'absolute',
-              // bottom: 0,
-              opacity: 0.5
+              bottom: 0,
+              opacity: 0.5,
             },
-            width: '112%',
-            height: '112%'
+            width: '116%',
+            height: '116%',
           },
           mesh: {
             width: '160%',
@@ -70,9 +70,9 @@ export default function HomeScreen({ navigation }) {
             style: {
               // opacity: 0.8,
               position: 'absolute',
-              left: '-30%'
-            }
-          }
+              left: '-30%',
+            },
+          },
         }}
       >
         <AvailableMoney />

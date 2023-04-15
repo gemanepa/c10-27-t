@@ -74,7 +74,7 @@ export default function AddTransaction({ navigation }) {
                 name: 'Expenses',
                 buttonSubmitText: 'Añadir gasto',
                 alertText: '¡Gasto añadido con éxito!',
-                titleOfTheFirstInput: 'Concepto de gasto'
+                titleOfTheFirstInput: 'Concepto de gasto',
               },
             }}
           />
@@ -92,7 +92,7 @@ export default function AddTransaction({ navigation }) {
                 name: 'Revenues',
                 buttonSubmitText: 'Añadir Ingreso',
                 alertText: '¡Ingreso añadido con éxito!',
-                titleOfTheFirstInput: 'Concepto de ingreso'
+                titleOfTheFirstInput: 'Concepto de ingreso',
               },
             }}
           />

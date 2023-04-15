@@ -1,11 +1,13 @@
 import { MaterialIcons } from '@expo/vector-icons';
 import React, { useEffect, useRef, useState } from 'react';
-import { Image, Text } from 'react-native';
+import { Image, Text, Dimensions } from 'react-native';
 import ReactNativePinView from 'react-native-pin-view';
 import PropTypes from 'prop-types';
 import useAsyncStorage from '../hooks/useAsyncStorage';
 import stepTwoIcon from '../assets/initial-setup/pin-screen-img.png';
 import LayerBackground from '../components/generalComponents/layerBackground';
+
+const { height } = Dimensions.get('window');
 
 function ForegroundPinScreen({ setUserInputPin }) {
   const pinView = useRef(null);
@@ -37,7 +39,7 @@ function ForegroundPinScreen({ setUserInputPin }) {
     <LayerBackground
       params={{
         linearGradient: {
-          colors: ['#01B496', '#03B263',],
+          colors: ['#01B496', '#03B263'],
           style: {
             flex: 1,
             backgroundColor: 'rgba(0,0,0,0.5)',
@@ -48,18 +50,20 @@ function ForegroundPinScreen({ setUserInputPin }) {
         mesh: {
           style: {
             position: 'absolute',
-            opacity: 0.6
-            // left: '-20%',
-            // top: '-55%'
+            opacity: 0.6,
           },
           vector: '1',
           width: '100%',
-          height: '100%'
+          height: '100%',
         },
         layer: {
           vector: '0',
-          style: { position: 'absolute', bottom: '-18%', opacity: 0.6 }
-        }
+          style: {
+            position: 'absolute',
+            bottom: `-${(height / 100) * 2.4}%`,
+            opacity: 0.6,
+          },
+        },
       }}
     >
       <Image
