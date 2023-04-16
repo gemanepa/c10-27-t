@@ -7,15 +7,16 @@ import { Searchbar, Button } from 'react-native-paper';
 import PlusIcon from '../../../assets/categories/icons/PlusIcon.svg';
 import CategoriesExport from '../../../assets/categories/categoriesExport';
 
-const { width } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 const { whiteListOfIcons } = CategoriesExport();
 
 const styles = StyleSheet.create({
   container: {
+    minHeight: height,
     flexDirection: 'column',
     paddingVertical: 20,
     gap: 40,
-    backgroundColor: 'transparent',
+    backgroundColor: '#F6F6FD',
   },
   categoryContainer: {
     width: '100%',

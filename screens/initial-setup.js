@@ -221,7 +221,7 @@ export default function SettingUpScreen({ setInitialSettingUp }) {
           style: {
             position: 'absolute',
             top: '-30%',
-            opacity: 0.8,
+            opacity: 0.4,
           },
         },
         layer: {
@@ -229,7 +229,7 @@ export default function SettingUpScreen({ setInitialSettingUp }) {
           style: {
             position: 'absolute',
             top: '-15%',
-            opacity: 0.65,
+            opacity: 0.3,
           },
         },
       }}

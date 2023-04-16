@@ -59,7 +59,7 @@ export default function HomeScreen({ navigation }) {
             style: {
               position: 'absolute',
               bottom: 0,
-              opacity: 0.5,
+              opacity: 0.4,
             },
             width: '116%',
             height: '116%',
@@ -68,7 +68,7 @@ export default function HomeScreen({ navigation }) {
             width: '160%',
             height: '160%',
             style: {
-              // opacity: 0.8,
+              opacity: 0.4,
               position: 'absolute',
               left: '-30%',
             },

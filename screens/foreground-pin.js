@@ -50,7 +50,7 @@ function ForegroundPinScreen({ setUserInputPin }) {
         mesh: {
           style: {
             position: 'absolute',
-            opacity: 0.6,
+            opacity: 0.35,
           },
           vector: '1',
           width: '100%',
