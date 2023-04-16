@@ -50,16 +50,16 @@ export default function HomeScreen({ navigation }) {
           linearGradient: {
             style: { ...styles.gradient },
             colors: ['#03B263', '#01B496'],
-            start: [0, 1],
-            end: [1, 0],
-            locations: [0.2, 0.9],
+            start: [1, 0],
+            end: [1, 1],
+            locations: [0.1, 0.8],
           },
           layer: {
             vector: '3',
             style: {
               position: 'absolute',
               bottom: 0,
-              opacity: 0.4,
+              opacity: 0.3,
             },
             width: '116%',
             height: '116%',

@@ -82,7 +82,7 @@ export default function EnterAmount({
           height: '160%',
           style: {
             position: 'absolute',
-            left: '-30%',
+            opacity: 0.4,
           },
         },
       }}

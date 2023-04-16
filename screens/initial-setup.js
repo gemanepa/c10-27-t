@@ -210,9 +210,9 @@ export default function SettingUpScreen({ setInitialSettingUp }) {
         linearGradient: {
           style: styles.container,
           colors: ['#03B263', '#01B496'],
-          start: [0, 1],
-          end: [1, 0],
-          locations: [0.2, 0.9],
+          start: [1, 0],
+          end: [1, 1],
+          locations: [0.1, 0.5],
         },
         mesh: {
           vector: 0,
