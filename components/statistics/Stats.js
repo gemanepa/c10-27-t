@@ -4,21 +4,26 @@ import PropTypes from 'prop-types';
 import { View, StyleSheet, Text } from 'react-native';
 import { Button } from 'react-native-paper';
 import { useIsFocused } from '@react-navigation/native';
-import getAsyncStorageData from '../../../../utils/get-storage-data';
-import DayTable from './DayTable';
-import WeekTable from './WeekTable';
-import MonthTable from './MonthTable';
-import { MockedDataContext } from '../../../../hooks/useMockedData';
+import PieChartScreen from './PieChart';
+import { MockedDataContext } from '../../hooks/useMockedData';
+import getAsyncStorageData from '../../utils/get-storage-data';
 
 function RenderContent({ buttonClicked, tableData }) {
   if (buttonClicked === 1) {
-    return <DayTable tableData={tableData} />;
+    return (
+      <>
+        <PieChartScreen tableData={tableData} />
+        <Text>{JSON.stringify(tableData)}</Text>
+      </>
+    );
   }
   if (buttonClicked === 2) {
-    return <WeekTable tableData={tableData} />;
-  }
-  if (buttonClicked === 3) {
-    return <MonthTable tableData={tableData} />;
+    return (
+      <>
+        <PieChartScreen tableData={tableData} />
+        <Text>{JSON.stringify(tableData)}</Text>
+      </>
+    );
   }
   return null;
 }
@@ -45,6 +50,7 @@ function ButtonGroup({ route }) {
 
   const [buttonClicked, setButtonClicked] = useState(1);
   const [tableData, setTableData] = useState([]);
+
   const isFocused = useIsFocused();
 
   useEffect(() => {
@@ -88,14 +94,15 @@ function ButtonGroup({ route }) {
     );
   };
 
-  if (tableData.length === 0) return null;
+  // if (tableData.length === 0) return null;
 
   return (
     <View>
-      <View style={{ paddingTop: 20, flexDirection: 'row', justifyContent: 'space-around' }}>
-        {renderButton('Dia', 1)}
-        {renderButton('Semana', 2)}
-        {renderButton('Mes', 3)}
+      <View
+        style={{ paddingVertical: 30, flexDirection: 'row', justifyContent: 'center', gap: 40 }}
+      >
+        {renderButton('Mensual', 1)}
+        {renderButton('Periodo', 2)}
       </View>
 
       <RenderContent buttonClicked={buttonClicked} tableData={tableData} />

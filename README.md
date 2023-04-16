@@ -44,7 +44,7 @@
 </li>
 <li><p><code>npm i -g expo</code></p>
 </li>
-<li><p><code>npm i</code></p>
+<li><p><code>npm i --force</code></p>
 </li>
 </ul>
 <h2 id="how-to-run">How to run</h2>

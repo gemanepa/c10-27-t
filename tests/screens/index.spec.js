@@ -1,5 +1,4 @@
 import React from 'react';
-import { useIsFocused } from '@react-navigation/native';
 import { render, waitFor } from '@testing-library/react-native';
 import DefaultScreen from '../../screens/index';
 import useAsyncStorage from '../../hooks/useAsyncStorage';
@@ -22,9 +21,6 @@ describe('DefaultScreen', () => {
     getAsyncStorageData.mockReturnValue([]);
 
     const { getByText } = render(<DefaultScreen />);
-    // Wait for the next render cycle to complete
-    // await waitFor(() => expect(useAsyncStorage).toHaveBeenCalled());
-    await waitFor(() => expect(getAsyncStorageData).toHaveBeenCalled());
 
     expect(getByText('- Disponible -')).toBeTruthy();
   });

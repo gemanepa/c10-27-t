@@ -13,7 +13,9 @@ import CreateCategory from './components/Categories/tables/CreateCategory';
 import DetailsScreen from './screens/details';
 import SettingUpScreen from './screens/initial-setup';
 import ForegroundPinScreen from './screens/foreground-pin';
+import StatisticsScreen from './screens/statistics';
 import useAsyncStorage from './hooks/useAsyncStorage';
+import { MockedDataProvider } from './hooks/useMockedData';
 
 const Stack = createNativeStackNavigator();
 
@@ -78,15 +80,22 @@ function App() {
 
   return (
     <>
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
-          <Stack.Screen name="AddTransaction" component={AddTransaction} />
-          <Stack.Screen name="AddCategory" component={AddCategory} />
-          <Stack.Screen name="CreateCategory" component={CreateCategory} />
-          <Stack.Screen name="Details" component={DetailsScreen} />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <MockedDataProvider>
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="AddTransaction" component={AddTransaction} />
+            <Stack.Screen name="AddCategory" component={AddCategory} />
+            <Stack.Screen name="CreateCategory" component={CreateCategory} />
+            <Stack.Screen name="Details" component={DetailsScreen} />
+            <Stack.Screen
+              name="Statistics"
+              component={StatisticsScreen}
+              options={{ headerShown: false }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </MockedDataProvider>
       <FAB color="white" style={styles.fab} small icon="repeat-variant" onPress={removeValue} />
       <StatusBar style="auto" />
     </>

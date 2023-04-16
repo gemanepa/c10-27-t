@@ -85,6 +85,13 @@ export default function HomeScreen({ navigation }) {
         onPress={() => navigation.navigate('AddTransaction')}
         color="white"
       />
+      <FAB
+        style={{ ...styles.fab, top: Platform.OS === 'ios' ? 40 : 30 }}
+        small
+        icon="equalizer"
+        onPress={() => navigation.navigate('Statistics')}
+        color="white"
+      />
       <View style={styles.asdf}>
         <ExpensesAndIncomesLists />
       </View>
