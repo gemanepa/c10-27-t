@@ -43,6 +43,10 @@ export default function layerBackground({ children, params }) {
   } = backgroundLayer;
   const BackgroundLayer = ListBackgroundsWithAllTheElements[backgroundLayerVector];
 
+  const isTest = process.env.NODE_ENV === 'test';
+
+  if (isTest) return children;
+
   return (
     <LinearGradient
       colors={colors}
