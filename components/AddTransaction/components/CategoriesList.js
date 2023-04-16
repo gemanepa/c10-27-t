@@ -12,7 +12,7 @@ const { whiteListOfIcons } = CategoriesExport();
 
 const CategoriesListStyles = StyleSheet.create({
   container: {
-    // paddingHorizontal: 20,
+    paddingHorizontal: 20,
     flexDirection: 'column',
     gap: 10,
   },

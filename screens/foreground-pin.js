@@ -1,11 +1,13 @@
 import { MaterialIcons } from '@expo/vector-icons';
 import React, { useEffect, useRef, useState } from 'react';
-import { Image, Text } from 'react-native';
+import { Image, Text, Dimensions } from 'react-native';
 import ReactNativePinView from 'react-native-pin-view';
-import { LinearGradient } from 'expo-linear-gradient';
 import PropTypes from 'prop-types';
 import useAsyncStorage from '../hooks/useAsyncStorage';
 import stepTwoIcon from '../assets/initial-setup/pin-screen-img.png';
+import LayerBackground from '../components/generalComponents/layerBackground';
+
+const { height } = Dimensions.get('window');
 
 function ForegroundPinScreen({ setUserInputPin }) {
   const pinView = useRef(null);
@@ -34,16 +36,34 @@ function ForegroundPinScreen({ setUserInputPin }) {
 
   const color = incorrectPin ? 'red' : 'white';
   return (
-    <LinearGradient
-      start={[0, 1]}
-      end={[1, 0]}
-      locations={[0.2, 0.9]}
-      colors={['#03B263', '#01B496']}
-      style={{
-        flex: 1,
-        backgroundColor: 'rgba(0,0,0,0.5)',
-        justifyContent: 'center',
-        alignItems: 'center',
+    <LayerBackground
+      params={{
+        linearGradient: {
+          colors: ['#01B496', '#03B263'],
+          style: {
+            flex: 1,
+            backgroundColor: 'rgba(0,0,0,0.5)',
+            justifyContent: 'center',
+            alignItems: 'center',
+          },
+        },
+        mesh: {
+          style: {
+            position: 'absolute',
+            opacity: 0.35,
+          },
+          vector: '1',
+          width: '100%',
+          height: '100%',
+        },
+        layer: {
+          vector: '0',
+          style: {
+            position: 'absolute',
+            bottom: `-${(height / 100) * 2.4}%`,
+            opacity: 0.6,
+          },
+        },
       }}
     >
       <Image
@@ -115,7 +135,7 @@ function ForegroundPinScreen({ setUserInputPin }) {
           ) : undefined
         }
       />
-    </LinearGradient>
+    </LayerBackground>
   );
 }
 

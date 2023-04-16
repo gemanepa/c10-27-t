@@ -1,10 +1,10 @@
 import { Platform, View, StyleSheet } from 'react-native';
 import Constants from 'expo-constants';
-import { LinearGradient } from 'expo-linear-gradient';
 import { FAB } from 'react-native-paper';
 import PropTypes from 'prop-types';
 import AvailableMoney from '../components/home/available-money';
 import ExpensesAndIncomesLists from '../components/home/expenses-and-incomes-lists/Tabs';
+import LayerBackground from '../components/generalComponents/layerBackground';
 
 const styles = StyleSheet.create({
   container: {
@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderBottomLeftRadius: 90,
     borderBottomRightRadius: 90,
+    overflow: 'hidden',
   },
   asdf: {
     flex: 0.75,
@@ -44,15 +45,39 @@ const styles = StyleSheet.create({
 export default function HomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
-      <LinearGradient
-        start={[0, 1]}
-        end={[1, 0]}
-        locations={[0.2, 0.9]}
-        style={styles.gradient}
-        colors={['#03B263', '#01B496']}
+      <LayerBackground
+        params={{
+          linearGradient: {
+            style: { ...styles.gradient },
+            colors: ['#03B263', '#01B496'],
+            start: [0, 1],
+            end: [1, 0],
+            locations: [0.2, 0.9],
+          },
+          layer: {
+            vector: '3',
+            style: {
+              position: 'absolute',
+              bottom: 0,
+              opacity: 0.4,
+            },
+            width: '116%',
+            height: '116%',
+          },
+          mesh: {
+            width: '160%',
+            height: '160%',
+            style: {
+              opacity: 0.4,
+              position: 'absolute',
+              left: '-30%',
+            },
+          },
+        }}
       >
         <AvailableMoney />
-      </LinearGradient>
+      </LayerBackground>
+
       <FAB
         style={styles.fab}
         small

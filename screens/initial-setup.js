@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Text, View, StyleSheet, TextInput } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
 import { Button } from 'react-native-paper';
 import Constants from 'expo-constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -9,21 +8,23 @@ import PropTypes from 'prop-types';
 import Header from '../components/initial-setup/Header';
 import CurrencyDropdown from '../components/initial-setup/CurrencyDropdown';
 import BalanceInput from '../components/initial-setup/BalanceInput';
+import LayerBackground from '../components/generalComponents/layerBackground';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    gap: 20,
+    // gap: 20,
     paddingTop: Constants.statusBarHeight,
+    position: 'relative',
   },
   image: {
     alignSelf: 'center',
-
     resizeMode: 'center',
   },
   inputsContainer: {
     flex: 1,
     paddingTop: '15%',
+    marginTop: 20,
     paddingHorizontal: '15%',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -204,16 +205,38 @@ export default function SettingUpScreen({ setInitialSettingUp }) {
   );
 
   return (
-    <LinearGradient
-      style={styles.container}
-      start={[0, 1]}
-      end={[1, 0]}
-      locations={[0.2, 0.9]}
-      colors={['#03B263', '#01B496']}
+    <LayerBackground
+      params={{
+        linearGradient: {
+          style: styles.container,
+          colors: ['#03B263', '#01B496'],
+          start: [0, 1],
+          end: [1, 0],
+          locations: [0.2, 0.9],
+        },
+        mesh: {
+          vector: 0,
+          width: '100%',
+          height: '100%',
+          style: {
+            position: 'absolute',
+            top: '-30%',
+            opacity: 0.4,
+          },
+        },
+        layer: {
+          vector: step === 1 ? 1 : 2,
+          style: {
+            position: 'absolute',
+            top: '-15%',
+            opacity: 0.3,
+          },
+        },
+      }}
     >
       <Header headerText={headerText} />
       <View style={styles.inputsContainer}>{step === 1 ? stepOneInputs : stepTwoInputs}</View>
-    </LinearGradient>
+    </LayerBackground>
   );
 }
 

@@ -134,8 +134,10 @@ export default function Data({ params }) {
             mode="date"
             disabled={openDate}
             onChange={changeDateAndStatusDate}
-            negativeButton={{ textColor: 'red' }}
+            negativeButton={{ textColor: '#FA6C17' }}
             positiveButton={{ textColor: 'blue' }}
+            style={{ backgroundColor: '#01B496' }}
+            textColor="blue"
           />
         )}
       </View>

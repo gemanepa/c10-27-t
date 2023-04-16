@@ -1,4 +1,4 @@
-import { ScrollView, View, StyleSheet } from 'react-native';
+import { ScrollView, View, StyleSheet, Dimensions } from 'react-native';
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { Button } from 'react-native-paper';
@@ -10,6 +10,8 @@ import CategoriesList from '../components/CategoriesList';
 import Annotations from '../components/Annotations';
 import Alert from '../components/Alert';
 
+const { height } = Dimensions.get('window');
+
 // /////////// Styles
 const TransactionsStyles = StyleSheet.create({
   container_view: {
@@ -17,10 +19,11 @@ const TransactionsStyles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   container: {
+    minHeight: height,
     flexDirection: 'column',
     gap: 20,
     paddingBottom: 30,
-    backgroundColor: 'transparent',
+    backgroundColor: '#F6F6FD',
   },
 });
 
@@ -39,7 +42,7 @@ const SubmitStyle = StyleSheet.create({
 export default function Transactions({ navigation, params }) {
   const { listOfAccounts, listOfCategories, information } = params;
 
-  const { name } = information;
+  const { name, titleOfTheFirstInput } = information;
 
   const isExpense = name === 'Expenses';
 
@@ -173,6 +176,7 @@ export default function Transactions({ navigation, params }) {
           changeAmount={changeAmount}
           enterConcept={enterConcept}
           changeConcept={changeConcept}
+          titleOfTheFirstInput={titleOfTheFirstInput}
         />
 
         <Data
@@ -266,6 +270,7 @@ Transactions.propTypes = {
       buttonSubmitText: PropTypes.string,
       mathematicalSymbol: PropTypes.string,
       alertText: PropTypes.string,
+      titleOfTheFirstInput: PropTypes.string,
     }),
   }).isRequired,
 };

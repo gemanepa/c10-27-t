@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { View, StyleSheet, TextInput, Text, ScrollView } from 'react-native';
+import { View, StyleSheet, TextInput, Text, ScrollView, Dimensions } from 'react-native';
 import { Button } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import CategoriesExport from '../../../assets/categories/categoriesExport';
+
+const { height } = Dimensions.get('window');
 
 const {
   checkListOfExpenditureCategoriesInStorage,
@@ -17,12 +19,13 @@ const {
 const CreateCategoryStyles = StyleSheet.create({
   parentContainer: {
     // paddingHorizontal: '5%',
+    minHeight: height,
     flexDirection: 'column',
     gap: 40,
     paddingVertical: 40,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'transparent',
+    backgroundColor: '#F6F6FD',
   },
   containerCategoryName: {
     width: '100%',
