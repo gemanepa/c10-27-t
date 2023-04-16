@@ -1,10 +1,10 @@
 import { Text, Platform, View, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Constants from 'expo-constants';
-import { LinearGradient } from 'expo-linear-gradient';
 import { FAB } from 'react-native-paper';
 import PropTypes from 'prop-types';
 import Tabs from '../components/statistics/Tabs';
+import LayerBackground from '../components/generalComponents/layerBackground';
 
 const styles = StyleSheet.create({
   container: {
@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderBottomLeftRadius: 90,
     borderBottomRightRadius: 90,
+    overflow: 'hidden',
   },
   headerText: {
     color: 'white',
@@ -54,15 +55,38 @@ export default function StatisticsScreen() {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
-      <LinearGradient
-        start={[0, 1]}
-        end={[1, 0]}
-        locations={[0.2, 0.9]}
-        style={styles.gradient}
-        colors={['#03B263', '#01B496']}
+      <LayerBackground
+        params={{
+          linearGradient: {
+            style: styles.gradient,
+            colors: ['#03B263', '#01B496'],
+            start: [1, 0],
+            end: [1, 1],
+            locations: [0.2, 0.9],
+          },
+          mesh: {
+            width: '400%',
+            height: '400%',
+            style: {
+              position: 'absolute',
+              top: 0,
+              opacity: 0.4,
+            },
+          },
+          layer: {
+            vector: 2,
+            width: '250%',
+            height: '250%',
+            style: {
+              position: 'absolute',
+              opacity: 0.3,
+              top: 0,
+            },
+          },
+        }}
       >
         <Text style={styles.headerText}>Estadisticas</Text>
-      </LinearGradient>
+      </LayerBackground>
       <View style={styles.mainSection}>
         <Tabs />
       </View>

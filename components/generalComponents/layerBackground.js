@@ -55,11 +55,11 @@ export default function layerBackground({ children, params }) {
       locations={locations}
       style={linearGradientStyle}
     >
-      {JSON.stringify(mesh) !== '{}' && (
-        <Mesh style={meshStyle} width={meshWidth} height={meshHeight} />
-      )}
       {JSON.stringify(layer) !== '{}' && (
         <Layer width={layerWidth} height={layerHeight} style={layerStyle} />
+      )}
+      {JSON.stringify(mesh) !== '{}' && (
+        <Mesh style={meshStyle} width={meshWidth} height={meshHeight} />
       )}
       {JSON.stringify(backgroundLayer) !== '{}' && (
         <BackgroundLayer
