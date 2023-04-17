@@ -173,7 +173,7 @@ function ButtonGroup({ route }) {
             type: element.type,
             category: element.category,
             date: new Date(element.date),
-            amount: element.amount,
+            amount: Number(element.amount),
           }))
           .filter((element) => element.type === tabType);
         return mapped;
