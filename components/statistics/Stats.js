@@ -61,6 +61,7 @@ function RenderContent({ buttonClicked, tableData, currency, dateFilter, setDate
   };
 
   const dateBtnLabel = dateFilter ? dateFilter.toLocaleDateString('es-ES') : 'Ingresa la fecha';
+
   return (
     <>
       {buttonClicked === 2 && (
@@ -75,6 +76,9 @@ function RenderContent({ buttonClicked, tableData, currency, dateFilter, setDate
             onCancel={hideDatePicker}
             locale="es_ES"
             maximumDate={new Date()}
+            confirmTextIOS="Confirmar"
+            cancelTextIOS="Cancelar"
+            buttonTextColorIOS="#FA6C17"
           />
         </>
       )}
