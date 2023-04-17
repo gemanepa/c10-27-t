@@ -22,7 +22,8 @@ const styles = StyleSheet.create({
   startingTableRow: {
     flexDirection: 'row',
     borderBottomWidth: 1,
-    borderBottomColor: '#eee',
+    borderBottomColor: '#99A3A4',
+    backgroundColor: '#EFEEEE',
     paddingVertical: 10,
     paddingTop: 40,
   },

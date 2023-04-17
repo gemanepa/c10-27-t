@@ -33,7 +33,7 @@ const generateRandomTableData = (currency) => {
       j++;
     }
     usedKeys.add(key);
-    tableData.push({ key, category, date, amount });
+    tableData.push({ key, category, date, amount, concept: 'Mock Data' });
   }
   return tableData.sort((a, b) => b.date.getTime() - a.date.getTime());
 };
