@@ -1,5 +1,6 @@
 import { Platform, View, StyleSheet } from 'react-native';
 import Constants from 'expo-constants';
+import { useNavigation } from '@react-navigation/native';
 import { FAB } from 'react-native-paper';
 import PropTypes from 'prop-types';
 import BottomNavigator from '../components/shared/BottomNavigator';
@@ -24,7 +25,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 90,
     overflow: 'hidden',
   },
-  asdf: {
+  listContainer: {
     flex: 0.75,
     backgroundColor: '#F6F6FD',
     position: 'relative',
@@ -43,7 +44,9 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function HomeScreen({ navigation }) {
+export default function HomeScreen() {
+  const navigation = useNavigation();
+
   return (
     <>
       <View style={styles.container}>
@@ -88,7 +91,7 @@ export default function HomeScreen({ navigation }) {
           color="white"
         />
 
-        <View style={styles.asdf}>
+        <View style={styles.listContainer}>
           <ExpensesAndIncomesLists />
         </View>
       </View>

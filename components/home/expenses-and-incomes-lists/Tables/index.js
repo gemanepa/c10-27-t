@@ -61,6 +61,7 @@ function ButtonGroup({ route }) {
             category: element.category,
             date: new Date(element.date),
             amount: `${Number(element.amount).toFixed(2)} ${currency}`,
+            concept: element.concept,
           }))
           .filter((element) => element.type === tabType);
         return mapped;
