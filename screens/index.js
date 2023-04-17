@@ -2,6 +2,7 @@ import { Platform, View, StyleSheet } from 'react-native';
 import Constants from 'expo-constants';
 import { FAB } from 'react-native-paper';
 import PropTypes from 'prop-types';
+import BottomNavigator from '../components/shared/BottomNavigator';
 import AvailableMoney from '../components/home/available-money';
 import ExpensesAndIncomesLists from '../components/home/expenses-and-incomes-lists/Tabs';
 import LayerBackground from '../components/generalComponents/layerBackground';
@@ -44,58 +45,55 @@ const styles = StyleSheet.create({
 
 export default function HomeScreen({ navigation }) {
   return (
-    <View style={styles.container}>
-      <LayerBackground
-        params={{
-          linearGradient: {
-            style: { ...styles.gradient },
-            colors: ['#03B263', '#01B496'],
-            start: [1, 0],
-            end: [1, 1],
-            locations: [0.1, 0.8],
-          },
-          layer: {
-            vector: '3',
-            style: {
-              position: 'absolute',
-              bottom: 0,
-              opacity: 0.3,
+    <>
+      <View style={styles.container}>
+        <LayerBackground
+          params={{
+            linearGradient: {
+              style: { ...styles.gradient },
+              colors: ['#03B263', '#01B496'],
+              start: [1, 0],
+              end: [1, 1],
+              locations: [0.1, 0.8],
             },
-            width: '116%',
-            height: '116%',
-          },
-          mesh: {
-            width: '160%',
-            height: '160%',
-            style: {
-              opacity: 0.4,
-              position: 'absolute',
-              left: '-30%',
+            layer: {
+              vector: '3',
+              style: {
+                position: 'absolute',
+                bottom: 0,
+                opacity: 0.3,
+              },
+              width: '116%',
+              height: '116%',
             },
-          },
-        }}
-      >
-        <AvailableMoney />
-      </LayerBackground>
+            mesh: {
+              width: '160%',
+              height: '160%',
+              style: {
+                opacity: 0.4,
+                position: 'absolute',
+                left: '-30%',
+              },
+            },
+          }}
+        >
+          <AvailableMoney />
+        </LayerBackground>
 
-      <FAB
-        style={styles.fab}
-        small
-        icon="plus"
-        onPress={() => navigation.navigate('AddTransaction')}
-        color="white"
-      />
-      <FAB
-        style={{ ...styles.fab, top: Platform.OS === 'ios' ? 40 : 30 }}
-        small
-        icon="equalizer"
-        onPress={() => navigation.navigate('Statistics')}
-        color="white"
-      />
-      <View style={styles.asdf}>
-        <ExpensesAndIncomesLists />
+        <FAB
+          style={styles.fab}
+          small
+          icon="plus"
+          onPress={() => navigation.navigate('AddTransaction')}
+          color="white"
+        />
+
+        <View style={styles.asdf}>
+          <ExpensesAndIncomesLists />
+        </View>
       </View>
-    </View>
+      <BottomNavigator />
+    </>
   );
 }
 

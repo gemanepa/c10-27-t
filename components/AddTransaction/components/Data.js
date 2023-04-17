@@ -2,8 +2,7 @@ import { View, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { Button, List } from 'react-native-paper';
-// import { Picker } from '@react-native-picker/picker';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import moment from 'moment';
 import 'moment/locale/es';
 import Alert from './Alert';
@@ -48,11 +47,8 @@ export default function Data({ params }) {
   function openList() {
     setOpenListAccount(!openListAccount);
   }
-  // function closeList() {
-  //   setOpenListAccount(!openListAccount);
-  // }
 
-  const changeDateAndStatusDate = (event, selectedDate) => {
+  const changeDateAndStatusDate = (selectedDate) => {
     const currentDate = selectedDate || date;
     setOpenDate(false);
     changeDate(currentDate);
@@ -61,7 +57,6 @@ export default function Data({ params }) {
   const renderPickerItems = (list2) => {
     const prop = list2.map((item) => (
       <List.Item
-        // style={{ position: 'absolute', backgroundColor: 'blue', width: '100%' }}
         key={item.id}
         label={item.title}
         value={item.id}
@@ -76,7 +71,6 @@ export default function Data({ params }) {
     return prop;
   };
 
-  // const isIOS = Platform.OS === 'ios';
   const changeIsShowAlert = () => {
     setIsShowAlert(false);
   };
@@ -87,7 +81,6 @@ export default function Data({ params }) {
         <Button
           title="Mostrar Picker"
           mode="contained"
-          // onPress={() => openList()}
           onPress={() => setIsShowAlert(true)}
           style={DataStyles.button}
           textColor="black"
@@ -98,10 +91,8 @@ export default function Data({ params }) {
 
         <List.Accordion
           title={selectAccount}
-          // style={{ borderWidth: 1, borderColor: 'black', borderRadius: 20, height: '100%' }}
           style={{ ...DataStyles.date, color: 'transparent' }}
           expanded={openListAccount}
-          // onPress={() => openList()}
           onPress={() => setIsShowAlert(true)}
           theme={{ colors: { primary: 'blue', onPrimary: 'black', secondary: 'red' } }}
         >
@@ -129,15 +120,16 @@ export default function Data({ params }) {
           {moment(date).locale('es').format('LL')}
         </Button>
         {openDate && (
-          <DateTimePicker
-            value={date}
+          <DateTimePickerModal
+            isVisible={openDate}
             mode="date"
-            disabled={openDate}
-            onChange={changeDateAndStatusDate}
-            negativeButton={{ textColor: '#FA6C17' }}
-            positiveButton={{ textColor: 'blue' }}
-            style={{ backgroundColor: '#01B496' }}
-            textColor="blue"
+            onConfirm={changeDateAndStatusDate}
+            onCancel={() => setOpenDate(false)}
+            locale="es_ES"
+            maximumDate={new Date()}
+            confirmTextIOS="Confirmar"
+            cancelTextIOS="Cancelar"
+            buttonTextColorIOS="#FA6C17"
           />
         )}
       </View>
