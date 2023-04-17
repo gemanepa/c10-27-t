@@ -25,16 +25,15 @@ function RenderContent({ buttonClicked, tableData }) {
 
 const styles = StyleSheet.create({
   buttonStyle: {
-    opacity: 0.4, // default style for inactive buttons
-    backgroundColor: '#FA6C17',
     borderRadius: 10,
+    backgroundColor: '#fff6f0',
   },
   buttonText: {
-    color: 'white',
-    fontWeight: 700,
+    // fontWeight: 500,
+    fontFamily: 'ubuntu-regular',
   },
   activeButton: {
-    opacity: 1, // highlight the active button
+    backgroundColor: '#FA6C17',
   },
 });
 
@@ -83,7 +82,9 @@ function ButtonGroup({ route }) {
     const buttonStyles = [styles.buttonStyle, isActive && styles.activeButton];
     return (
       <Button mode="contained" onPress={() => setButtonClicked(buttonNumber)} style={buttonStyles}>
-        <Text style={styles.buttonText}>{label}</Text>
+        <Text style={{ ...styles.buttonText, color: `${isActive ? 'white' : '#8192a6'}` }}>
+          {label}
+        </Text>
       </Button>
     );
   };

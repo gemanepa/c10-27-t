@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
   },
   titleItems: {
     fontSize: 12,
+    fontFamily: 'ubuntu-regular',
   },
   image: {
     width: 48,
@@ -106,8 +107,9 @@ export default function AddCategory({ navigation, route }) {
         <View
           style={{
             ...styles.item,
-            backgroundColor: `${item.id === selecdCategorie.id ? item.backgroundColor : 'transparent'
-              }`,
+            backgroundColor: `${
+              item.id === selecdCategorie.id ? item.backgroundColor : 'transparent'
+            }`,
           }}
         >
           {/* <Image source={item.image} style={styles.image} /> */}
@@ -176,6 +178,8 @@ export default function AddCategory({ navigation, route }) {
             borderWidth: 1,
             borderColor: '#a9aaaa',
           }}
+          fontSize={16}
+          fontFamily="ubuntu-regular"
         />
         <View style={styles.categoryContainer}>
           {itemsCategoriesCopy && renderCategoriesItems()}

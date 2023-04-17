@@ -21,6 +21,13 @@ const DataStyles = StyleSheet.create({
     backgroundColor: 'transparent',
     margin: 0,
   },
+  buttonLabelStyle: {
+    fontSize: 18,
+    fontFamily: 'ubuntu-regular',
+  },
+  textLabelStyle: {
+    fontFamily: 'ubuntu-regular',
+  },
   date: {
     minHeight: 48,
     padding: 0,
@@ -31,6 +38,7 @@ const DataStyles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    fontFamily: 'ubuntu-regular',
   },
 });
 
@@ -65,6 +73,7 @@ export default function Data({ params }) {
           openList();
           changeAccount(item.title);
         }}
+        style={DataStyles.textLabelStyle}
       />
     ));
 
@@ -84,15 +93,16 @@ export default function Data({ params }) {
           onPress={() => setIsShowAlert(true)}
           style={DataStyles.button}
           textColor="black"
-          labelStyle={{ fontSize: 18 }}
+          labelStyle={DataStyles.buttonLabelStyle}
         >
           Cuenta
         </Button>
 
         <List.Accordion
           title={selectAccount}
-          style={{ ...DataStyles.date, color: 'transparent' }}
+          style={DataStyles.date}
           expanded={openListAccount}
+          titleStyle={DataStyles.textLabelStyle}
           onPress={() => setIsShowAlert(true)}
           theme={{ colors: { primary: 'blue', onPrimary: 'black', secondary: 'red' } }}
         >
@@ -107,7 +117,7 @@ export default function Data({ params }) {
           onPress={() => setOpenDate(true)}
           style={DataStyles.button}
           textColor="black"
-          labelStyle={{ fontSize: 18 }}
+          labelStyle={DataStyles.buttonLabelStyle}
         >
           Fecha
         </Button>
@@ -116,6 +126,7 @@ export default function Data({ params }) {
           onPress={() => setOpenDate(true)}
           style={DataStyles.date}
           textColor="black"
+          labelStyle={DataStyles.textLabelStyle}
         >
           {moment(date).locale('es').format('LL')}
         </Button>

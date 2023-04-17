@@ -12,10 +12,10 @@ const styles = StyleSheet.create({
   },
   paragraph: {
     fontSize: 30,
-    fontWeight: 700,
     textAlign: 'center',
     color: '#fff',
     width: 250,
+    fontFamily: 'ubuntu-bold',
   },
   logo: {
     height: 100,

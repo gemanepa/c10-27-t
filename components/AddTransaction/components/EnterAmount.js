@@ -34,7 +34,6 @@ const EnterAmountStyles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 18,
     fontFamily: 'ubuntu-regular',
-    // fontStyle: 'normal'
   },
   inputConcept: {
     width: '100%',
@@ -44,6 +43,7 @@ const EnterAmountStyles = StyleSheet.create({
     borderRadius: 10,
     textAlign: 'center',
     backgroundColor: '#f5f5f5',
+    fontFamily: 'ubuntu-regular',
   },
   inputAmount: {
     width: '100%',
@@ -54,11 +54,13 @@ const EnterAmountStyles = StyleSheet.create({
     paddingRight: '20%',
     textAlign: 'center',
     backgroundColor: '#f5f5f5',
+    fontFamily: 'ubuntu-regular',
   },
   currency: {
     position: 'absolute',
     fontSize: 16,
     paddingHorizontal: 14,
+    fontFamily: 'ubuntu-regular',
   },
 });
 

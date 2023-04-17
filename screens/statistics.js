@@ -25,8 +25,8 @@ const styles = StyleSheet.create({
   headerText: {
     color: 'white',
     fontSize: 25,
-    fontWeight: 500,
     letterSpacing: 0.15,
+    fontFamily: 'ubuntu-medium',
   },
   mainSection: {
     paddingTop: 5,

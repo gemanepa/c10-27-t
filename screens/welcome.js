@@ -7,10 +7,10 @@ const styles = StyleSheet.create({
   container: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'green' },
   paragraph: {
     fontSize: 30,
-    fontWeight: 700,
     textAlign: 'center',
     color: '#fff',
     width: 250,
+    fontFamily: 'ubuntu-bold',
   },
   logo: {
     height: 100,
@@ -25,9 +25,9 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: '#fff',
-    fontWeight: 700,
     fontSize: 16,
     letterSpacing: -0.3,
+    fontFamily: 'ubuntu-bold',
   },
 });
 

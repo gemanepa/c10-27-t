@@ -44,6 +44,7 @@ const CategoriesListStyles = StyleSheet.create({
   },
   titleItems: {
     fontSize: 12,
+    fontFamily: 'ubuntu-regular',
   },
   buttonItem: {
     position: 'absolute',
@@ -184,7 +185,7 @@ export default function CategoriesList({ params }) {
         mode="contained"
         style={CategoriesListStyles.buttonTitle}
         textColor="black"
-        labelStyle={{ fontSize: 20 }}
+        labelStyle={{ fontSize: 20, fontFamily: 'ubuntu-regular' }}
       >
         Categorias
       </Button>

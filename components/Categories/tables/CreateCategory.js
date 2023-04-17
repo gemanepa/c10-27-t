@@ -43,6 +43,7 @@ const CreateCategoryStyles = StyleSheet.create({
     borderRadius: 10,
     textAlign: 'center',
     backgroundColor: '#FEFFFF',
+    fontFamily: 'ubuntu-regular',
   },
   containerSelectAnIcon: {
     width: '100%',
@@ -133,7 +134,7 @@ export default function CreateCategory({ navigation, route }) {
     <ScrollView>
       <View style={CreateCategoryStyles.parentContainer}>
         <View style={CreateCategoryStyles.containerCategoryName}>
-          <Text style={{ fontSize: 18 }}>Nombre de categoría</Text>
+          <Text style={{ fontSize: 18, fontFamily: 'ubuntu-regular' }}>Nombre de categoría</Text>
           <TextInput
             placeholder=""
             style={CreateCategoryStyles.inputCategoryName}
@@ -174,7 +175,9 @@ export default function CreateCategory({ navigation, route }) {
         </View>
 
         <View style={{ width: '100%', flexDirection: 'column', gap: 20 }}>
-          <Text style={{ fontSize: 18, textAlign: 'center' }}>Selecciona Color</Text>
+          <Text style={{ fontSize: 18, textAlign: 'center', fontFamily: 'ubuntu-regular' }}>
+            Selecciona Color
+          </Text>
           <View
             style={{
               flexDirection: 'row',
@@ -195,6 +198,7 @@ export default function CreateCategory({ navigation, route }) {
                   borderRadius: 50,
                   borderWidth: 1,
                   borderBottomColor: `${selectedColor === item ? '#334050' : 'transparent'}`,
+                  fontFamily: 'ubuntu-regular',
                 }}
                 onPress={() => setSelectedColor(item)}
               />
@@ -215,6 +219,8 @@ export default function CreateCategory({ navigation, route }) {
             height: 40,
             flexDirection: 'column',
             textAlignVertical: 'center',
+            fontFamily: 'ubuntu-bold',
+            fontSize: 16,
           }}
         >
           Añadir Categoria

@@ -79,8 +79,8 @@ function ForegroundPinScreen({ setUserInputPin }) {
           paddingTop: 24,
           paddingBottom: 48,
           color: 'white',
-          fontWeight: 'bold',
           fontSize: 42,
+          fontFamily: 'ubuntu-bold',
         }}
       >
         Ingresa tu PIN

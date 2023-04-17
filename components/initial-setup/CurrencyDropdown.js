@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   },
   dropdownText: {
     fontSize: 16,
-    fontWeight: 400,
+    fontFamily: 'ubuntu-regular',
     textAlign: 'center',
     alignSelf: 'center',
   },
@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: '#fff',
     zIndex: 1, // Add zIndex property to render above everything else
+    fontFamily: 'ubuntu-regular',
   },
   option: {
     padding: 10,
@@ -40,7 +41,7 @@ const styles = StyleSheet.create({
   },
   optionText: {
     fontSize: 16,
-    fontWeight: 400,
+    fontFamily: 'ubuntu-regular',
   },
 });
 

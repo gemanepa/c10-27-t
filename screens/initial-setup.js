@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 18,
-    fontWeight: 400,
+    fontFamily: 'ubuntu-regular',
     textAlign: 'center',
     alignSelf: 'center',
     paddingHorizontal: 30,
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     color: 'white',
     alignSelf: 'center',
     fontSize: 16,
-    fontWeight: 700,
+    fontFamily: 'ubuntu-bold',
   },
 });
 
@@ -155,6 +155,7 @@ export default function SettingUpScreen({ setInitialSettingUp }) {
               fontSize: 16,
               textAlign: 'center',
               height: 50,
+              fontFamily: 'ubuntu-regular',
             }}
             secureTextEntry
             keyboardType="numeric"

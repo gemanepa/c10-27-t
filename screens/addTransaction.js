@@ -56,7 +56,11 @@ export default function AddTransaction({ navigation }) {
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarLabelStyle: { fontSize: 20, textTransform: 'capitalize' },
+        tabBarLabelStyle: {
+          fontSize: 20,
+          textTransform: 'capitalize',
+          fontFamily: 'ubuntu-medium',
+        },
         tabBarIndicatorStyle: {
           backgroundColor: '#FA6C17',
         },

@@ -12,16 +12,15 @@ import getAsyncStorageData from '../../utils/get-storage-data';
 
 const styles = StyleSheet.create({
   buttonStyle: {
-    opacity: 0.4, // default style for inactive buttons
-    backgroundColor: '#FA6C17',
+    backgroundColor: '#FFF6F0',
     borderRadius: 10,
   },
   buttonText: {
-    color: 'white',
-    fontWeight: 700,
+    color: '#8192A6',
+    fontFamily: 'ubuntu-regular',
   },
   activeButton: {
-    opacity: 1, // highlight the active button
+    backgroundColor: '#FA6C17',
   },
   dateButton: {
     borderWidth: 0.5,
@@ -106,7 +105,7 @@ function RenderContent({ buttonClicked, tableData, currency, dateFilter, setDate
                   <Text
                     style={{
                       width: 70,
-                      fontWeight: 700,
+                      fontFamily: 'ubuntu-bold',
                       fontSize: 14,
                       color: '#334050',
                       letterSpacing: -0.3,
@@ -124,7 +123,13 @@ function RenderContent({ buttonClicked, tableData, currency, dateFilter, setDate
                     }}
                   />
                   <Text
-                    style={{ fontWeight: 400, fontSize: 14, letterSpacing: -0.3, color: '#334050' }}
+                    style={{
+                      fontWeight: 400,
+                      fontSize: 14,
+                      letterSpacing: -0.3,
+                      color: '#334050',
+                      fontFamily: 'ubuntu-regular',
+                    }}
                   >
                     {rowData.category}
                   </Text>
@@ -135,7 +140,7 @@ function RenderContent({ buttonClicked, tableData, currency, dateFilter, setDate
                     {
                       flex: 0.3,
                       textAlign: 'right',
-                      fontWeight: 700,
+                      fontFamily: 'ubuntu-bold',
                       fontSize: 14,
                       color: '#334050',
                       letterSpacing: -0.3,
@@ -270,7 +275,15 @@ function ButtonGroup({ route }) {
 
     return (
       <Button mode="contained" onPress={handlePress} style={buttonStyles}>
-        <Text style={styles.buttonText}>{label}</Text>
+        <Text
+          style={{
+            ...styles.buttonText,
+            fontFamily: `${isActive ? 'ubuntu-bold' : 'ubuntu-regular'}`,
+            color: `${isActive ? 'white' : '#8192A6'}`,
+          }}
+        >
+          {label}
+        </Text>
       </Button>
     );
   };

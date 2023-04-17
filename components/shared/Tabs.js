@@ -16,7 +16,12 @@ const renderTabBar = (props) => (
       marginLeft: 20,
     }}
     style={{ backgroundColor: '#F6F6FD' }}
-    labelStyle={{ color: '#334050', fontSize: 20, fontWeight: 500, textTransform: 'capitalize' }}
+    labelStyle={{
+      color: '#334050',
+      fontSize: 20,
+      fontFamily: 'ubuntu-medium',
+      textTransform: 'capitalize',
+    }}
   />
 );
 

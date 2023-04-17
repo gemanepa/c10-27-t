@@ -36,9 +36,9 @@ const styles = StyleSheet.create({
   tableCell: {
     flex: 1,
     fontSize: 14,
-    fontWeight: 400,
     color: '#334050',
     paddingLeft: 30,
+    fontFamily: 'ubuntu-regular',
   },
   label: {
     position: 'absolute',
