@@ -17,7 +17,7 @@ function PieChartWithCenteredLabels({ tableData }) {
           fill="white"
           textAnchor="middle"
           alignmentBaseline="middle"
-          fontSize={10}
+          fontSize={slices.length > 5 ? 8 : 10}
           stroke="white"
           strokeWidth={1}
         >
@@ -28,11 +28,12 @@ function PieChartWithCenteredLabels({ tableData }) {
 
   return (
     <PieChart
-      style={{ height: 200 }}
+      style={{ height: 170 }}
       valueAccessor={({ item }) => item.percentage}
       data={tableData}
       spacing={0}
-      outerRadius="95%"
+      outerRadius="100%"
+      innerRadius="2%"
     >
       <Labels />
     </PieChart>
