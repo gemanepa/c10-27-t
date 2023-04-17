@@ -18,7 +18,7 @@ function DayTable({ tableData }) {
       <View key={rowData.key} style={styles.tableRow}>
         <Text style={[styles.tableCell]}>{rowData.category}</Text>
         <Text style={[styles.tableCell]}>{formatDate(rowData.date)}</Text>
-        <Text style={[styles.tableCell, { fontWeight: 700 }]}>{rowData.amount}</Text>
+        <Text style={[styles.tableCell, { fontFamily: 'ubuntu-bold' }]}>{rowData.amount}</Text>
       </View>
     ));
 

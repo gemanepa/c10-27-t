@@ -33,30 +33,35 @@ const EnterAmountStyles = StyleSheet.create({
   title: {
     textAlign: 'center',
     fontSize: 18,
+    fontFamily: 'ubuntu-medium',
+    color: 'white',
   },
   inputConcept: {
     width: '100%',
     height: '100%',
-    borderColor: 'black',
+    borderColor: '#334050',
     borderWidth: 1,
     borderRadius: 10,
     textAlign: 'center',
     backgroundColor: '#f5f5f5',
+    fontFamily: 'ubuntu-regular',
   },
   inputAmount: {
     width: '100%',
     height: '100%',
-    borderColor: 'black',
+    borderColor: '#334050',
     borderWidth: 1,
     borderRadius: 10,
     paddingRight: '20%',
     textAlign: 'center',
     backgroundColor: '#f5f5f5',
+    fontFamily: 'ubuntu-regular',
   },
   currency: {
     position: 'absolute',
     fontSize: 16,
     paddingHorizontal: 14,
+    fontFamily: 'ubuntu-regular',
   },
 });
 

@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
   upperText: {
     color: 'white',
     fontSize: 16,
-    fontWeight: 400,
+    fontFamily: 'ubuntu-regular',
     // textShadowColor: 'rgba(0, 0, 0, 0.5)',
     // textShadowOffset: { width: 2, height: 2 },
     textShadowRadius: 5,
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   textAmount: {
     color: 'white',
     fontSize: 50,
-    fontWeight: 700,
+    fontFamily: 'ubuntu-bold',
     // textShadowColor: 'rgba(0, 0, 0, 0.5)',
     // textShadowOffset: { width: 2, height: 2 },
     textShadowRadius: 5,
@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
     // textShadowColor: 'rgba(0, 0, 0, 0.5)',
     // textShadowOffset: { width: 2, height: 2 },
     textShadowRadius: 5,
+    fontFamily: 'ubuntu-medium',
   },
 });
 

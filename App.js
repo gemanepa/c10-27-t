@@ -5,6 +5,7 @@ import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as Font from 'expo-font';
 import { FAB } from 'react-native-paper';
 import HomeScreen from './screens/index';
 import AddTransaction from './screens/addTransaction';
@@ -17,6 +18,15 @@ import WelcomeScreen from './screens/welcome';
 import StatisticsScreen from './screens/statistics';
 import useAsyncStorage from './hooks/useAsyncStorage';
 import { MockedDataProvider } from './hooks/useMockedData';
+
+import UbuntuBold from './assets/fonts/Ubuntu-Bold.ttf';
+import UbuntuBoldItalic from './assets/fonts/Ubuntu-BoldItalic.ttf';
+import UbuntuItalic from './assets/fonts/Ubuntu-Italic.ttf';
+import UbuntuLight from './assets/fonts/Ubuntu-Light.ttf';
+import UbuntuLightItalic from './assets/fonts/Ubuntu-LightItalic.ttf';
+import UbuntuMedium from './assets/fonts/Ubuntu-Medium.ttf';
+import UbuntuMediumItalic from './assets/fonts/Ubuntu-MediumItalic.ttf';
+import UbuntuRegular from './assets/fonts/Ubuntu-Regular.ttf';
 
 const Stack = createNativeStackNavigator();
 
@@ -56,6 +66,22 @@ function App() {
       setActiveApp(appState);
     }
   }, [appState]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    async function loadFonts() {
+      await Font.loadAsync({
+        'ubuntu-bold': UbuntuBold,
+        'ubuntu-boldItalic': UbuntuBoldItalic,
+        'ubuntu-italic': UbuntuItalic,
+        'ubuntu-light': UbuntuLight,
+        'ubuntu-lightItalic': UbuntuLightItalic,
+        'ubuntu-medium': UbuntuMedium,
+        'ubuntu-mediumItalic': UbuntuMediumItalic,
+        'ubuntu-regular': UbuntuRegular,
+      });
+    }
+    loadFonts();
+  }, []);
 
   if (storageLoading || pinLoading) return null;
 

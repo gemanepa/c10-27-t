@@ -10,6 +10,7 @@ const AnnotationsStyles = StyleSheet.create({
   title: {
     textAlign: 'center',
     fontSize: 18,
+    fontFamily: 'ubuntu-regular',
   },
 
   inputAnnotation: {
@@ -19,6 +20,7 @@ const AnnotationsStyles = StyleSheet.create({
     borderRadius: 10,
     textAlign: 'center',
     backgroundColor: '#FEFFFF',
+    fontFamily: 'ubuntu-regular',
   },
 });
 

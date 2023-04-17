@@ -25,8 +25,8 @@ const styles = StyleSheet.create({
   headerText: {
     color: 'white',
     fontSize: 25,
-    fontWeight: 500,
     letterSpacing: 0.15,
+    fontFamily: 'ubuntu-medium',
   },
   mainSection: {
     paddingTop: 5,
@@ -82,7 +82,7 @@ export default function StatisticsScreen() {
             },
           }}
         >
-          <Text style={styles.headerText}>Estadisticas</Text>
+          <Text style={styles.headerText}>Estadísticas</Text>
         </LayerBackground>
         <View style={styles.mainSection}>
           <Tabs />

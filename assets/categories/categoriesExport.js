@@ -139,7 +139,7 @@ const whiteListOfIcons = {
 const ListOfExpenditureCategories = [
   { title: 'Salud', id: 1, image: '0', backgroundColor: '#03B263' },
   { title: 'Comida', id: 2, image: '1', backgroundColor: '#03B263' },
-  { title: 'Educacion', id: 3, image: '2', backgroundColor: '#EFB841' },
+  { title: 'Educación', id: 3, image: '2', backgroundColor: '#EFB841' },
   { title: 'Hogar', id: 4, image: '3', backgroundColor: '#EFB841' },
   { title: 'Transporte', id: 5, image: '4', backgroundColor: '#03B263' },
   { title: 'Higiene', id: 6, image: '5', backgroundColor: '#01B496' },
