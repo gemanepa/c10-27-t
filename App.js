@@ -20,7 +20,6 @@ import StatisticsScreen from './screens/statistics';
 import useAsyncStorage from './hooks/useAsyncStorage';
 import { MockedDataProvider } from './hooks/useMockedData';
 
-
 import UbuntuBold from './assets/fonts/Ubuntu-Bold.ttf';
 import UbuntuBoldItalic from './assets/fonts/Ubuntu-BoldItalic.ttf';
 import UbuntuItalic from './assets/fonts/Ubuntu-Italic.ttf';
