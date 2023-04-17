@@ -106,9 +106,8 @@ export default function AddCategory({ navigation, route }) {
         <View
           style={{
             ...styles.item,
-            backgroundColor: `${
-              item.id === selecdCategorie.id ? item.backgroundColor : 'transparent'
-            }`,
+            backgroundColor: `${item.id === selecdCategorie.id ? item.backgroundColor : 'transparent'
+              }`,
           }}
         >
           {/* <Image source={item.image} style={styles.image} /> */}

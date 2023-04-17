@@ -33,6 +33,8 @@ const EnterAmountStyles = StyleSheet.create({
   title: {
     textAlign: 'center',
     fontSize: 18,
+    fontFamily: 'ubuntu-regular',
+    // fontStyle: 'normal'
   },
   inputConcept: {
     width: '100%',

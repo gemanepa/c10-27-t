@@ -59,9 +59,17 @@ export default function AddTransaction({ navigation }) {
         tabBarLabelStyle: { fontSize: 20, textTransform: 'capitalize' },
         tabBarIndicatorStyle: {
           backgroundColor: '#FA6C17',
-          paddingHorizontal: 20,
         },
+        tabBarStyle: {
+          backgroundColor: '#F6F6FD',
+          marginHorizontal: 15,
+          shadowColor: '#F6F6FD',
+          borderBottomWidth: 0,
+        },
+        tabBarActiveTintColor: '#334050',
+        tabBarInactiveTintColor: '#8192a6',
       }}
+      style={{ backgroundColor: '#F6F6FD' }}
     >
       <Tab.Screen name="Gastos">
         {() => (

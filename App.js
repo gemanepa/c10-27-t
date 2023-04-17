@@ -5,6 +5,7 @@ import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as Font from 'expo-font';
 import { FAB } from 'react-native-paper';
 import HomeScreen from './screens/index';
 import AddTransaction from './screens/addTransaction';
@@ -54,6 +55,22 @@ function App() {
       setActiveApp(appState);
     }
   }, [appState]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    async function loadFonts() {
+      await Font.loadAsync({
+        'ubuntu-bold': require('./assets/fonts/Ubuntu-Bold.ttf'),
+        'ubuntu-boldItalic': require('./assets/fonts/Ubuntu-BoldItalic.ttf'),
+        'ubuntu-italic': require('./assets/fonts/Ubuntu-Italic.ttf'),
+        'ubuntu-light': require('./assets/fonts/Ubuntu-Light.ttf'),
+        'ubuntu-lightItalic': require('./assets/fonts/Ubuntu-LightItalic.ttf'),
+        'ubuntu-medium': require('./assets/fonts/Ubuntu-Medium.ttf'),
+        'ubuntu-mediumItalic': require('./assets/fonts/Ubuntu-MediumItalic.ttf'),
+        'ubuntu-regular': require('./assets/fonts/Ubuntu-Regular.ttf'),
+      });
+    }
+    loadFonts();
+  }, []);
 
   if (storageLoading || pinLoading) return null;
 
