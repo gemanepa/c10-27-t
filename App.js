@@ -13,6 +13,7 @@ import CreateCategory from './components/Categories/tables/CreateCategory';
 import DetailsScreen from './screens/details';
 import SettingUpScreen from './screens/initial-setup';
 import ForegroundPinScreen from './screens/foreground-pin';
+import WelcomeScreen from './screens/welcome';
 import StatisticsScreen from './screens/statistics';
 import useAsyncStorage from './hooks/useAsyncStorage';
 import { MockedDataProvider } from './hooks/useMockedData';
@@ -34,6 +35,7 @@ const styles = StyleSheet.create({
 });
 
 function App() {
+  const [showWelcomeScreen, setShowWelcomeScreen] = useState(true);
   const [initialSettingUp, setInitialSettingUp] = useState('initial');
   const [storageLoading, storagedData] = useAsyncStorage('userCurrency', initialSettingUp);
   const [pinLoading, pinData] = useAsyncStorage('userPin', initialSettingUp);
@@ -61,13 +63,18 @@ function App() {
     ((!storagedData || !pinData) && initialSettingUp === 'initial') ||
     initialSettingUp === 'reset'
   )
-    return <SettingUpScreen setInitialSettingUp={setInitialSettingUp} />;
+    return showWelcomeScreen ? (
+      <WelcomeScreen setShowWelcomeScreen={setShowWelcomeScreen} />
+    ) : (
+      <SettingUpScreen setInitialSettingUp={setInitialSettingUp} />
+    );
 
   const removeValue = async () => {
     try {
       await AsyncStorage.removeItem('userCurrency');
       await AsyncStorage.removeItem('userTransactions');
       await AsyncStorage.removeItem('userPin');
+      setShowWelcomeScreen(true);
       setInitialSettingUp('reset');
     } catch (e) {
       console.error(e); // eslint-disable-line no-console
