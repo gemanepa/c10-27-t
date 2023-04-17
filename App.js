@@ -18,6 +18,7 @@ import WelcomeScreen from './screens/welcome';
 import StatisticsScreen from './screens/statistics';
 import useAsyncStorage from './hooks/useAsyncStorage';
 import { MockedDataProvider } from './hooks/useMockedData';
+import * as SplashScreen from 'expo-splash-screen';
 
 import UbuntuBold from './assets/fonts/Ubuntu-Bold.ttf';
 import UbuntuBoldItalic from './assets/fonts/Ubuntu-BoldItalic.ttf';
@@ -27,6 +28,8 @@ import UbuntuLightItalic from './assets/fonts/Ubuntu-LightItalic.ttf';
 import UbuntuMedium from './assets/fonts/Ubuntu-Medium.ttf';
 import UbuntuMediumItalic from './assets/fonts/Ubuntu-MediumItalic.ttf';
 import UbuntuRegular from './assets/fonts/Ubuntu-Regular.ttf';
+
+SplashScreen.preventAutoHideAsync();
 
 const Stack = createNativeStackNavigator();
 
@@ -45,6 +48,7 @@ const styles = StyleSheet.create({
 });
 
 function App() {
+  const [fontLoading, setFontLoading] = useState(true);
   const [showWelcomeScreen, setShowWelcomeScreen] = useState(true);
   const [initialSettingUp, setInitialSettingUp] = useState('initial');
   const [storageLoading, storagedData] = useAsyncStorage('userCurrency', initialSettingUp);
@@ -79,11 +83,13 @@ function App() {
         'ubuntu-mediumItalic': UbuntuMediumItalic,
         'ubuntu-regular': UbuntuRegular,
       });
+      setFontLoading(false);
+      await SplashScreen.hideAsync();
     }
     loadFonts();
   }, []);
 
-  if (storageLoading || pinLoading) return null;
+  if (storageLoading || pinLoading || fontLoading) return null;
 
   if (
     ((!storagedData || !pinData) && initialSettingUp === 'initial') ||

@@ -41,7 +41,8 @@
     "react-native-svg": "13.4.0",
     "react-native-svg-charts": "^5.4.0",
     "react-native-tab-view": "^3.5.1",
-    "react-native-web": "~0.18.10"
+    "react-native-web": "~0.18.10",
+    "expo-splash-screen": "~0.18.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
