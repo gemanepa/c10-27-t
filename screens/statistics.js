@@ -1,9 +1,8 @@
 import { Text, Platform, View, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import Constants from 'expo-constants';
-import { FAB } from 'react-native-paper';
 import PropTypes from 'prop-types';
 import Tabs from '../components/statistics/Tabs';
+import BottomNavigator from '../components/shared/BottomNavigator';
 import LayerBackground from '../components/generalComponents/layerBackground';
 
 const styles = StyleSheet.create({
@@ -27,9 +26,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 25,
     fontWeight: 500,
-    textShadowColor: 'rgba(0, 0, 0, 0.5)',
-    textShadowOffset: { width: 2, height: 2 },
-    textShadowRadius: 5,
+    letterSpacing: 0.15,
   },
   mainSection: {
     paddingTop: 5,
@@ -52,52 +49,47 @@ const styles = StyleSheet.create({
 });
 
 export default function StatisticsScreen() {
-  const navigation = useNavigation();
   return (
-    <View style={styles.container}>
-      <LayerBackground
-        params={{
-          linearGradient: {
-            style: styles.gradient,
-            colors: ['#03B263', '#01B496'],
-            start: [1, 0],
-            end: [1, 1],
-            locations: [0.2, 0.9],
-          },
-          mesh: {
-            width: '400%',
-            height: '400%',
-            style: {
-              position: 'absolute',
-              top: 0,
-              opacity: 0.4,
+    <>
+      <View style={styles.container}>
+        <LayerBackground
+          params={{
+            linearGradient: {
+              style: styles.gradient,
+              colors: ['#03B263', '#01B496'],
+              start: [1, 0],
+              end: [1, 1],
+              locations: [0.2, 0.9],
             },
-          },
-          layer: {
-            vector: 2,
-            width: '250%',
-            height: '250%',
-            style: {
-              position: 'absolute',
-              opacity: 0.3,
-              top: 0,
+            mesh: {
+              width: '400%',
+              height: '400%',
+              style: {
+                position: 'absolute',
+                top: 0,
+                opacity: 0.4,
+              },
             },
-          },
-        }}
-      >
-        <Text style={styles.headerText}>Estadisticas</Text>
-      </LayerBackground>
-      <View style={styles.mainSection}>
-        <Tabs />
+            layer: {
+              vector: 2,
+              width: '250%',
+              height: '250%',
+              style: {
+                position: 'absolute',
+                opacity: 0.3,
+                top: 0,
+              },
+            },
+          }}
+        >
+          <Text style={styles.headerText}>Estadisticas</Text>
+        </LayerBackground>
+        <View style={styles.mainSection}>
+          <Tabs />
+        </View>
       </View>
-      <FAB
-        style={{ ...styles.fab, top: Platform.OS === 'ios' ? 40 : 30 }}
-        small
-        icon="home"
-        onPress={() => navigation.navigate('Home')}
-        color="white"
-      />
-    </View>
+      <BottomNavigator />
+    </>
   );
 }
 
