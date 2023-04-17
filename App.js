@@ -5,6 +5,7 @@ import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as SplashScreen from 'expo-splash-screen';
 import * as Font from 'expo-font';
 import { FAB } from 'react-native-paper';
 import HomeScreen from './screens/index';
@@ -28,6 +29,8 @@ import UbuntuMedium from './assets/fonts/Ubuntu-Medium.ttf';
 import UbuntuMediumItalic from './assets/fonts/Ubuntu-MediumItalic.ttf';
 import UbuntuRegular from './assets/fonts/Ubuntu-Regular.ttf';
 
+SplashScreen.preventAutoHideAsync();
+
 const Stack = createNativeStackNavigator();
 
 const styles = StyleSheet.create({
@@ -45,6 +48,7 @@ const styles = StyleSheet.create({
 });
 
 function App() {
+  const [fontLoading, setFontLoading] = useState(true);
   const [showWelcomeScreen, setShowWelcomeScreen] = useState(true);
   const [initialSettingUp, setInitialSettingUp] = useState('initial');
   const [storageLoading, storagedData] = useAsyncStorage('userCurrency', initialSettingUp);
@@ -79,11 +83,13 @@ function App() {
         'ubuntu-mediumItalic': UbuntuMediumItalic,
         'ubuntu-regular': UbuntuRegular,
       });
+      setFontLoading(false);
+      await SplashScreen.hideAsync();
     }
     loadFonts();
   }, []);
 
-  if (storageLoading || pinLoading) return null;
+  if (storageLoading || pinLoading || fontLoading) return null;
 
   if (
     ((!storagedData || !pinData) && initialSettingUp === 'initial') ||

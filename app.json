@@ -6,6 +6,8 @@
     "orientation": "portrait",
     "icon": "./assets/LOGO_APP.png",
     "userInterfaceStyle": "automatic",
+    "primaryColor": "#01B496",
+    "backgroundColor": "#F6F6FD",
     "splash": {
       "image": "./assets/LOGO_APP.png",
       "resizeMode": "contain",
