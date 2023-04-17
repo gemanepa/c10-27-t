@@ -22,14 +22,14 @@ const Stack = createNativeStackNavigator();
 const styles = StyleSheet.create({
   fab: {
     position: 'absolute',
-    margin: 16,
-    right: 0,
-    bottom: 0,
+    right: 10,
+    bottom: 5,
     backgroundColor: '#FA6C17',
-    width: 48,
-    height: 48,
+    width: 28,
+    height: 28,
     justifyContent: 'center',
     alignItems: 'center',
+    opacity: 0.75,
   },
 });
 
