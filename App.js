@@ -5,6 +5,7 @@ import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as SplashScreen from 'expo-splash-screen';
 import * as Font from 'expo-font';
 import { FAB } from 'react-native-paper';
 import HomeScreen from './screens/index';
@@ -18,7 +19,7 @@ import WelcomeScreen from './screens/welcome';
 import StatisticsScreen from './screens/statistics';
 import useAsyncStorage from './hooks/useAsyncStorage';
 import { MockedDataProvider } from './hooks/useMockedData';
-import * as SplashScreen from 'expo-splash-screen';
+
 
 import UbuntuBold from './assets/fonts/Ubuntu-Bold.ttf';
 import UbuntuBoldItalic from './assets/fonts/Ubuntu-BoldItalic.ttf';
