@@ -143,6 +143,9 @@ export default function CreateCategory({ navigation, route }) {
           />
         </View>
 
+        <Text style={{ fontSize: 18, textAlign: 'center', fontFamily: 'ubuntu-regular' }}>
+          Selecciona un icono
+        </Text>
         <View style={CreateCategoryStyles.containerSelectAnIcon}>
           {CreateCategoryList.map((item) => (
             <View
@@ -176,7 +179,7 @@ export default function CreateCategory({ navigation, route }) {
 
         <View style={{ width: '100%', flexDirection: 'column', gap: 20 }}>
           <Text style={{ fontSize: 18, textAlign: 'center', fontFamily: 'ubuntu-regular' }}>
-            Selecciona Color
+            Selecciona un color
           </Text>
           <View
             style={{
@@ -223,7 +226,7 @@ export default function CreateCategory({ navigation, route }) {
             fontSize: 16,
           }}
         >
-          Añadir Categoria
+          Añadir Categoría
         </Button>
       </View>
     </ScrollView>

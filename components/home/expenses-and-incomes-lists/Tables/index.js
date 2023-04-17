@@ -94,7 +94,7 @@ function ButtonGroup({ route }) {
   return (
     <View>
       <View style={{ paddingTop: 20, flexDirection: 'row', justifyContent: 'space-around' }}>
-        {renderButton('Dia', 1)}
+        {renderButton('Día', 1)}
         {renderButton('Semana', 2)}
         {renderButton('Mes', 3)}
       </View>

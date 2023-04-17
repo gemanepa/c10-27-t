@@ -82,7 +82,7 @@ export default function StatisticsScreen() {
             },
           }}
         >
-          <Text style={styles.headerText}>Estadisticas</Text>
+          <Text style={styles.headerText}>Estadísticas</Text>
         </LayerBackground>
         <View style={styles.mainSection}>
           <Tabs />

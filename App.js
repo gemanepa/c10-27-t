@@ -19,6 +19,15 @@ import StatisticsScreen from './screens/statistics';
 import useAsyncStorage from './hooks/useAsyncStorage';
 import { MockedDataProvider } from './hooks/useMockedData';
 
+import UbuntuBold from './assets/fonts/Ubuntu-Bold.ttf';
+import UbuntuBoldItalic from './assets/fonts/Ubuntu-BoldItalic.ttf';
+import UbuntuItalic from './assets/fonts/Ubuntu-Italic.ttf';
+import UbuntuLight from './assets/fonts/Ubuntu-Light.ttf';
+import UbuntuLightItalic from './assets/fonts/Ubuntu-LightItalic.ttf';
+import UbuntuMedium from './assets/fonts/Ubuntu-Medium.ttf';
+import UbuntuMediumItalic from './assets/fonts/Ubuntu-MediumItalic.ttf';
+import UbuntuRegular from './assets/fonts/Ubuntu-Regular.ttf';
+
 const Stack = createNativeStackNavigator();
 
 const styles = StyleSheet.create({
@@ -61,14 +70,14 @@ function App() {
   useEffect(() => {
     async function loadFonts() {
       await Font.loadAsync({
-        'ubuntu-bold': require('./assets/fonts/Ubuntu-Bold.ttf'),
-        'ubuntu-boldItalic': require('./assets/fonts/Ubuntu-BoldItalic.ttf'),
-        'ubuntu-italic': require('./assets/fonts/Ubuntu-Italic.ttf'),
-        'ubuntu-light': require('./assets/fonts/Ubuntu-Light.ttf'),
-        'ubuntu-lightItalic': require('./assets/fonts/Ubuntu-LightItalic.ttf'),
-        'ubuntu-medium': require('./assets/fonts/Ubuntu-Medium.ttf'),
-        'ubuntu-mediumItalic': require('./assets/fonts/Ubuntu-MediumItalic.ttf'),
-        'ubuntu-regular': require('./assets/fonts/Ubuntu-Regular.ttf'),
+        'ubuntu-bold': UbuntuBold,
+        'ubuntu-boldItalic': UbuntuBoldItalic,
+        'ubuntu-italic': UbuntuItalic,
+        'ubuntu-light': UbuntuLight,
+        'ubuntu-lightItalic': UbuntuLightItalic,
+        'ubuntu-medium': UbuntuMedium,
+        'ubuntu-mediumItalic': UbuntuMediumItalic,
+        'ubuntu-regular': UbuntuRegular,
       });
     }
     loadFonts();
