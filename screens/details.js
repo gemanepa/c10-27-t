@@ -206,7 +206,7 @@ export default function DetailsScreen() {
         {renderButton('Cantidad', 2)}
       </View>
       <View style={styles.mainSection}>
-        <Table tableData={tableData} currency={currency} />
+        <Table tableData={tableData.slice(0, 5)} currency={currency} />
       </View>
     </View>
   );
