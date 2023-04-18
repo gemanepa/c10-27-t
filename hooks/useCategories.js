@@ -22,7 +22,7 @@ const useCategories = () => {
       );
       setListOfCategories(toSingleObject);
     }
-    if(isFocused) init();
+    if (isFocused) init();
   }, [isFocused]);
 
   return listOfCategories;
