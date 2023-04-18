@@ -10,7 +10,11 @@
 </ul>
 <h2 id="live-version">Live Version</h2>
 <ul>
-<li><p><a href="https://github.com/No-Country/c10-27-t-reactchallenge-rn-o-flutter/blob/master/build/cash-control.apk">Android APK</a></p>
+<li><p><a href="https://github.com/No-Country/c10-27-t-reactchallenge-rn-o-flutter/raw/master/builds/cash-control.apk">Android APK</a></p></li>
+<ul>
+<li>On devices running Android 8.0 (API level 26) and higher, you must navigate to the Install unknown apps system settings screen to enable app installations from a particular location (i.e. the web browser you are downloading the app from).</li>
+<li>On devices running Android 7.1.1 (API level 25) and lower, you should enable the Unknown sources system setting, found in Settings > Security on your device.</li>
+</ul>
 </li>
 <li><p><a href="https://snack.expo.dev/@gemanepa/nocountry---c10-27-t?platform=android">Online Android Device</a></p>
 </li>
