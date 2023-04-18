@@ -1,11 +1,11 @@
 import React from 'react';
-import { View, ScrollView, Text } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { View, ScrollView, Text, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 import styles from './styles';
+import { renderImage, useDetailsNavigation } from './utils';
 
-function MonthTable({ tableData }) {
-  const navigation = useNavigation();
+function MonthTable({ tableData, listOfCategories }) {
+  const navigateToDetails = useDetailsNavigation();
 
   const renderTableHeader = () => (
     <View style={styles.tableHeader}>
@@ -35,17 +35,6 @@ function MonthTable({ tableData }) {
     return groupedData;
   };
 
-  const handleDetailsNavigation = (category, type, currency) => {
-    navigation.navigate('Details', {
-      data: tableData
-        .filter((item) => item.category === category)
-        .map((row) => ({ ...row, date: row.date.toISOString() })),
-      category,
-      type,
-      currency,
-    });
-  };
-
   const renderTableRow = () => {
     const groupedData = groupByMonth(tableData);
 
@@ -61,22 +50,21 @@ function MonthTable({ tableData }) {
               <Text style={styles.labelText}>{month}</Text>
             </View>
           )}
-          <Text
-            style={[styles.tableCell]}
+          <TouchableOpacity
+            style={{ flexDirection: 'row', alignItems: 'center', flex: 1 }}
             onPress={() =>
-              handleDetailsNavigation(rowData.category, rowData.type, rowData.amount.split(' ')[1])
+              navigateToDetails(
+                tableData,
+                rowData.category,
+                rowData.type,
+                rowData.amount.split(' ')[1]
+              )
             }
           >
-            {rowData.category}
-          </Text>
-          <Text
-            style={[styles.tableCell, { fontWeight: 700 }]}
-            onPress={() =>
-              handleDetailsNavigation(rowData.category, rowData.type, rowData.amount.split(' ')[1])
-            }
-          >
-            {rowData.amount}
-          </Text>
+            {renderImage(listOfCategories[rowData.category])}
+            <Text style={[styles.tableCell]}>{rowData.category}</Text>
+            <Text style={[styles.tableCell, { fontWeight: 700 }]}>{rowData.amount}</Text>
+          </TouchableOpacity>
         </View>
       ));
 
@@ -99,6 +87,7 @@ function MonthTable({ tableData }) {
 
 MonthTable.propTypes = {
   tableData: PropTypes.arrayOf(PropTypes.object).isRequired,
+  listOfCategories: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 export default MonthTable;
