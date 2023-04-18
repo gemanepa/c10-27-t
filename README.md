@@ -10,11 +10,13 @@
 </ul>
 <h2 id="live-version">Live Version</h2>
 <ul>
-<li><p><a href="https://snack.expo.dev/@gemanepa/nocountry---c10-27-t?platform=android">Android</a></p>
+<li><p><a href="https://github.com/No-Country/c10-27-t-reactchallenge-rn-o-flutter/blob/master/build/cash-control.apk">Android APK</a></p>
 </li>
-<li><p><a href="https://snack.expo.dev/@gemanepa/nocountry---c10-27-t?platform=ios">iOS</a></p>
+<li><p><a href="https://snack.expo.dev/@gemanepa/nocountry---c10-27-t?platform=android">Online Android Device</a></p>
 </li>
-<li><p><a href="https://snack.expo.dev/@gemanepa/nocountry---c10-27-t">Web</a></p>
+<li><p><a href="https://snack.expo.dev/@gemanepa/nocountry---c10-27-t?platform=ios">Online iOS Device</a></p>
+</li>
+<li><p><a href="https://snack.expo.dev/@gemanepa/nocountry---c10-27-t">Web Version</a></p>
 </li>
 </ul>
 <h2 id="design-guidelines">Design Guidelines</h2>

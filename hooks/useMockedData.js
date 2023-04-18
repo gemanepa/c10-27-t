@@ -59,7 +59,8 @@ function MockedDataProvider(props) {
       };
       setTablesMockData(generatedTablesMockData);
     };
-    if (!Object.entries(tablesMockData).length) getRandomTableData();
+    if (!Object.entries(tablesMockData).length && process.env.MOCK_DATA !== 'disabled')
+      getRandomTableData();
   }, [tablesMockData]);
 
   return <MockedDataContext.Provider value={tablesMockData}>{children}</MockedDataContext.Provider>;

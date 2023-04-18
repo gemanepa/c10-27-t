@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Cash Control",
-    "slug": "nocountry-c10-27-t",
+    "slug": "cash-control",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/LOGO_APP.png",
@@ -23,10 +23,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/LOGO_APP.png",
         "backgroundColor": "#F6F6FD"
-      }
+      },
+      "package": "com.gemanepa.cashcontrol"
     },
     "web": {
       "favicon": "./assets/LOGO_APP.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "0e0691ab-483a-4092-9637-5a305f1198a2"
+      }
     }
   }
 }
