@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import styles from '../home/expenses-and-incomes-lists/Tables/styles';
 import { formatDate } from '../home/expenses-and-incomes-lists/Tables/utils';
 
-function DayTable({ tableData, currency }) {
+function DetailsTable({ tableData, currency }) {
   const renderTableHeader = () => (
     <View style={styles.tableHeader}>
       <Text style={[styles.tableHeaderCell]}>Concepto</Text>
@@ -39,8 +39,9 @@ function DayTable({ tableData, currency }) {
   );
 }
 
-DayTable.propTypes = {
+DetailsTable.propTypes = {
   tableData: PropTypes.arrayOf(PropTypes.object).isRequired,
+  currency: PropTypes.string.isRequired,
 };
 
-export default DayTable;
+export default DetailsTable;
