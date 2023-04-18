@@ -13,6 +13,11 @@ const styles = StyleSheet.create({
     paddingBottom: 16,
     backgroundColor: '#F6F6FD',
   },
+  tableRowContainer: {
+    flex: 1,
+    paddingHorizontal: 26,
+    backgroundColor: '#EFEEEE',
+  },
   tableRow: {
     flexDirection: 'row',
     borderBottomWidth: 1,
@@ -35,13 +40,13 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: 'bold',
     color: '#334050',
-    textAlign: 'center',
+    textAlign: 'left',
+    paddingHorizontal: 28,
   },
   tableCell: {
     flex: 1,
     fontSize: 14,
     color: '#334050',
-    paddingLeft: 60,
     fontFamily: 'ubuntu-regular',
     position: 'relative',
     flexDirection: 'row',
@@ -49,6 +54,7 @@ const styles = StyleSheet.create({
     letterSpacing: -0.3,
   },
   amountCell: {
+    textAlign: 'right',
     fontWeight: 700,
     fontFamily: 'ubuntu-bold',
   },

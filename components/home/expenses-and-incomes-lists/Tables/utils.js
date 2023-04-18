@@ -12,13 +12,20 @@ const formatDate = (date) => {
   return `${day} ${month} ${year}`;
 };
 
-const renderImage = (category = {}) => {
-  const ImageSvg = category.image ? whiteListOfIcons[Number(category.image)] : <View />;
+const renderImage = (category) => {
+  const { image, backgroundColor } = category ?? {};
+
+  if (!image) {
+    return <View style={styles.imageItemContainer} />;
+  }
+
+  const ImageSvg = whiteListOfIcons[Number(image)];
+
   return (
     <View
       style={{
         ...styles.imageItemContainer,
-        backgroundColor: `${category.backgroundColor ? category.backgroundColor : 'gray'}`,
+        backgroundColor: backgroundColor ?? 'gray',
       }}
     >
       <ImageSvg width={24} height={24} />

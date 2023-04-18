@@ -10,7 +10,7 @@ function MonthTable({ tableData, listOfCategories }) {
   const renderTableHeader = () => (
     <View style={styles.tableHeader}>
       <Text style={[styles.tableHeaderCell]}>Categoria</Text>
-      <Text style={[styles.tableHeaderCell]}>Cantidad</Text>
+      <Text style={[styles.tableHeaderCell, { textAlign: 'right' }]}>Cantidad</Text>
     </View>
   );
 
@@ -81,7 +81,7 @@ function MonthTable({ tableData, listOfCategories }) {
     <ScrollView contentContainerStyle={{ minHeight: 500 }}>
       <View style={styles.container}>
         {renderTableHeader()}
-        {renderTableRow()}
+        <View style={styles.tableRowContainer}>{renderTableRow()}</View>
       </View>
     </ScrollView>
   );
