@@ -17,7 +17,7 @@ const generateRandomTableData = (currency) => {
     return `${randomAmount.toFixed(2)} ${currency}`;
   };
 
-  const categories = ['Salud', 'Educacion', 'Higiene', 'Hogar', 'Transporte', 'Comida', 'Ocio'];
+  const categories = ['Salud', 'Educación', 'Higiene', 'Hogar', 'Transporte', 'Comida', 'Ocio'];
 
   const tableData = [];
   const usedKeys = new Set();

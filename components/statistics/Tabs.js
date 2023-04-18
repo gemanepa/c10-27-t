@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { SceneMap } from 'react-native-tab-view';
 import Tabs from '../shared/Tabs';
-import Stats from './Stats';
+import MainContent from './index';
 
 const renderScene = SceneMap({
-  first: Stats,
-  second: Stats,
+  first: MainContent,
+  second: MainContent,
 });
 
 export default function StatisticsTabs() {
