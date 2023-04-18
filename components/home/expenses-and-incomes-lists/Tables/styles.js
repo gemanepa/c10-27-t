@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -10,13 +10,15 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#eee',
     paddingVertical: 10,
+    paddingBottom: 16,
     backgroundColor: '#F6F6FD',
   },
   tableRow: {
     flexDirection: 'row',
     borderBottomWidth: 1,
     borderBottomColor: '#99A3A4',
-    paddingVertical: 20,
+    paddingTop: 20,
+    paddingBottom: 16,
     backgroundColor: '#EFEEEE',
     alignItems: 'center',
   },
@@ -25,8 +27,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#99A3A4',
     backgroundColor: '#EFEEEE',
-    paddingVertical: 10,
-    paddingTop: 40,
+    paddingBottom: 16,
+    paddingTop: 50,
   },
   tableHeaderCell: {
     flex: 1,
@@ -39,25 +41,43 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 14,
     color: '#334050',
-    paddingLeft: 14,
+    paddingLeft: 60,
     fontFamily: 'ubuntu-regular',
+    position: 'relative',
+    flexDirection: 'row',
+    alignItems: 'center',
+    letterSpacing: -0.3,
+  },
+  amountCell: {
+    fontWeight: 700,
+    fontFamily: 'ubuntu-bold',
   },
   label: {
     position: 'absolute',
-    top: 12,
-    left: 0,
-    right: 0,
+    top: 18,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#01B496',
+    width: 150,
+    left: (Dimensions.get('window').width - 150) / 2,
+    right: (Dimensions.get('window').width - 150) / 2,
+    borderRadius: 10,
+    height: 24,
+  },
+  labelText: {
+    color: '#fff',
+    fontSize: 12,
+    fontWeight: 400,
+    fontFamily: 'ubuntu-regular',
   },
   imageItemContainer: {
     width: 24,
     height: 23,
     backgroundColor: '#d9d9d9',
     borderRadius: 50,
-    flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
+    marginRight: 7,
   },
 });
 

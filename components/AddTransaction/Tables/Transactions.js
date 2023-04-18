@@ -63,7 +63,7 @@ export default function Transactions({ navigation, params }) {
 
   // Amount Functions
   const changeAmount = (value) => {
-    setEnterAmount(value);
+    setEnterAmount(value.replace(',', '.'));
   };
 
   const changeConcept = (value) => {
