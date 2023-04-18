@@ -12,9 +12,9 @@ jest.mock('@react-navigation/native', () => ({
   useRoute: () => {},
 }));
 
-  describe('DetailsScreen', () => {
-    it('renders the details screen', () => {
-      const { getByTestId } = render(<DetailsScreen />);
-      expect(getByTestId('details-screen')).toBeDefined();
-    });
+describe('DetailsScreen', () => {
+  it('renders the details screen', () => {
+    const { getByTestId } = render(<DetailsScreen />);
+    expect(getByTestId('details-screen')).toBeDefined();
   });
+});
