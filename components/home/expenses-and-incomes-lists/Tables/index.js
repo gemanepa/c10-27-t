@@ -9,18 +9,17 @@ import DayTable from './DayTable';
 import WeekTable from './WeekTable';
 import MonthTable from './MonthTable';
 import { MockedDataContext } from '../../../../hooks/useMockedData';
+import useCategories from '../../../../hooks/useCategories';
 
-function RenderContent({ buttonClicked, tableData }) {
-  if (buttonClicked === 1) {
-    return <DayTable tableData={tableData} />;
-  }
-  if (buttonClicked === 2) {
-    return <WeekTable tableData={tableData} />;
-  }
-  if (buttonClicked === 3) {
-    return <MonthTable tableData={tableData} />;
-  }
-  return null;
+const tableComponents = {
+  1: DayTable,
+  2: WeekTable,
+  3: MonthTable,
+};
+
+function RenderSelectedTable({ buttonClicked, tableData, listOfCategories }) {
+  const TableComponent = tableComponents[buttonClicked];
+  return <TableComponent tableData={tableData} listOfCategories={listOfCategories} />;
 }
 
 const styles = StyleSheet.create({
@@ -38,6 +37,7 @@ const styles = StyleSheet.create({
 });
 
 function ButtonGroup({ route }) {
+  const listOfCategories = useCategories();
   const { key } = route;
   const tabType = key === 'first' ? 'expense' : 'income';
   const tablesMockData = useContext(MockedDataContext);
@@ -100,7 +100,11 @@ function ButtonGroup({ route }) {
         {renderButton('Mes', 3)}
       </View>
 
-      <RenderContent buttonClicked={buttonClicked} tableData={tableData} />
+      <RenderSelectedTable
+        buttonClicked={buttonClicked}
+        tableData={tableData}
+        listOfCategories={listOfCategories}
+      />
     </View>
   );
 }
@@ -108,9 +112,10 @@ function ButtonGroup({ route }) {
 ButtonGroup.propTypes = {
   route: PropTypes.object.isRequired,
 };
-RenderContent.propTypes = {
+RenderSelectedTable.propTypes = {
   buttonClicked: PropTypes.number.isRequired,
   tableData: PropTypes.arrayOf(PropTypes.object).isRequired,
+  listOfCategories: PropTypes.object.isRequired,
 };
 
 export default ButtonGroup;
