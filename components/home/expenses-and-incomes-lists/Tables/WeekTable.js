@@ -30,17 +30,17 @@ function WeekTable({ tableData, listOfCategories }) {
     let weekLabel = '';
 
     if (startOfWeek.getMonth() !== date.getMonth()) {
-      weekLabel = `${startOfMonth.getDate()} ${startOfMonth.toLocaleString('default', {
+      weekLabel = `${startOfMonth.getDate()} ${startOfMonth.toLocaleString('es-ES', {
         month: 'short',
-      })} - ${endOfWeek.getDate()} ${endOfWeek.toLocaleString('default', { month: 'short' })}`;
+      })} - ${endOfWeek.getDate()} ${endOfWeek.toLocaleString('es-ES', { month: 'short' })}`;
     } else if (endOfWeek > endOfMonth) {
-      weekLabel = `${startOfWeek.getDate()} ${startOfWeek.toLocaleString('default', {
+      weekLabel = `${startOfWeek.getDate()} ${startOfWeek.toLocaleString('es-ES', {
         month: 'short',
-      })} - ${endOfMonth.getDate()} ${endOfMonth.toLocaleString('default', { month: 'short' })}`;
+      })} - ${endOfMonth.getDate()} ${endOfMonth.toLocaleString('es-ES', { month: 'short' })}`;
     } else {
-      weekLabel = `${startOfWeek.getDate()} ${startOfWeek.toLocaleString('default', {
+      weekLabel = `${startOfWeek.getDate()} ${startOfWeek.toLocaleString('es-ES', {
         month: 'short',
-      })} - ${endOfWeek.getDate()} ${endOfWeek.toLocaleString('default', { month: 'short' })}`;
+      })} - ${endOfWeek.getDate()} ${endOfWeek.toLocaleString('es-ES', { month: 'short' })}`;
     }
 
     return weekLabel;
@@ -70,7 +70,7 @@ function WeekTable({ tableData, listOfCategories }) {
         <View key={rowData.key} style={j === 0 ? styles.startingTableRow : styles.tableRow}>
           {j === 0 && (
             <View style={styles.label}>
-              <Text style={styles.LabelText}>{week}</Text>
+              <Text style={styles.labelText}>{week}</Text>
             </View>
           )}
           <TouchableOpacity
@@ -84,9 +84,11 @@ function WeekTable({ tableData, listOfCategories }) {
               )
             }
           >
-            {renderImage(listOfCategories[rowData.category])}
-            <Text style={[styles.tableCell]}>{rowData.category}</Text>
-            <Text style={[styles.tableCell, { fontWeight: 700 }]}>{rowData.amount}</Text>
+            <View style={[styles.tableCell, styles.categoryCell]}>
+              {renderImage(listOfCategories[rowData.category])}
+              <Text>{rowData.category}</Text>
+            </View>
+            <Text style={[styles.tableCell, styles.amountCell]}>{rowData.amount}</Text>
           </TouchableOpacity>
         </View>
       ));

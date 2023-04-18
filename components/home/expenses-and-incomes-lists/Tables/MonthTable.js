@@ -17,7 +17,7 @@ function MonthTable({ tableData, listOfCategories }) {
   const getMonthLabel = (rowDate) => {
     const date = new Date(rowDate);
     const startOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
-    const monthLabel = `${startOfMonth.toLocaleString('default', {
+    const monthLabel = `${startOfMonth.toLocaleString('es-ES', {
       month: 'short',
     })} ${startOfMonth.getFullYear()}`;
     return monthLabel;
@@ -61,9 +61,11 @@ function MonthTable({ tableData, listOfCategories }) {
               )
             }
           >
-            {renderImage(listOfCategories[rowData.category])}
-            <Text style={[styles.tableCell]}>{rowData.category}</Text>
-            <Text style={[styles.tableCell, { fontWeight: 700 }]}>{rowData.amount}</Text>
+            <View style={[styles.tableCell, styles.categoryCell]}>
+              {renderImage(listOfCategories[rowData.category])}
+              <Text>{rowData.category}</Text>
+            </View>
+            <Text style={[styles.tableCell, styles.amountCell]}>{rowData.amount}</Text>
           </TouchableOpacity>
         </View>
       ));
