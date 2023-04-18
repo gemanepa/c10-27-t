@@ -18,6 +18,7 @@ const styles = StyleSheet.create({
     borderBottomColor: '#99A3A4',
     paddingVertical: 20,
     backgroundColor: '#EFEEEE',
+    alignItems: 'center',
   },
   startingTableRow: {
     flexDirection: 'row',
@@ -38,7 +39,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 14,
     color: '#334050',
-    paddingLeft: 30,
+    paddingLeft: 14,
     fontFamily: 'ubuntu-regular',
   },
   label: {
@@ -46,6 +47,15 @@ const styles = StyleSheet.create({
     top: 12,
     left: 0,
     right: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  imageItemContainer: {
+    width: 24,
+    height: 23,
+    backgroundColor: '#d9d9d9',
+    borderRadius: 50,
+    flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
   },

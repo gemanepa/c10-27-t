@@ -3,6 +3,22 @@ import { View, ScrollView, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import PropTypes from 'prop-types';
 import styles from './styles';
+import CategoriesExport from '../../../../assets/categories/categoriesExport';
+
+const {
+  whiteListOfIcons,
+  checkListOfExpenditureCategoriesInStorage,
+  checkListOfRevenueCategoriesInStorage,
+} = CategoriesExport();
+
+let listOfCategories = [];
+
+const init = async () => {
+  const listOfExpenditureCategories = await checkListOfExpenditureCategoriesInStorage();
+  const listOfRevenueCategories = await checkListOfRevenueCategoriesInStorage();
+  listOfCategories = await [...listOfExpenditureCategories, ...listOfRevenueCategories];
+};
+init();
 
 function WeekTable({ tableData }) {
   const navigation = useNavigation();
@@ -69,6 +85,21 @@ function WeekTable({ tableData }) {
     });
   };
 
+  const renderImage = (titleCategory) => {
+    const category = listOfCategories.filter((item) => item.title === titleCategory)[0];
+    const ImageSvg = whiteListOfIcons[Number(category.image)];
+    return (
+      <View
+        style={{
+          ...styles.imageItemContainer,
+          backgroundColor: `${category.backgroundColor ? category.backgroundColor : 'gray'}`,
+        }}
+      >
+        <ImageSvg width={24} height={24} />
+      </View>
+    );
+  };
+
   const renderTableRow = () => {
     const groupedData = groupByWeek(tableData);
 
@@ -90,6 +121,7 @@ function WeekTable({ tableData }) {
               <Text style={styles.LabelText}>{week}</Text>
             </View>
           )}
+          {renderImage(rowData.category)}
           <Text
             style={[styles.tableCell]}
             onPress={() =>

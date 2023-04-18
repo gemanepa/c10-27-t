@@ -4,6 +4,23 @@ import { useNavigation } from '@react-navigation/native';
 import PropTypes from 'prop-types';
 import styles from './styles';
 
+import CategoriesExport from '../../../../assets/categories/categoriesExport';
+
+const {
+  whiteListOfIcons,
+  checkListOfExpenditureCategoriesInStorage,
+  checkListOfRevenueCategoriesInStorage,
+} = CategoriesExport();
+
+let listOfCategories = [];
+
+const init = async () => {
+  const listOfExpenditureCategories = await checkListOfExpenditureCategoriesInStorage();
+  const listOfRevenueCategories = await checkListOfRevenueCategoriesInStorage();
+  listOfCategories = await [...listOfExpenditureCategories, ...listOfRevenueCategories];
+};
+init();
+
 function MonthTable({ tableData }) {
   const navigation = useNavigation();
 
@@ -46,6 +63,21 @@ function MonthTable({ tableData }) {
     });
   };
 
+  const renderImage = (titleCategory) => {
+    const category = listOfCategories.filter((item) => item.title === titleCategory)[0];
+    const ImageSvg = whiteListOfIcons[Number(category.image)];
+    return (
+      <View
+        style={{
+          ...styles.imageItemContainer,
+          backgroundColor: `${category.backgroundColor ? category.backgroundColor : 'gray'}`,
+        }}
+      >
+        <ImageSvg width={24} height={24} />
+      </View>
+    );
+  };
+
   const renderTableRow = () => {
     const groupedData = groupByMonth(tableData);
 
@@ -61,6 +93,7 @@ function MonthTable({ tableData }) {
               <Text style={styles.labelText}>{month}</Text>
             </View>
           )}
+          {renderImage(rowData.category)}
           <Text
             style={[styles.tableCell]}
             onPress={() =>
