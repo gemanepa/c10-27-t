@@ -159,7 +159,7 @@ export default function DetailsScreen() {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} testID="details-screen">
       <LayerBackground
         params={{
           linearGradient: {

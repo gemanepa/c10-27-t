@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, waitFor } from '@testing-library/react-native';
+import { render } from '@testing-library/react-native';
 import DefaultScreen from '../../screens/index';
 import useAsyncStorage from '../../hooks/useAsyncStorage';
 import getAsyncStorageData from '../../utils/get-storage-data';
