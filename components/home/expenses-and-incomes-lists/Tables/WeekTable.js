@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ScrollView, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 import styles from './styles';
 import { renderImage, useDetailsNavigation } from './utils';
@@ -101,12 +101,12 @@ function WeekTable({ tableData, listOfCategories }) {
   };
 
   return (
-    <ScrollView contentContainerStyle={{ minHeight: 500 }}>
+    <View contentContainerStyle={{ minHeight: 500 }}>
       <View style={styles.container}>
         {renderTableHeader()}
         <View style={styles.tableRowContainer}>{renderTableRow()}</View>
       </View>
-    </ScrollView>
+    </View>
   );
 }
 

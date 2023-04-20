@@ -1,15 +1,14 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#F6F6FD',
-    paddingTop: 20,
+    paddingTop: 24,
   },
   tableHeader: {
     flexDirection: 'row',
     borderBottomWidth: 1,
     borderBottomColor: '#eee',
-    paddingVertical: 10,
     paddingBottom: 16,
     backgroundColor: '#F6F6FD',
   },
