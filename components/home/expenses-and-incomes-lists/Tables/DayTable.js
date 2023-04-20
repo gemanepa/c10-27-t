@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, ScrollView, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
 import PropTypes from 'prop-types';
 import styles from './styles';
 import { renderImage, useDetailsNavigation } from './utils';
+import rowArrow from '../../../../assets/home/tablerow-action-arrow.png';
 
 function DayTable({ tableData, listOfCategories }) {
   const navigateToDetails = useDetailsNavigation();
@@ -66,7 +67,12 @@ function DayTable({ tableData, listOfCategories }) {
               {renderImage(listOfCategories[rowData.category])}
               <Text>{rowData.category}</Text>
             </View>
-            <Text style={[styles.tableCell, styles.amountCell]}>{rowData.amount}</Text>
+            <Text style={[styles.tableCell, styles.amountCell]}>
+              {rowData.amount}
+              <View style={styles.rowArrow}>
+                <Image source={rowArrow} />
+              </View>
+            </Text>
           </TouchableOpacity>
         </View>
       ));
@@ -79,12 +85,12 @@ function DayTable({ tableData, listOfCategories }) {
   };
 
   return (
-    <ScrollView contentContainerStyle={{ minHeight: 500 }}>
+    <View contentContainerStyle={{ minHeight: 500 }}>
       <View style={styles.container}>
         {renderTableHeader()}
         <View style={styles.tableRowContainer}>{renderTableRow()}</View>
       </View>
-    </ScrollView>
+    </View>
   );
 }
 
