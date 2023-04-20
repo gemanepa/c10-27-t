@@ -1,9 +1,9 @@
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
 import PropTypes from 'prop-types';
 import styles from './styles';
 import { renderImage, useDetailsNavigation } from './utils';
-
+import rowArrow from '../../../../assets/home/tablerow-action-arrow.png';
 function WeekTable({ tableData, listOfCategories }) {
   const navigateToDetails = useDetailsNavigation();
   const renderTableHeader = () => (
@@ -88,7 +88,12 @@ function WeekTable({ tableData, listOfCategories }) {
               {renderImage(listOfCategories[rowData.category])}
               <Text>{rowData.category}</Text>
             </View>
-            <Text style={[styles.tableCell, styles.amountCell]}>{rowData.amount}</Text>
+            <Text style={[styles.tableCell, styles.amountCell]}>
+              {rowData.amount}
+              <View style={styles.rowArrow}>
+                <Image source={rowArrow} />
+              </View>
+            </Text>
           </TouchableOpacity>
         </View>
       ));

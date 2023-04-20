@@ -54,9 +54,19 @@ const styles = StyleSheet.create({
     letterSpacing: -0.3,
   },
   amountCell: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
     textAlign: 'right',
     fontWeight: 700,
     fontFamily: 'ubuntu-bold',
+  },
+  rowArrow: {
+    height: 13,
+    width: 13,
+    paddingTop: 1,
+    paddingLeft: 10,
+    paddingRight: 14,
   },
   label: {
     position: 'absolute',
