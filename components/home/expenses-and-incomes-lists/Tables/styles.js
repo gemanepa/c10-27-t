@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   startingTableRow: {
+    flex: 1,
     flexDirection: 'row',
     borderBottomWidth: 1,
     borderBottomColor: '#99A3A4',
@@ -65,8 +66,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#01B496',
     width: 150,
-    left: (Dimensions.get('window').width - 150) / 2,
-    right: (Dimensions.get('window').width - 150) / 2,
+    left: 100,
     borderRadius: 10,
     height: 24,
   },
