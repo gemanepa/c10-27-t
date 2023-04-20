@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { View } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import useTableData from './useTableData';
 import PeriodButton from './PeriodButton';
 import Table from './Table';
@@ -29,7 +29,7 @@ function StatisticsContent({ route }) {
   if (storagedData?.currency === undefined) return null;
 
   return (
-    <View>
+    <ScrollView>
       <View
         style={{
           paddingTop: 30,
@@ -60,7 +60,7 @@ function StatisticsContent({ route }) {
       {buttonClicked === 2 && <DatePicker setDateFilter={setDateFilter} dateFilter={dateFilter} />}
       <PieChartScreen tableData={tableData} />
       <Table tableData={tableData} currency={storagedData?.currency} />
-    </View>
+    </ScrollView>
   );
 }
 
