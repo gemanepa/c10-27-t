@@ -6,7 +6,7 @@
 <li><a href="https://www.linkedin.com/in/gemanepa/">Gabriel Martinez Canepa</a> [Developer]</li>
 <li><a href="https://www.linkedin.com/in/oscar-tandioy-1660b6253/">Oscar Tandjoy</a> [Developer]</li>
 <li><a href="https://www.linkedin.com/in/mcgonzal/">Margreline Cardozo</a> [UI/UX Designer]</li>
-<li><a href="https://www.linkedin.com/in/malejandragaitana/">Maria Alejandra</a> [Team Leader]</li>
+<li><a href="https://www.linkedin.com/in/malejandragaitana/">Maria Alejandra Gaitan</a> [Team Leader]</li>
 </ul>
 <h2 id="live-version">Live Version</h2>
 <ul>
