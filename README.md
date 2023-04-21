@@ -25,6 +25,7 @@
 </ul>
 <h2 id="design-guidelines">Design Guidelines</h2>
 <ul>
+<li><a href="https://www.figma.com/file/XyOspgrxUgy7x3GO25ysSJ/Proyecto---App-gesti%C3%B3n-de-pagos?node-id=530-44&t=z51r4wjALGsCM9af-0">Screens</a></li>
 <li><a href="https://www.figma.com/proto/XyOspgrxUgy7x3GO25ysSJ/Proyecto---App-gesti%C3%B3n-de-pagos?page-id=530:44&amp;node-id=1053-2213&amp;viewport=396,195,0.28&amp;scaling=scale-down&amp;starting-point-node-id=530:45&amp;show-proto-sidebar=1">Prototype</a></li>
 <li><a href="https://www.figma.com/file/XyOspgrxUgy7x3GO25ysSJ/Proyecto---App-gesti%C3%B3n-de-pagos?node-id=513-2&amp;t=SnZm9YDgo0oxMjaC-0">User Flow</a></li>
 <li><a href="https://www.figma.com/file/XyOspgrxUgy7x3GO25ysSJ/Proyecto---App-gesti%C3%B3n-de-pagos?node-id=0-1&amp;t=SnZm9YDgo0oxMjaC-0">Task Flow</a></li>
