@@ -223,12 +223,12 @@ export default function SettingUpScreen({ setInitialSettingUp }) {
 
   const handleScreenPress = () => {
     // Remove focus and hide the keyboard
-
     if (keyboardActivity) {
       Keyboard.dismiss();
       setKeyboardActivity(false);
     }
   };
+
   return (
     <LayerBackground
       params={{
