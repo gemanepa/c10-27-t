@@ -65,7 +65,7 @@ function MockedDataProvider(props) {
     const disabledOnIOSForDemo = Platform.OS === 'ios';
     const disabledInApk = process.env.MOCK_DATA !== 'disabled';
 
-    if(!alreadyGenerated && disabledOnIOSForDemo) setTablesMockData({ expense: [], income: []});
+    if (!alreadyGenerated && disabledOnIOSForDemo) setTablesMockData({ expense: [], income: [] });
     if (!alreadyGenerated && !disabledOnIOSForDemo && disabledInApk) {
       getRandomTableData();
     }
