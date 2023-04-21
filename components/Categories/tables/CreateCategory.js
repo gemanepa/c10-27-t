@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { View, StyleSheet, TextInput, Text, ScrollView, Dimensions } from 'react-native';
-import { Button } from 'react-native-paper';
+import { Button, IconButton } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import CategoriesExport from '../../../assets/categories/categoriesExport';
 
@@ -76,6 +75,18 @@ export default function CreateCategory({ navigation, route }) {
   useEffect(() => {
     navigation.setOptions({
       title: 'Crear categoría',
+      // eslint-disable-next-line react/no-unstable-nested-components
+      headerLeft: () => (
+        <IconButton
+          style={{
+            paddingBottom: 5,
+          }}
+          onPress={() => navigation.goBack()}
+          icon="chevron-left"
+          color="gray"
+          size={20}
+        />
+      ),
     });
   }, [navigation]);
 

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Text, Platform, View, StyleSheet } from 'react-native';
-import { Button } from 'react-native-paper';
+import { Button, IconButton } from 'react-native-paper';
 import PropTypes from 'prop-types';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import LayerBackground from '../components/generalComponents/layerBackground';
@@ -101,6 +101,18 @@ export default function DetailsScreen() {
       title: `${route?.params?.type === 'income' ? 'Ingresos' : 'Gastos'} - ${
         route?.params?.category
       }`,
+      // eslint-disable-next-line react/no-unstable-nested-components
+      headerLeft: () => (
+        <IconButton
+          style={{
+            paddingBottom: 5,
+          }}
+          onPress={() => navigation.goBack()}
+          icon="chevron-left"
+          color="gray"
+          size={20}
+        />
+      ),
     });
   }, [navigation, route?.params?.category, route?.params?.type]);
 

@@ -2,6 +2,7 @@
 import PropTypes from 'prop-types';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { useEffect, useState } from 'react';
+import { IconButton } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Transactions from '../components/AddTransaction/Tables/Transactions';
@@ -41,6 +42,18 @@ export default function AddTransaction({ navigation }) {
   useEffect(() => {
     navigation.setOptions({
       title: 'Añadir transacciones',
+      // eslint-disable-next-line react/no-unstable-nested-components
+      headerLeft: () => (
+        <IconButton
+          style={{
+            paddingBottom: 5,
+          }}
+          onPress={() => navigation.goBack()}
+          icon="chevron-left"
+          color="gray"
+          size={20}
+        />
+      ),
     });
   }, [navigation]);
 
