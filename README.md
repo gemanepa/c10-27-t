@@ -1,6 +1,7 @@
 <h1 id="cash-control" align="center">Cash Control</h1>
 <p align="center"><img src="https://raw.githubusercontent.com/No-Country/c10-27-t-reactchallenge-rn-o-flutter/master/assets/LOGO_APP.png" alt=""></p>
 <p align="center">Android + iOS mobile application for controlling and monitoring of daily expenses and revenues</p>
+
 <h2 id="team-members">Team Members</h2>
 <ul>
 <li><a href="https://www.linkedin.com/in/gemanepa/">Gabriel Martinez Canepa</a> [Developer]</li>
@@ -30,6 +31,7 @@
 <li><a href="https://www.figma.com/proto/XyOspgrxUgy7x3GO25ysSJ/Proyecto---App-gesti%C3%B3n-de-pagos?page-id=0%3A1&node-id=513-2&viewport=2496%2C590%2C0.17&scaling=scale-down-width&starting-point-node-id=513%3A2&show-proto-sidebar=1">User Flow</a></li>
 <li><a href="https://www.figma.com/proto/XyOspgrxUgy7x3GO25ysSJ/Proyecto---App-gesti%C3%B3n-de-pagos?page-id=0%3A1&node-id=509-108&viewport=2496%2C590%2C0.17&scaling=scale-down-width&starting-point-node-id=509%3A108&show-proto-sidebar=1">Task Flow</a></li>
 <li><a href="https://www.figma.com/proto/XyOspgrxUgy7x3GO25ysSJ/Proyecto---App-gesti%C3%B3n-de-pagos?page-id=0%3A1&node-id=958-1445&viewport=2496%2C590%2C0.17&scaling=scale-down-width&starting-point-node-id=958%3A1445">Presentation</a></li>
+  <li><a href="https://www.youtube.com/watch?v=zLORaR4PIas&lc=UgxXTYWsyB-0j-8ZJWF4AaABAg">Showcase Video</a></li>
 </ul>
 <h2 id="tech-stack">Tech Stack</h2>
 <ul>
