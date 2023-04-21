@@ -177,9 +177,9 @@ export default function AddCategory({ navigation, route }) {
             backgroundColor: '#FEFFFF',
             borderWidth: 1,
             borderColor: '#a9aaaa',
+            fontFamily: 'ubuntu-regular',
           }}
           fontSize={16}
-          fontFamily="ubuntu-regular"
         />
         <View style={styles.categoryContainer}>
           {itemsCategoriesCopy && renderCategoriesItems()}
