@@ -13,11 +13,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#F6F6FD',
   },
   tableRowContainer: {
-    flex: 1,
+    minHeight: 450,
     paddingHorizontal: 26,
     backgroundColor: '#EFEEEE',
   },
   tableRow: {
+    height: 60,
     flexDirection: 'row',
     borderBottomWidth: 1,
     borderBottomColor: '#99A3A4',
@@ -26,8 +27,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#EFEEEE',
     alignItems: 'center',
   },
+  lastTableRow: {
+    borderBottomWidth: 0,
+  },
   startingTableRow: {
-    flex: 1,
+    height: 90,
     flexDirection: 'row',
     borderBottomWidth: 1,
     borderBottomColor: '#99A3A4',
