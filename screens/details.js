@@ -105,7 +105,7 @@ export default function DetailsScreen() {
       headerLeft: () => (
         <IconButton
           style={{
-            paddingBottom: 5,
+            paddingBottom: Platform.OS === 'ios' ? 5 : 0,
           }}
           onPress={() => navigation.goBack()}
           icon="chevron-left"

@@ -1,4 +1,4 @@
-// import { View, Text } from 'react-native';
+import { Platform } from 'react-native';
 import PropTypes from 'prop-types';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { useEffect, useState } from 'react';
@@ -46,7 +46,7 @@ export default function AddTransaction({ navigation }) {
       headerLeft: () => (
         <IconButton
           style={{
-            paddingBottom: 5,
+            paddingBottom: Platform.OS === 'ios' ? 5 : 0,
           }}
           onPress={() => navigation.goBack()}
           icon="chevron-left"

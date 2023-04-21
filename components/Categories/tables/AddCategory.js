@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, View, StyleSheet, Text, Dimensions, TouchableOpacity } from 'react-native';
+import {
+  ScrollView,
+  View,
+  StyleSheet,
+  Text,
+  Dimensions,
+  Platform,
+  TouchableOpacity,
+} from 'react-native';
 import PropTypes from 'prop-types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { IconButton, Searchbar } from 'react-native-paper';
@@ -71,7 +79,7 @@ export default function AddCategory({ navigation, route }) {
       headerLeft: () => (
         <IconButton
           style={{
-            paddingBottom: 5,
+            paddingBottom: Platform.OS === 'ios' ? 5 : 0,
           }}
           onPress={() => navigation.goBack()}
           icon="chevron-left"

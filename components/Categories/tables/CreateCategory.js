@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Platform } from 'react-native';
 import PropTypes from 'prop-types';
 import {
   View,
@@ -88,7 +89,7 @@ export default function CreateCategory({ navigation, route }) {
       headerLeft: () => (
         <IconButton
           style={{
-            paddingBottom: 5,
+            paddingBottom: Platform.OS === 'ios' ? 5 : 0,
           }}
           onPress={() => navigation.goBack()}
           icon="chevron-left"
