@@ -103,6 +103,9 @@ export default function CategoriesList({ params }) {
           <View
             style={{
               ...CategoriesListStyles.item,
+              backgroundColor: `${
+                item.id === selectedCategory.id ? item.backgroundColor : 'transparent'
+              }`
             }}
           >
             <View
