@@ -1,4 +1,11 @@
-import { ScrollView, View, StyleSheet, Dimensions } from 'react-native';
+import {
+  ScrollView,
+  View,
+  StyleSheet,
+  Dimensions,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from 'react-native';
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { Button } from 'react-native-paper';
@@ -61,17 +68,29 @@ export default function Transactions({ navigation, params }) {
 
   const isAllFull = enterAmount && enterConcept && selectAccount && selectedCategory.id;
 
+  const [keyboardActivity, setKeyboardActivity] = useState(false);
+  const handleScreenPress = () => {
+    // Remove focus and hide the keyboard
+    if (keyboardActivity) {
+      Keyboard.dismiss();
+      setKeyboardActivity(false);
+    }
+  };
+
   // Amount Functions
   const changeAmount = (value) => {
+    setKeyboardActivity(true);
     setEnterAmount(value.replace(',', '.'));
   };
 
   const changeConcept = (value) => {
+    setKeyboardActivity(true);
     setEnterConcept(value);
   };
 
   // Account Features
   const changeAccount = (value) => {
+    setKeyboardActivity(true);
     setSelectedAccount(value);
   };
 
@@ -108,6 +127,7 @@ export default function Transactions({ navigation, params }) {
 
   // Annotations features
   const changeAnnotations = (value) => {
+    setKeyboardActivity(true);
     setAnnotations(value);
   };
 
@@ -169,67 +189,69 @@ export default function Transactions({ navigation, params }) {
   };
 
   return (
-    <ScrollView style={TransactionsStyles.container_view}>
-      <View style={TransactionsStyles.container}>
-        <EnterAmount
-          enterAmount={enterAmount}
-          changeAmount={changeAmount}
-          enterConcept={enterConcept}
-          changeConcept={changeConcept}
-          titleOfTheFirstInput={titleOfTheFirstInput}
-        />
+    <TouchableWithoutFeedback onPress={handleScreenPress}>
+      <ScrollView style={TransactionsStyles.container_view}>
+        <View style={TransactionsStyles.container}>
+          <EnterAmount
+            enterAmount={enterAmount}
+            changeAmount={changeAmount}
+            enterConcept={enterConcept}
+            changeConcept={changeConcept}
+            titleOfTheFirstInput={titleOfTheFirstInput}
+          />
 
-        <Data
-          params={{
-            selectAccount,
-            changeAccount,
-            changeDate,
-            date,
-            listOfAccounts,
-          }}
-        />
-
-        {listOfCategories && (
-          <CategoriesList
+          <Data
             params={{
-              navigation,
-              selectedCategory,
-              changeSelectedCategorie,
-              listOfCategories,
-              nameTransaction: information.name,
+              selectAccount,
+              changeAccount,
+              changeDate,
+              date,
+              listOfAccounts,
+            }}
+          />
+
+          {listOfCategories && (
+            <CategoriesList
+              params={{
+                navigation,
+                selectedCategory,
+                changeSelectedCategorie,
+                listOfCategories,
+                nameTransaction: information.name,
+              }}
+            />
+          )}
+
+          <Annotations annotations={annotations} changeAnnotations={changeAnnotations} />
+
+          <Button
+            mode="contained"
+            textAlignVertical="center"
+            style={{
+              ...SubmitStyle.button,
+              backgroundColor: `${isAllFull ? '#FA6C17' : '#FEEBE0'}`,
+            }}
+            onPress={() => isAllFull && storeTransactionData()}
+            disabled={!isAllFull}
+            labelStyle={{
+              width: '100%',
+            }}
+          >
+            {information.buttonSubmitText}
+          </Button>
+        </View>
+
+        {showAlertAddTransaction && (
+          <Alert
+            title={information.alertText}
+            params={{
+              fontColor: '#0003',
+              typeIcon: 'success',
             }}
           />
         )}
-
-        <Annotations annotations={annotations} changeAnnotations={changeAnnotations} />
-
-        <Button
-          mode="contained"
-          textAlignVertical="center"
-          style={{ ...SubmitStyle.button, backgroundColor: `${isAllFull ? '#FA6C17' : '#FEEBE0'}` }}
-          onPress={() => isAllFull && storeTransactionData()}
-          disabled={!isAllFull}
-          labelStyle={{
-            width: '100%',
-            height: 24,
-            flexDirection: 'column',
-            textAlignVertical: 'center',
-          }}
-        >
-          {information.buttonSubmitText}
-        </Button>
-      </View>
-
-      {showAlertAddTransaction && (
-        <Alert
-          title={information.alertText}
-          params={{
-            fontColor: '#0003',
-            typeIcon: 'success',
-          }}
-        />
-      )}
-    </ScrollView>
+      </ScrollView>
+    </TouchableWithoutFeedback>
   );
 }
 

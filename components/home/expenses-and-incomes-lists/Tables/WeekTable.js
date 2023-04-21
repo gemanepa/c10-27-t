@@ -66,37 +66,47 @@ function WeekTable({ tableData, listOfCategories }) {
 
     return sortedKeys.flatMap((week, i) => {
       const weekData = groupedData[week];
-      const rows = weekData.map((rowData, j) => (
-        <View key={rowData.key} style={j === 0 ? styles.startingTableRow : styles.tableRow}>
-          {j === 0 && (
-            <View style={styles.label}>
-              <Text style={styles.labelText}>{week}</Text>
-            </View>
-          )}
-          <TouchableOpacity
-            style={{ flexDirection: 'row', alignItems: 'center', flex: 1 }}
-            onPress={() =>
-              navigateToDetails(
-                tableData,
-                rowData.category,
-                rowData.type,
-                rowData.amount.split(' ')[1]
-              )
-            }
-          >
-            <View style={[styles.tableCell, styles.categoryCell]}>
-              {renderImage(listOfCategories[rowData.category])}
-              <Text>{rowData.category}</Text>
-            </View>
-            <Text style={[styles.tableCell, styles.amountCell]}>
-              {rowData.amount}
-              <View style={styles.rowArrow}>
-                <Image source={rowArrow} />
+      const rows = weekData.map((rowData, j) => {
+        const isFirstRow = j === 0;
+        const isLastRow = j === weekData.length - 1;
+
+        const getRowStyle = () => {
+          if (isFirstRow) return styles.startingTableRow;
+          if (isLastRow) return [styles.tableRow, styles.lastTableRow];
+          return styles.tableRow;
+        };
+        return (
+          <View key={rowData.key} style={getRowStyle()}>
+            {j === 0 && (
+              <View style={styles.label}>
+                <Text style={styles.labelText}>{week}</Text>
               </View>
-            </Text>
-          </TouchableOpacity>
-        </View>
-      ));
+            )}
+            <TouchableOpacity
+              style={{ flexDirection: 'row', alignItems: 'center', flex: 1 }}
+              onPress={() =>
+                navigateToDetails(
+                  tableData,
+                  rowData.category,
+                  rowData.type,
+                  rowData.amount.split(' ')[1]
+                )
+              }
+            >
+              <View style={[styles.tableCell, styles.categoryCell]}>
+                {renderImage(listOfCategories[rowData.category])}
+                <Text>{rowData.category}</Text>
+              </View>
+              <Text style={[styles.tableCell, styles.amountCell]}>
+                {rowData.amount}
+                <View style={styles.rowArrow}>
+                  <Image source={rowArrow} />
+                </View>
+              </Text>
+            </TouchableOpacity>
+          </View>
+        );
+      });
 
       return [
         ...rows,
@@ -106,11 +116,9 @@ function WeekTable({ tableData, listOfCategories }) {
   };
 
   return (
-    <View contentContainerStyle={{ minHeight: 500 }}>
-      <View style={styles.container}>
-        {renderTableHeader()}
-        <View style={styles.tableRowContainer}>{renderTableRow()}</View>
-      </View>
+    <View style={styles.container}>
+      {renderTableHeader()}
+      <View style={styles.tableRowContainer}>{renderTableRow()}</View>
     </View>
   );
 }

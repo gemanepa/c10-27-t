@@ -1,5 +1,12 @@
 import { useState } from 'react';
-import { Text, View, StyleSheet, TextInput } from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  TextInput,
+  Keyboard,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import { Button } from 'react-native-paper';
 import Constants from 'expo-constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -66,6 +73,7 @@ const styles = StyleSheet.create({
 const currencyOptions = ['USD', 'ARS', 'EUR', 'GBP', 'BRL', 'CLP', 'COP', 'MXN', 'PEN'];
 
 export default function SettingUpScreen({ setInitialSettingUp }) {
+  const [keyboardActivity, setKeyboardActivity] = useState(false);
   const [selectedCurrency, setSelectedCurrency] = useState('');
   const [selectedBalance, setSelectedBalance] = useState('');
   const [selectedPin, setSelectedPin] = useState('');
@@ -77,6 +85,7 @@ export default function SettingUpScreen({ setInitialSettingUp }) {
   };
 
   const handleBalanceSelect = (value) => {
+    setKeyboardActivity(true);
     setSelectedBalance(value);
   };
 
@@ -101,9 +110,17 @@ export default function SettingUpScreen({ setInitialSettingUp }) {
     }
   };
 
-  const handleSelectedPin = (val) => {
-    setSelectedPin(val);
-    if (confirmPin) setConfirmedPin('');
+  const handleSelectedPin = (val, type) => {
+    setKeyboardActivity(true);
+    if (val.toString().length >= 7) return;
+
+    if (type === 'select') {
+      setSelectedPin(val.toString());
+      if (confirmPin) setConfirmedPin('');
+    }
+    if (type === 'confirm') {
+      setConfirmedPin(val.toString());
+    }
   };
 
   const headerText = step === 1 ? '¡Organicemos tus finanzas juntos!' : '¡Protejamos tus datos!';
@@ -161,11 +178,9 @@ export default function SettingUpScreen({ setInitialSettingUp }) {
               fontFamily: 'ubuntu-regular',
             }}
             secureTextEntry
-            keyboardType="numeric"
+            keyboardType="number-pad"
             value={selectedPin}
-            onChangeText={(value) =>
-              value.toString().length < 7 && handleSelectedPin(value.toString())
-            }
+            onChangeText={(value) => handleSelectedPin(value, 'select')}
             placeholder="Ej: 123456"
           />
         </View>
@@ -186,11 +201,9 @@ export default function SettingUpScreen({ setInitialSettingUp }) {
                   height: 50,
                 }}
                 secureTextEntry
-                keyboardType="numeric"
+                keyboardType="number-pad"
                 value={confirmPin}
-                onChangeText={(value) =>
-                  value.toString().length < 7 && setConfirmedPin(value.toString())
-                }
+                onChangeText={(value) => handleSelectedPin(value, 'confirm')}
                 placeholder="Ej: 123456"
               />
             </>
@@ -207,6 +220,14 @@ export default function SettingUpScreen({ setInitialSettingUp }) {
       </View>
     </>
   );
+
+  const handleScreenPress = () => {
+    // Remove focus and hide the keyboard
+    if (keyboardActivity) {
+      Keyboard.dismiss();
+      setKeyboardActivity(false);
+    }
+  };
 
   return (
     <LayerBackground
@@ -238,8 +259,12 @@ export default function SettingUpScreen({ setInitialSettingUp }) {
         },
       }}
     >
-      <Header headerText={headerText} />
-      <View style={styles.inputsContainer}>{step === 1 ? stepOneInputs : stepTwoInputs}</View>
+      <TouchableWithoutFeedback onPress={handleScreenPress} style={{ flex: 1 }}>
+        <View style={{ flex: 1 }}>
+          <Header headerText={headerText} />
+          <View style={styles.inputsContainer}>{step === 1 ? stepOneInputs : stepTwoInputs}</View>
+        </View>
+      </TouchableWithoutFeedback>
     </LayerBackground>
   );
 }

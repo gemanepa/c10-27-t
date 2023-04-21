@@ -62,10 +62,11 @@ function MockedDataProvider(props) {
     };
 
     const alreadyGenerated = Object.entries(tablesMockData).length;
-    const disabledOnAndroidForDemo = process.env.DEMO_MODE && Platform.OS !== 'ios';
+    const disabledOnIOSForDemo = Platform.OS === 'ios';
     const disabledInApk = process.env.MOCK_DATA !== 'disabled';
 
-    if (!alreadyGenerated && !disabledOnAndroidForDemo && disabledInApk) {
+    if (!alreadyGenerated && disabledOnIOSForDemo) setTablesMockData({ expense: [], income: [] });
+    if (!alreadyGenerated && !disabledOnIOSForDemo && disabledInApk) {
       getRandomTableData();
     }
   }, [tablesMockData]);
