@@ -17,12 +17,6 @@
 <li>On devices running Android 7.1.1 (API level 25) and lower, you should enable the Unknown sources system setting, found in Settings > Security on your device.</li>
 </ul>
 </li>
-<li><p><a href="https://snack.expo.dev/@gemanepa/nocountry---c10-27-t?platform=ios">Online iOS Device</a></p>
-</li>
-<li><p><a href="https://snack.expo.dev/@gemanepa/nocountry---c10-27-t?platform=android">Online Android Device</a></p>
-</li>
-<li><p><a href="https://snack.expo.dev/@gemanepa/nocountry---c10-27-t">Web Version</a></p>
-</li>
 </ul>
 <h2 id="design-guidelines">Design Guidelines</h2>
 <ul>
