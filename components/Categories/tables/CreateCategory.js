@@ -1,5 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import {
+  View,
+  StyleSheet,
+  TextInput,
+  Text,
+  ScrollView,
+  Dimensions,
+  TouchableOpacity,
+} from 'react-native';
 import { Button, IconButton } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import CategoriesExport from '../../../assets/categories/categoriesExport';
@@ -151,44 +160,48 @@ export default function CreateCategory({ navigation, route }) {
             style={CreateCategoryStyles.inputCategoryName}
             value={categoryName}
             onChangeText={changeCategoryName}
+            maxLength={10}
           />
         </View>
 
-        <Text style={{ fontSize: 18, textAlign: 'center', fontFamily: 'ubuntu-regular' }}>
-          Selecciona un icono
-        </Text>
-        <View style={CreateCategoryStyles.containerSelectAnIcon}>
-          {CreateCategoryList.map((item) => (
-            <View
-              key={item.image}
-              style={{
-                width: '25%',
-                position: 'relative',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
+        <View style={{ width: '100%', flexDirection: 'column', gap: 10 }}>
+          <Text style={{ fontSize: 18, textAlign: 'center', fontFamily: 'ubuntu-regular' }}>
+            Selecciona un icono
+          </Text>
+          <View style={CreateCategoryStyles.containerSelectAnIcon}>
+            {CreateCategoryList.map((item) => (
               <View
+                key={item.image}
                 style={{
-                  ...CreateCategoryStyles.imageItemContainer,
-                  backgroundColor: `${item.image === selectedIcon ? selectedColor : '#FEF0E8'}`,
+                  width: '25%',
+                  position: 'relative',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignItems: 'center',
                 }}
               >
-                {renderIcons(item.image)}
+                <TouchableOpacity
+                  style={{
+                    ...CreateCategoryStyles.imageItemContainer,
+                    backgroundColor: selectedColor,
+                  }}
+                  onPress={() => setSelectedIcon(item.image)}
+                >
+                  <View
+                    style={{
+                      ...CreateCategoryStyles.imageItemContainer,
+                      backgroundColor: `${item.image === selectedIcon ? selectedColor : '#FEF0E8'}`,
+                    }}
+                  >
+                    {renderIcons(item.image)}
+                  </View>
+                </TouchableOpacity>
               </View>
-              <Button
-                mode="contained"
-                style={{ position: 'absolute', ...CreateCategoryStyles.imageItemContainer }}
-                labelStyle={{ paddingHorizontal: '20%', paddingVertical: '30%' }}
-                theme={{ colors: { primary: 'transparent', onPrimary: selectedColor } }}
-                onPress={() => setSelectedIcon(item.image)}
-              />
-            </View>
-          ))}
+            ))}
+          </View>
         </View>
 
-        <View style={{ width: '100%', flexDirection: 'column', gap: 20 }}>
+        <View style={{ width: '100%', flexDirection: 'column', gap: 10 }}>
           <Text style={{ fontSize: 18, textAlign: 'center', fontFamily: 'ubuntu-regular' }}>
             Selecciona un color
           </Text>
@@ -202,20 +215,24 @@ export default function CreateCategory({ navigation, route }) {
             }}
           >
             {ListColor.map((item) => (
-              <Text
+              <TouchableOpacity
                 key={item}
-                style={{
-                  height: 32,
-                  width: 32,
-                  position: 'relative',
-                  backgroundColor: item,
-                  borderRadius: 50,
-                  borderWidth: 1,
-                  borderBottomColor: `${selectedColor === item ? '#334050' : 'transparent'}`,
-                  fontFamily: 'ubuntu-regular',
-                }}
+                // activeOpacity={0.8}
                 onPress={() => setSelectedColor(item)}
-              />
+              >
+                <Text
+                  style={{
+                    height: 32,
+                    width: 32,
+                    position: 'relative',
+                    backgroundColor: item,
+                    borderRadius: 50,
+                    borderWidth: 1,
+                    borderBottomColor: `${selectedColor === item ? '#334050' : 'transparent'}`,
+                    fontFamily: 'ubuntu-regular',
+                  }}
+                />
+              </TouchableOpacity>
             ))}
           </View>
         </View>
@@ -230,9 +247,6 @@ export default function CreateCategory({ navigation, route }) {
           disabled={!isAllFull}
           labelStyle={{
             width: '100%',
-            height: 40,
-            flexDirection: 'column',
-            textAlignVertical: 'center',
             fontFamily: 'ubuntu-bold',
             fontSize: 16,
           }}
@@ -243,7 +257,6 @@ export default function CreateCategory({ navigation, route }) {
     </ScrollView>
   );
 }
-
 CreateCategory.propTypes = {
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,

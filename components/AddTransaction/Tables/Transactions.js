@@ -211,9 +211,6 @@ export default function Transactions({ navigation, params }) {
           disabled={!isAllFull}
           labelStyle={{
             width: '100%',
-            height: 24,
-            flexDirection: 'column',
-            textAlignVertical: 'center',
           }}
         >
           {information.buttonSubmitText}
