@@ -1,0 +1,15 @@
+{
+    "build": {
+      "preview": {
+        "distribution": "internal",
+        "node": "17.9.0",
+        "env": {
+            "MOCK_DATA": "disabled"
+          },
+          "android": {
+            "buildType": "apk"
+          }
+      }
+    }
+  }
+  

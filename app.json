@@ -1,15 +1,17 @@
 {
   "expo": {
-    "name": "nocountry-c10-27-t",
-    "slug": "nocountry-c10-27-t",
+    "name": "Cash Control",
+    "slug": "cash-control",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "icon": "./assets/LOGO_APP.png",
+    "userInterfaceStyle": "automatic",
+    "primaryColor": "#01B496",
+    "backgroundColor": "#F6F6FD",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/LOGO_APP.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#F6F6FD"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -19,12 +21,18 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
+        "foregroundImage": "./assets/LOGO_APP.png",
+        "backgroundColor": "#F6F6FD"
+      },
+      "package": "com.gemanepa.cashcontrol"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/LOGO_APP.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "0e0691ab-483a-4092-9637-5a305f1198a2"
+      }
     }
   }
 }

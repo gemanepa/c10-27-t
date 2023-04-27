@@ -1,0 +1,103 @@
+import { StyleSheet } from 'react-native';
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#F6F6FD',
+    paddingTop: 24,
+  },
+  tableHeader: {
+    flexDirection: 'row',
+    borderBottomWidth: 1,
+    borderBottomColor: '#eee',
+    paddingBottom: 16,
+    backgroundColor: '#F6F6FD',
+  },
+  tableRowContainer: {
+    minHeight: 450,
+    paddingHorizontal: 26,
+    backgroundColor: '#EFEEEE',
+  },
+  tableRow: {
+    height: 60,
+    flexDirection: 'row',
+    borderBottomWidth: 1,
+    borderBottomColor: '#99A3A4',
+    paddingTop: 20,
+    paddingBottom: 16,
+    backgroundColor: '#EFEEEE',
+    alignItems: 'center',
+  },
+  lastTableRow: {
+    borderBottomWidth: 0,
+  },
+  startingTableRow: {
+    height: 90,
+    flexDirection: 'row',
+    borderBottomWidth: 1,
+    borderBottomColor: '#99A3A4',
+    backgroundColor: '#EFEEEE',
+    paddingBottom: 16,
+    paddingTop: 50,
+  },
+  tableHeaderCell: {
+    flex: 1,
+    fontSize: 15,
+    fontWeight: 'bold',
+    color: '#334050',
+    textAlign: 'left',
+    paddingHorizontal: 28,
+  },
+  tableCell: {
+    flex: 1,
+    fontSize: 14,
+    color: '#334050',
+    fontFamily: 'ubuntu-regular',
+    position: 'relative',
+    flexDirection: 'row',
+    alignItems: 'center',
+    letterSpacing: -0.3,
+  },
+  amountCell: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+    textAlign: 'right',
+    fontWeight: 700,
+    fontFamily: 'ubuntu-bold',
+  },
+  rowArrow: {
+    height: 13,
+    width: 13,
+    paddingTop: 1,
+    paddingLeft: 10,
+    paddingRight: 14,
+  },
+  label: {
+    position: 'absolute',
+    top: 18,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#01B496',
+    width: 150,
+    left: 100,
+    borderRadius: 10,
+    height: 24,
+  },
+  labelText: {
+    color: '#fff',
+    fontSize: 12,
+    fontWeight: 400,
+    fontFamily: 'ubuntu-regular',
+  },
+  imageItemContainer: {
+    width: 24,
+    height: 23,
+    backgroundColor: '#d9d9d9',
+    borderRadius: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 7,
+  },
+});
+
+export default styles;
